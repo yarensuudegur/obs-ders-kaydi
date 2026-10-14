@@ -1,0 +1,2003 @@
+{
+ "notes": [
+  "Kaynak: data/ altındaki 4 Excel. Her slot 50 dk'lık bir ders saati. type U = uygulama/lab (Excel'de bitiş saatindeki 'u').",
+  "day: 0=Pazartesi ... 6=Pazar. Güz dosyaları 2026-27, bahar dosyaları 2025-26.",
+  "ME 4851 (4. sınıf güz, Cumartesi) müfredatta olmadığı için çıkarıldı.",
+  "08:40-17:30 dışındaki saatler var: UMFD 1720 akşam, ME 4920 / EEE 3718 / ENGR 3450'nin bazı 17:40 saatleri."
+ ],
+ "terms": {
+  "bahar": {
+   "4": [
+    {
+     "code": "COMP 4446",
+     "section": 1,
+     "slots": [
+      {
+       "day": 4,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M205"
+      },
+      {
+       "day": 4,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M205"
+      },
+      {
+       "day": 4,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M205"
+      }
+     ]
+    },
+    {
+     "code": "COMP 4480",
+     "section": 1,
+     "slots": [
+      {
+       "day": 1,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M533"
+      },
+      {
+       "day": 1,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M533"
+      },
+      {
+       "day": 1,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "U",
+       "room": "M533"
+      },
+      {
+       "day": 1,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "U",
+       "room": "M533"
+      }
+     ]
+    },
+    {
+     "code": "ENGR 4400",
+     "section": 1,
+     "slots": [
+      {
+       "day": 1,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "U",
+       "room": "X001"
+      },
+      {
+       "day": 1,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "U",
+       "room": "X001"
+      }
+     ]
+    },
+    {
+     "code": "ENGR 4400",
+     "section": 2,
+     "slots": [
+      {
+       "day": 2,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "U",
+       "room": "X001"
+      },
+      {
+       "day": 2,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "U",
+       "room": "X001"
+      }
+     ]
+    },
+    {
+     "code": "ENGR 4411",
+     "section": 1,
+     "slots": [
+      {
+       "day": 0,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "T",
+       "room": "X001"
+      },
+      {
+       "day": 0,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "U",
+       "room": "X001"
+      }
+     ]
+    },
+    {
+     "code": "ME 4240",
+     "section": 1,
+     "slots": [
+      {
+       "day": 3,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "T",
+       "room": "M202"
+      },
+      {
+       "day": 3,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "T",
+       "room": "M202"
+      },
+      {
+       "day": 3,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "T",
+       "room": "M202"
+      }
+     ]
+    },
+    {
+     "code": "ME 4520",
+     "section": 1,
+     "slots": [
+      {
+       "day": 2,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M527"
+      },
+      {
+       "day": 2,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M527"
+      },
+      {
+       "day": 2,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "T",
+       "room": "M527"
+      }
+     ]
+    },
+    {
+     "code": "ME 4620",
+     "section": 1,
+     "slots": [
+      {
+       "day": 2,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 2,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 2,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "T",
+       "room": "M531"
+      }
+     ]
+    },
+    {
+     "code": "ME 4920",
+     "section": 1,
+     "slots": [
+      {
+       "day": 5,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 5,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 5,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 5,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 5,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M527"
+      }
+     ]
+    },
+    {
+     "code": "ME 4920",
+     "section": 2,
+     "slots": [
+      {
+       "day": 5,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M527"
+      },
+      {
+       "day": 5,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 5,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 5,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 5,
+       "start": "17:40",
+       "end": "18:30",
+       "type": "U",
+       "room": "M527"
+      }
+     ]
+    },
+    {
+     "code": "ME 4920",
+     "section": 3,
+     "slots": [
+      {
+       "day": 5,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "U",
+       "room": "M531"
+      },
+      {
+       "day": 5,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "U",
+       "room": "M531"
+      },
+      {
+       "day": 5,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "U",
+       "room": "M531"
+      },
+      {
+       "day": 5,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "U",
+       "room": "M531"
+      },
+      {
+       "day": 5,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M531"
+      }
+     ]
+    },
+    {
+     "code": "ME 4920",
+     "section": 4,
+     "slots": [
+      {
+       "day": 5,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 5,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "U",
+       "room": "M531"
+      },
+      {
+       "day": 5,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "U",
+       "room": "M531"
+      },
+      {
+       "day": 5,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "U",
+       "room": "M531"
+      },
+      {
+       "day": 5,
+       "start": "17:40",
+       "end": "18:30",
+       "type": "U",
+       "room": "M531"
+      }
+     ]
+    },
+    {
+     "code": "ME 4920",
+     "section": 5,
+     "slots": [
+      {
+       "day": 6,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 6,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 6,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 6,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 6,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M527"
+      }
+     ]
+    },
+    {
+     "code": "UMFD 1720",
+     "section": 1,
+     "slots": [
+      {
+       "day": 2,
+       "start": "18:40",
+       "end": "19:30",
+       "type": "T",
+       "room": "X001"
+      },
+      {
+       "day": 2,
+       "start": "19:40",
+       "end": "20:30",
+       "type": "T",
+       "room": "X001"
+      }
+     ]
+    }
+   ],
+   "3": [
+    {
+     "code": "EEE 3718",
+     "section": 1,
+     "slots": [
+      {
+       "day": 2,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M528"
+      },
+      {
+       "day": 2,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "T",
+       "room": "M528"
+      },
+      {
+       "day": 2,
+       "start": "17:40",
+       "end": "18:30",
+       "type": "T",
+       "room": "M528"
+      },
+      {
+       "day": 4,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "U",
+       "room": "M432"
+      },
+      {
+       "day": 4,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "U",
+       "room": "M432"
+      }
+     ]
+    },
+    {
+     "code": "EEE 3718",
+     "section": 2,
+     "slots": [
+      {
+       "day": 2,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M528"
+      },
+      {
+       "day": 2,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "T",
+       "room": "M528"
+      },
+      {
+       "day": 2,
+       "start": "17:40",
+       "end": "18:30",
+       "type": "T",
+       "room": "M528"
+      },
+      {
+       "day": 4,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "U",
+       "room": "M432"
+      },
+      {
+       "day": 4,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "U",
+       "room": "M432"
+      }
+     ]
+    },
+    {
+     "code": "ENGR 3450",
+     "section": 1,
+     "slots": [
+      {
+       "day": 0,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M109"
+      },
+      {
+       "day": 0,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M109"
+      },
+      {
+       "day": 0,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M109"
+      }
+     ]
+    },
+    {
+     "code": "ENGR 3450",
+     "section": 2,
+     "slots": [
+      {
+       "day": 2,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M110"
+      },
+      {
+       "day": 2,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M110"
+      },
+      {
+       "day": 2,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M110"
+      }
+     ]
+    },
+    {
+     "code": "ENGR 3450",
+     "section": 3,
+     "slots": [
+      {
+       "day": 3,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "T",
+       "room": "M528"
+      },
+      {
+       "day": 3,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "T",
+       "room": "M528"
+      },
+      {
+       "day": 3,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M528"
+      }
+     ]
+    },
+    {
+     "code": "ENGR 3450",
+     "section": 4,
+     "slots": [
+      {
+       "day": 4,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "T",
+       "room": "M528"
+      },
+      {
+       "day": 4,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "T",
+       "room": "M528"
+      },
+      {
+       "day": 4,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "T",
+       "room": "M528"
+      }
+     ]
+    },
+    {
+     "code": "ESE 3250",
+     "section": 1,
+     "slots": [
+      {
+       "day": 4,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 4,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 4,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M531"
+      }
+     ]
+    },
+    {
+     "code": "ESE 4132",
+     "section": 1,
+     "slots": [
+      {
+       "day": 3,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 3,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 3,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "T",
+       "room": "M531"
+      }
+     ]
+    },
+    {
+     "code": "ESE 4312",
+     "section": 1,
+     "slots": [
+      {
+       "day": 3,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M527"
+      },
+      {
+       "day": 3,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M527"
+      },
+      {
+       "day": 3,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M527"
+      }
+     ]
+    },
+    {
+     "code": "ESE 4322",
+     "section": 1,
+     "slots": [
+      {
+       "day": 1,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M433"
+      },
+      {
+       "day": 1,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M433"
+      },
+      {
+       "day": 1,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M433"
+      }
+     ]
+    },
+    {
+     "code": "ESE 4412",
+     "section": 1,
+     "slots": [
+      {
+       "day": 0,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M108"
+      },
+      {
+       "day": 0,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M108"
+      },
+      {
+       "day": 0,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M108"
+      }
+     ]
+    },
+    {
+     "code": "ME 3330",
+     "section": 1,
+     "slots": [
+      {
+       "day": 2,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M114"
+      },
+      {
+       "day": 2,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M114"
+      },
+      {
+       "day": 2,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "T",
+       "room": "M114"
+      },
+      {
+       "day": 3,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "U",
+       "room": "M114"
+      },
+      {
+       "day": 3,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "U",
+       "room": "M114"
+      }
+     ]
+    },
+    {
+     "code": "ME 3410",
+     "section": 1,
+     "slots": [
+      {
+       "day": 0,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 0,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 1,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "U",
+       "room": "M534"
+      },
+      {
+       "day": 1,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "U",
+       "room": "M534"
+      }
+     ]
+    },
+    {
+     "code": "ME 3510",
+     "section": 1,
+     "slots": [
+      {
+       "day": 1,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "U",
+       "room": "M531"
+      },
+      {
+       "day": 1,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "U",
+       "room": "M531"
+      },
+      {
+       "day": 4,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 4,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "T",
+       "room": "M531"
+      }
+     ]
+    },
+    {
+     "code": "ME 4230",
+     "section": 1,
+     "slots": [
+      {
+       "day": 3,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 3,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 3,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "T",
+       "room": "M534"
+      }
+     ]
+    }
+   ]
+  },
+  "guz": {
+   "3": [
+    {
+     "code": "EEE 3718",
+     "section": 1,
+     "slots": [
+      {
+       "day": 0,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "T",
+       "room": "M528"
+      },
+      {
+       "day": 0,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "T",
+       "room": "M528"
+      },
+      {
+       "day": 0,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M528"
+      },
+      {
+       "day": 3,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "U",
+       "room": "M433"
+      },
+      {
+       "day": 3,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "U",
+       "room": "M433"
+      }
+     ]
+    },
+    {
+     "code": "EEE 3718",
+     "section": 2,
+     "slots": [
+      {
+       "day": 1,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 1,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 1,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 3,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "U",
+       "room": "M433"
+      },
+      {
+       "day": 3,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "U",
+       "room": "M433"
+      }
+     ]
+    },
+    {
+     "code": "ENGR 3450",
+     "section": 1,
+     "slots": [
+      {
+       "day": 2,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M110"
+      },
+      {
+       "day": 2,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M110"
+      },
+      {
+       "day": 2,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "T",
+       "room": "M110"
+      }
+     ]
+    },
+    {
+     "code": "ENGR 3450",
+     "section": 2,
+     "slots": [
+      {
+       "day": 2,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M115"
+      },
+      {
+       "day": 2,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "T",
+       "room": "M115"
+      },
+      {
+       "day": 2,
+       "start": "17:40",
+       "end": "18:30",
+       "type": "T",
+       "room": "M115"
+      }
+     ]
+    },
+    {
+     "code": "ENGR 3450",
+     "section": 3,
+     "slots": [
+      {
+       "day": 3,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M114"
+      },
+      {
+       "day": 3,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M114"
+      },
+      {
+       "day": 3,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "T",
+       "room": "M114"
+      }
+     ]
+    },
+    {
+     "code": "ENGR 3450",
+     "section": 4,
+     "slots": [
+      {
+       "day": 3,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M116"
+      },
+      {
+       "day": 3,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M116"
+      },
+      {
+       "day": 3,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "T",
+       "room": "M116"
+      }
+     ]
+    },
+    {
+     "code": "ESE 3260",
+     "section": 1,
+     "slots": [
+      {
+       "day": 2,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 2,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 2,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "T",
+       "room": "M534"
+      }
+     ]
+    },
+    {
+     "code": "ESE 4112",
+     "section": 1,
+     "slots": [
+      {
+       "day": 1,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "T",
+       "room": "M527"
+      },
+      {
+       "day": 1,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "T",
+       "room": "M527"
+      },
+      {
+       "day": 1,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "T",
+       "room": "M527"
+      }
+     ]
+    },
+    {
+     "code": "ESE 4212",
+     "section": 1,
+     "slots": [
+      {
+       "day": 1,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 1,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 1,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "T",
+       "room": "M531"
+      }
+     ]
+    },
+    {
+     "code": "ME 3220",
+     "section": 1,
+     "slots": [
+      {
+       "day": 1,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "U",
+       "room": "M528"
+      },
+      {
+       "day": 1,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "U",
+       "room": "M528"
+      },
+      {
+       "day": 4,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M528"
+      },
+      {
+       "day": 4,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M528"
+      }
+     ]
+    },
+    {
+     "code": "ME 3320",
+     "section": 1,
+     "slots": [
+      {
+       "day": 0,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M113"
+      },
+      {
+       "day": 0,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M113"
+      },
+      {
+       "day": 0,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M113"
+      },
+      {
+       "day": 4,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "U",
+       "room": "M528"
+      },
+      {
+       "day": 4,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "U",
+       "room": "M528"
+      }
+     ]
+    },
+    {
+     "code": "ME 3320",
+     "section": 2,
+     "slots": [
+      {
+       "day": 2,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 2,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 2,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 4,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "U",
+       "room": "M534"
+      },
+      {
+       "day": 4,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "U",
+       "room": "M534"
+      }
+     ]
+    },
+    {
+     "code": "ME 3420",
+     "section": 1,
+     "slots": [
+      {
+       "day": 2,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 2,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 4,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "U",
+       "room": "M534"
+      },
+      {
+       "day": 4,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "U",
+       "room": "M534"
+      }
+     ]
+    },
+    {
+     "code": "ME 4330",
+     "section": 1,
+     "slots": [
+      {
+       "day": 3,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "T",
+       "room": "M527"
+      },
+      {
+       "day": 3,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "T",
+       "room": "M527"
+      },
+      {
+       "day": 3,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "T",
+       "room": "M527"
+      }
+     ]
+    },
+    {
+     "code": "ME 4610",
+     "section": 1,
+     "slots": [
+      {
+       "day": 1,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 1,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 1,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "T",
+       "room": "M531"
+      }
+     ]
+    }
+   ],
+   "4": [
+    {
+     "code": "EEE 4122",
+     "section": 1,
+     "slots": [
+      {
+       "day": 1,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "F004"
+      },
+      {
+       "day": 1,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "F004"
+      },
+      {
+       "day": 1,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "T",
+       "room": "F004"
+      },
+      {
+       "day": 4,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "U",
+       "room": "M014"
+      },
+      {
+       "day": 4,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "U",
+       "room": "M014"
+      }
+     ]
+    },
+    {
+     "code": "EEE 4122",
+     "section": 2,
+     "slots": [
+      {
+       "day": 1,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "F004"
+      },
+      {
+       "day": 1,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "F004"
+      },
+      {
+       "day": 1,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "T",
+       "room": "F004"
+      },
+      {
+       "day": 4,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "U",
+       "room": "M014"
+      },
+      {
+       "day": 4,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "U",
+       "room": "M014"
+      }
+     ]
+    },
+    {
+     "code": "ENGR 4400",
+     "section": 1,
+     "slots": [
+      {
+       "day": 1,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "T",
+       "room": "X001"
+      },
+      {
+       "day": 1,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "T",
+       "room": "X001"
+      }
+     ]
+    },
+    {
+     "code": "ENGR 4400",
+     "section": 2,
+     "slots": [
+      {
+       "day": 2,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "T",
+       "room": "X001"
+      },
+      {
+       "day": 2,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "T",
+       "room": "X001"
+      }
+     ]
+    },
+    {
+     "code": "ENGR 4411",
+     "section": 1,
+     "slots": [
+      {
+       "day": 0,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "U",
+       "room": "X001"
+      },
+      {
+       "day": 0,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "X001"
+      }
+     ]
+    },
+    {
+     "code": "ENGR 4451",
+     "section": 1,
+     "slots": [
+      {
+       "day": 4,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 4,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 4,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M531"
+      }
+     ]
+    },
+    {
+     "code": "ESE 4240",
+     "section": 1,
+     "slots": [
+      {
+       "day": 2,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 2,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 2,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M531"
+      }
+     ]
+    },
+    {
+     "code": "ME 4240",
+     "section": 1,
+     "slots": [
+      {
+       "day": 1,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M527"
+      },
+      {
+       "day": 1,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "T",
+       "room": "M527"
+      },
+      {
+       "day": 1,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M527"
+      }
+     ]
+    },
+    {
+     "code": "ME 4340",
+     "section": 1,
+     "slots": [
+      {
+       "day": 3,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 3,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "T",
+       "room": "M531"
+      },
+      {
+       "day": 3,
+       "start": "16:40",
+       "end": "17:30",
+       "type": "T",
+       "room": "M531"
+      }
+     ]
+    },
+    {
+     "code": "ME 4910",
+     "section": 1,
+     "slots": [
+      {
+       "day": 3,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 5,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "U",
+       "room": "M113"
+      },
+      {
+       "day": 5,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "U",
+       "room": "M113"
+      },
+      {
+       "day": 5,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "U",
+       "room": "M113"
+      },
+      {
+       "day": 5,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "U",
+       "room": "M113"
+      }
+     ]
+    },
+    {
+     "code": "ME 4910",
+     "section": 2,
+     "slots": [
+      {
+       "day": 3,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 5,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "U",
+       "room": "M113"
+      },
+      {
+       "day": 5,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "U",
+       "room": "M113"
+      },
+      {
+       "day": 5,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "U",
+       "room": "M113"
+      },
+      {
+       "day": 5,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "U",
+       "room": "M113"
+      }
+     ]
+    },
+    {
+     "code": "ME 4910",
+     "section": 3,
+     "slots": [
+      {
+       "day": 3,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 5,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 5,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 5,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 5,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "U",
+       "room": "M527"
+      }
+     ]
+    },
+    {
+     "code": "ME 4910",
+     "section": 4,
+     "slots": [
+      {
+       "day": 3,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 5,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 5,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 5,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "U",
+       "room": "M527"
+      },
+      {
+       "day": 5,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "U",
+       "room": "M527"
+      }
+     ]
+    },
+    {
+     "code": "ME 4910",
+     "section": 5,
+     "slots": [
+      {
+       "day": 3,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 6,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "U",
+       "room": "M534"
+      },
+      {
+       "day": 6,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "U",
+       "room": "M534"
+      },
+      {
+       "day": 6,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "U",
+       "room": "M534"
+      },
+      {
+       "day": 6,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "U",
+       "room": "M534"
+      }
+     ]
+    },
+    {
+     "code": "ME 4910",
+     "section": 6,
+     "slots": [
+      {
+       "day": 3,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 6,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "U",
+       "room": "M534"
+      },
+      {
+       "day": 6,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "U",
+       "room": "M534"
+      },
+      {
+       "day": 6,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "U",
+       "room": "M534"
+      },
+      {
+       "day": 6,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "U",
+       "room": "M534"
+      }
+     ]
+    },
+    {
+     "code": "ME 4910",
+     "section": 7,
+     "slots": [
+      {
+       "day": 3,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 6,
+       "start": "08:40",
+       "end": "09:30",
+       "type": "U",
+       "room": "M528"
+      },
+      {
+       "day": 6,
+       "start": "09:40",
+       "end": "10:30",
+       "type": "U",
+       "room": "M528"
+      },
+      {
+       "day": 6,
+       "start": "10:40",
+       "end": "11:30",
+       "type": "U",
+       "room": "M528"
+      },
+      {
+       "day": 6,
+       "start": "11:40",
+       "end": "12:30",
+       "type": "U",
+       "room": "M528"
+      }
+     ]
+    },
+    {
+     "code": "ME 4910",
+     "section": 8,
+     "slots": [
+      {
+       "day": 3,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "T",
+       "room": "M534"
+      },
+      {
+       "day": 6,
+       "start": "12:40",
+       "end": "13:30",
+       "type": "U",
+       "room": "M528"
+      },
+      {
+       "day": 6,
+       "start": "13:40",
+       "end": "14:30",
+       "type": "U",
+       "room": "M528"
+      },
+      {
+       "day": 6,
+       "start": "14:40",
+       "end": "15:30",
+       "type": "U",
+       "room": "M528"
+      },
+      {
+       "day": 6,
+       "start": "15:40",
+       "end": "16:30",
+       "type": "U",
+       "room": "M528"
+      }
+     ]
+    },
+    {
+     "code": "UMFD 1720",
+     "section": 1,
+     "slots": [
+      {
+       "day": 2,
+       "start": "20:40",
+       "end": "21:30",
+       "type": "T",
+       "room": "X005"
+      },
+      {
+       "day": 2,
+       "start": "21:40",
+       "end": "22:30",
+       "type": "T",
+       "room": "X005"
+      }
+     ]
+    },
+    {
+     "code": "UMFD 1720",
+     "section": 2,
+     "slots": [
+      {
+       "day": 2,
+       "start": "18:40",
+       "end": "19:30",
+       "type": "T",
+       "room": "X005"
+      },
+      {
+       "day": 2,
+       "start": "19:40",
+       "end": "20:30",
+       "type": "T",
+       "room": "X005"
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,1291 @@
+{
+ "notes": [
+  "Kaynak: data/müfredat.pdf (sarı=zorunlu, yeşil=seçmeli boşluğu ve altındaki seçenekler, pembe=üniversite seçmeli).",
+  "PDF'in metin katmanında beyazla kapatılmış eski satırlar da duruyor; PDF'i yeniden okuma, bu dosyayı kullan.",
+  "STAJ boşluğu (ERAS 3000 / ME 4830) ders saati olmayan bir seçimdir, listeden seçilir.",
+  "MATH 2260 zorunlu ama verilen programlarda saati yok.",
+  "prerequisites: ön koşullar. Öğrencinin geçtiği dersler, kayıt yarıyılından önceki zorunlular (alttan alınanlar hariç) kabul edilir."
+ ],
+ "semesters": [
+  {
+   "semester": 5,
+   "mandatory": [
+    "EEE 3718",
+    "ENGR 3450",
+    "ME 3220",
+    "ME 3320",
+    "ME 3420"
+   ],
+   "electiveSlots": [
+    {
+     "slot": "UNV ME1",
+     "type": "UNV",
+     "ects": 4,
+     "options": "universityElectives",
+     "name": "Üniversite Seçmeli Ders ME1",
+     "nameEn": "University Elective ME1"
+    }
+   ]
+  },
+  {
+   "semester": 6,
+   "mandatory": [
+    "MATH 2260",
+    "ME 3330",
+    "ME 3410",
+    "ME 3510"
+   ],
+   "electiveSlots": [
+    {
+     "slot": "A1",
+     "type": "A",
+     "ects": 6,
+     "options": [
+      "ENGR 4451",
+      "ME 4110",
+      "ME 4120",
+      "ME 4210",
+      "ME 4220",
+      "ME 4230",
+      "ME 4240",
+      "ME 4330",
+      "ME 4340",
+      "ME 4350",
+      "ME 4410",
+      "ME 4420",
+      "ME 4510",
+      "ME 4520",
+      "ME 4610",
+      "ME 4620",
+      "ME 4822",
+      "ME 4840",
+      "ME 4850"
+     ],
+     "name": "Bölüm Seçmeli Ders A1",
+     "nameEn": "Departmental Elective A1"
+    }
+   ]
+  },
+  {
+   "semester": 7,
+   "mandatory": [
+    "ENGR 4400",
+    "ENGR 4411",
+    "ME 4910",
+    "UMFD 1720"
+   ],
+   "electiveSlots": [
+    {
+     "slot": "A2",
+     "type": "A",
+     "ects": 6,
+     "options": [
+      "ENGR 4451",
+      "ME 4110",
+      "ME 4120",
+      "ME 4210",
+      "ME 4220",
+      "ME 4230",
+      "ME 4240",
+      "ME 4330",
+      "ME 4340",
+      "ME 4350",
+      "ME 4410",
+      "ME 4420",
+      "ME 4510",
+      "ME 4520",
+      "ME 4610",
+      "ME 4620",
+      "ME 4822",
+      "ME 4840",
+      "ME 4850"
+     ],
+     "name": "Bölüm Seçmeli Ders A2",
+     "nameEn": "Departmental Elective A2"
+    },
+    {
+     "slot": "B1",
+     "type": "B",
+     "ects": 6,
+     "options": [
+      "ECON 3300",
+      "EEE 3615",
+      "EEE 3638",
+      "IE 2511",
+      "IE 3511",
+      "IE 3524",
+      "ARCH 3280",
+      "ARCH 3380",
+      "ARCH 4353",
+      "ARCH 4491",
+      "CE 4113",
+      "COMP 4350",
+      "COMP 4436",
+      "COMP 4437",
+      "COMP 4446",
+      "COMP 4480",
+      "EEE 4122",
+      "EEE 4242",
+      "EEE 4321",
+      "EEE 4642",
+      "EEE 4653",
+      "EEE 4721",
+      "EEE 4730",
+      "EEE 4745",
+      "ENGR 4451",
+      "ESE 2501",
+      "ESE 3250",
+      "ESE 3260",
+      "ESE 3270",
+      "ESE 3280",
+      "ESE 3404",
+      "ESE 3504",
+      "ESE 4112",
+      "ESE 4122",
+      "ESE 4132",
+      "ESE 4142",
+      "ESE 4152",
+      "ESE 4212",
+      "ESE 4222",
+      "ESE 4232",
+      "ESE 4240",
+      "ESE 4250",
+      "ESE 4312",
+      "ESE 4322",
+      "ESE 4412",
+      "ESE 4612",
+      "IE 4526",
+      "IE 4540",
+      "IE 4544",
+      "IE 4551",
+      "IE 4554",
+      "IE 4556",
+      "IE 4561",
+      "IE 4564",
+      "IE 4565",
+      "IE 4566",
+      "IE 4572",
+      "IE 4573",
+      "IR 3376",
+      "IR 3380",
+      "IR 4458",
+      "ME 4110",
+      "ME 4120",
+      "ME 4210",
+      "ME 4220",
+      "ME 4230",
+      "ME 4240",
+      "ME 4330",
+      "ME 4340",
+      "ME 4350",
+      "ME 4410",
+      "ME 4420",
+      "ME 4510",
+      "ME 4520",
+      "ME 4610",
+      "ME 4620",
+      "ME 4822",
+      "ME 4840",
+      "ME 4850",
+      "SE 1105",
+      "SE 1108",
+      "SE 4406",
+      "SE 4464",
+      "SE 4481"
+     ],
+     "name": "Bölüm Seçmeli Ders B1",
+     "nameEn": "Departmental Elective B1"
+    },
+    {
+     "slot": "STAJ",
+     "type": "STAJ",
+     "ects": 4,
+     "options": [
+      "ME 4830"
+     ],
+     "name": "Staj",
+     "nameEn": "Internship"
+    }
+   ]
+  },
+  {
+   "semester": 8,
+   "mandatory": [
+    "ME 4920"
+   ],
+   "electiveSlots": [
+    {
+     "slot": "A3",
+     "type": "A",
+     "ects": 6,
+     "options": [
+      "ENGR 4451",
+      "ME 4110",
+      "ME 4120",
+      "ME 4210",
+      "ME 4220",
+      "ME 4230",
+      "ME 4240",
+      "ME 4330",
+      "ME 4340",
+      "ME 4350",
+      "ME 4410",
+      "ME 4420",
+      "ME 4510",
+      "ME 4520",
+      "ME 4610",
+      "ME 4620",
+      "ME 4822",
+      "ME 4840",
+      "ME 4850"
+     ],
+     "name": "Bölüm Seçmeli Ders A3",
+     "nameEn": "Departmental Elective A3"
+    },
+    {
+     "slot": "B2",
+     "type": "B",
+     "ects": 6,
+     "options": [
+      "ECON 3300",
+      "EEE 3615",
+      "EEE 3638",
+      "IE 2511",
+      "IE 3511",
+      "IE 3524",
+      "ARCH 3280",
+      "ARCH 3380",
+      "ARCH 4353",
+      "ARCH 4491",
+      "CE 4113",
+      "COMP 4350",
+      "COMP 4436",
+      "COMP 4437",
+      "COMP 4446",
+      "COMP 4480",
+      "EEE 4122",
+      "EEE 4242",
+      "EEE 4321",
+      "EEE 4642",
+      "EEE 4653",
+      "EEE 4721",
+      "EEE 4730",
+      "EEE 4745",
+      "ENGR 4451",
+      "ESE 2501",
+      "ESE 3250",
+      "ESE 3260",
+      "ESE 3270",
+      "ESE 3280",
+      "ESE 3404",
+      "ESE 3504",
+      "ESE 4112",
+      "ESE 4122",
+      "ESE 4132",
+      "ESE 4142",
+      "ESE 4152",
+      "ESE 4212",
+      "ESE 4222",
+      "ESE 4232",
+      "ESE 4312",
+      "ESE 4322",
+      "ESE 4412",
+      "ESE 4612",
+      "IE 4463",
+      "IE 4526",
+      "IE 4540",
+      "IE 4544",
+      "IE 4551",
+      "IE 4554",
+      "IE 4556",
+      "IE 4561",
+      "IE 4564",
+      "IE 4565",
+      "IE 4566",
+      "IE 4572",
+      "IE 4573",
+      "IR 3376",
+      "IR 3380",
+      "IR 4458",
+      "ME 4110",
+      "ME 4120",
+      "ME 4210",
+      "ME 4220",
+      "ME 4230",
+      "ME 4240",
+      "ME 4330",
+      "ME 4340",
+      "ME 4350",
+      "ME 4410",
+      "ME 4420",
+      "ME 4510",
+      "ME 4520",
+      "ME 4610",
+      "ME 4822",
+      "ME 4840",
+      "SE 1105",
+      "SE 1108",
+      "SE 4406",
+      "SE 4464",
+      "SE 4481"
+     ],
+     "name": "Bölüm Seçmeli Ders B2",
+     "nameEn": "Departmental Elective B2"
+    },
+    {
+     "slot": "B3",
+     "type": "B",
+     "ects": 6,
+     "options": [
+      "ECON 3300",
+      "EEE 3615",
+      "EEE 3638",
+      "IE 2511",
+      "IE 3511",
+      "IE 3524",
+      "ARCH 3280",
+      "ARCH 3380",
+      "ARCH 4353",
+      "ARCH 4491",
+      "CE 4113",
+      "COMP 4350",
+      "COMP 4436",
+      "COMP 4437",
+      "COMP 4446",
+      "COMP 4480",
+      "EEE 4122",
+      "EEE 4242",
+      "EEE 4321",
+      "EEE 4642",
+      "EEE 4653",
+      "EEE 4721",
+      "EEE 4730",
+      "EEE 4745",
+      "ENGR 4451",
+      "ESE 2501",
+      "ESE 3250",
+      "ESE 3260",
+      "ESE 3270",
+      "ESE 3280",
+      "ESE 3404",
+      "ESE 3504",
+      "ESE 4112",
+      "ESE 4122",
+      "ESE 4132",
+      "ESE 4142",
+      "ESE 4152",
+      "ESE 4212",
+      "ESE 4222",
+      "ESE 4232",
+      "ESE 4240",
+      "ESE 4250",
+      "ESE 4312",
+      "ESE 4322",
+      "ESE 4412",
+      "ESE 4612",
+      "IE 4463",
+      "IE 4526",
+      "IE 4540",
+      "IE 4544",
+      "IE 4551",
+      "IE 4554",
+      "IE 4556",
+      "IE 4561",
+      "IE 4564",
+      "IE 4565",
+      "IE 4566",
+      "IE 4572",
+      "IE 4573",
+      "IR 3376",
+      "IR 3380",
+      "IR 4458",
+      "ME 4110",
+      "ME 4120",
+      "ME 4210",
+      "ME 4220",
+      "ME 4230",
+      "ME 4240",
+      "ME 4330",
+      "ME 4340",
+      "ME 4350",
+      "ME 4410",
+      "ME 4420",
+      "ME 4510",
+      "ME 4520",
+      "ME 4610",
+      "ME 4620",
+      "ME 4822",
+      "ME 4840",
+      "ME 4850",
+      "SE 1105",
+      "SE 1108",
+      "SE 4406",
+      "SE 4464",
+      "SE 4481"
+     ],
+     "name": "Bölüm Seçmeli Ders B3",
+     "nameEn": "Departmental Elective B3"
+    },
+    {
+     "slot": "UNV ME3",
+     "type": "UNV",
+     "ects": 3,
+     "options": "universityElectives",
+     "name": "Üniversite Seçmeli Ders ME3",
+     "nameEn": "University Elective ME3"
+    }
+   ]
+  }
+ ],
+ "courses": [
+  {
+   "code": "ARCH 3280",
+   "name": "YEŞİL BİNA TASARIMI VE DEĞERLENDİRME SİSTEMLERİ",
+   "tul": "3+0+0",
+   "ects": 5,
+   "nameEn": "Green Building Design and Assessment Systems"
+  },
+  {
+   "code": "ARCH 3380",
+   "name": "BIM-YAPI BİLGİ MODELLEMESİ",
+   "tul": "3+0+0",
+   "ects": 5,
+   "nameEn": "BIM - Building Information Modelling"
+  },
+  {
+   "code": "ARCH 4353",
+   "name": "KİNETİK MİMARİ",
+   "tul": "3+0+0",
+   "ects": 5,
+   "nameEn": "Kinetic Architecture"
+  },
+  {
+   "code": "ARCH 4491",
+   "name": "BİNA KABUĞU",
+   "tul": "3+0+0",
+   "ects": 5,
+   "nameEn": "Building Envelope"
+  },
+  {
+   "code": "CE 4113",
+   "name": "YAPI BİLGİ MODELLEMESİNE GİRİŞ",
+   "tul": "1+2+0",
+   "ects": 5,
+   "nameEn": "Introduction to Building Information Modelling"
+  },
+  {
+   "code": "COMP 4350",
+   "name": "MAKİNE ÖĞRENMESİNE GİRİŞ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Introduction to Machine Learning"
+  },
+  {
+   "code": "COMP 4436",
+   "name": "YAPAY US",
+   "tul": "2+2+0",
+   "ects": 6,
+   "nameEn": "Artificial Intelligence"
+  },
+  {
+   "code": "COMP 4437",
+   "name": "YAPAY SİNİR AĞLARI",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Artificial Neural Networks"
+  },
+  {
+   "code": "COMP 4446",
+   "name": "SANAL VE ARTIRILMIŞ GERÇEKLİK",
+   "tul": "3+0+0",
+   "ects": 4,
+   "nameEn": "Virtual and Augmented Reality"
+  },
+  {
+   "code": "COMP 4480",
+   "name": "AKILLI VE OTONOM SİSTEMLERE GİRİŞ",
+   "tul": "2+2+0",
+   "ects": 6,
+   "nameEn": "Introduction to Intelligent and Autonomous Systems"
+  },
+  {
+   "code": "ECON 3300",
+   "name": "MÜHENDİSLİK EKONOMİSİNE GİRİŞ",
+   "tul": "3+0+0",
+   "ects": 5,
+   "nameEn": "Introduction to Engineering Economics"
+  },
+  {
+   "code": "EEE 3615",
+   "name": "ELEKTROMEKANİK ENERJİ DÖNÜŞÜMÜ",
+   "tul": "3+2+0",
+   "ects": 6,
+   "nameEn": "Electromechanical Energy Conversion"
+  },
+  {
+   "code": "EEE 3638",
+   "name": "GÜÇ SİSTEMLERİ",
+   "tul": "3+2+0",
+   "ects": 6,
+   "nameEn": "Power Systems"
+  },
+  {
+   "code": "EEE 3718",
+   "name": "GERİ BESLEME SİSTEMLERİ",
+   "tul": "3+2+0",
+   "ects": 6,
+   "nameEn": "Feedback Systems"
+  },
+  {
+   "code": "EEE 4122",
+   "name": "ENDÜSTRİYEL OTOMASYON",
+   "tul": "3+2+0",
+   "ects": 6,
+   "nameEn": "Industrial Automation"
+  },
+  {
+   "code": "EEE 4242",
+   "name": "ELEKTRİKLİ SÜRÜCÜLER",
+   "tul": "3+2+0",
+   "ects": 6,
+   "nameEn": "Electric Drives"
+  },
+  {
+   "code": "EEE 4321",
+   "name": "NANOTEKNOLOJİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Nanotechnology"
+  },
+  {
+   "code": "EEE 4642",
+   "name": "GÜÇ İLETİMİ VE DAĞITIMI",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Power Transmission and Distribution"
+  },
+  {
+   "code": "EEE 4653",
+   "name": "GÜÇ SISTEMLERI KORUMASI",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Power System Protection"
+  },
+  {
+   "code": "EEE 4721",
+   "name": "DİJİTAL KONTROL SİSTEMLERİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Digital Control Systems"
+  },
+  {
+   "code": "EEE 4730",
+   "name": "ROBOTİK MEKANİZMALAR",
+   "tul": "3+2+0",
+   "ects": 6,
+   "nameEn": "Robotic Mechanisms"
+  },
+  {
+   "code": "EEE 4745",
+   "name": "SÜREÇ KONTROLÜ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Process Control"
+  },
+  {
+   "code": "ENGR 3450",
+   "name": "PROJE YÖNETIMI",
+   "tul": "3+0+0",
+   "ects": 5,
+   "nameEn": "Project Management"
+  },
+  {
+   "code": "ENGR 4400",
+   "name": "MÜHENDİSLİK ETİĞİ VE SEMİNER",
+   "tul": "0+2+0",
+   "ects": 2,
+   "nameEn": "Engineering Ethics and Seminar"
+  },
+  {
+   "code": "ENGR 4411",
+   "name": "SÜRDÜRÜLEBİLİR KALKINMA İÇİN MÜHENDİSLİK",
+   "tul": "1+1+0",
+   "ects": 3,
+   "nameEn": "Engineering for Sustainable Development"
+  },
+  {
+   "code": "ENGR 4451",
+   "name": "MÜHENDİSLİK UYGULAMALARI İÇİN ÜRETKEN YAPAY ZEKA",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Generative AI for Engineering Applications"
+  },
+  {
+   "code": "ERAS 3000",
+   "name": "ERASMUS STAJI",
+   "tul": "0+0+0",
+   "ects": 4,
+   "nameEn": "Erasmus Internship"
+  },
+  {
+   "code": "ESE 2501",
+   "name": "ÖLÇME TEKNİĞİ VE EKİPMANLARI",
+   "tul": "2+2+0",
+   "ects": 5,
+   "nameEn": "Measurement Techniques and Equipment"
+  },
+  {
+   "code": "ESE 3250",
+   "name": "GÜNEŞ ENERJİSİ SİSTEMLERİ",
+   "tul": "3+0+0",
+   "ects": 4,
+   "nameEn": "Solar Energy Systems"
+  },
+  {
+   "code": "ESE 3260",
+   "name": "RÜZGAR ENERJİSİ SİSTEMLERİ",
+   "tul": "3+0+0",
+   "ects": 4,
+   "nameEn": "Wind Energy Systems"
+  },
+  {
+   "code": "ESE 3270",
+   "name": "JEOTERMAL ENERJİ SİSTEMLERİ",
+   "tul": "3+0+0",
+   "ects": 4,
+   "nameEn": "Geothermal Energy Systems"
+  },
+  {
+   "code": "ESE 3280",
+   "name": "BİYOENERJİ SİSTEMLERİ",
+   "tul": "3+0+0",
+   "ects": 4,
+   "nameEn": "Bioenergy Systems"
+  },
+  {
+   "code": "ESE 3404",
+   "name": "ENERJİ VERİMLİLİĞİ VE YÖNETİMİ",
+   "tul": "2+2+0",
+   "ects": 5,
+   "nameEn": "Energy Efficiency and Management"
+  },
+  {
+   "code": "ESE 3504",
+   "name": "AKILLI ENERJİ SİSTEMLERİ",
+   "tul": "3+0+0",
+   "ects": 4,
+   "nameEn": "Smart Energy Systems"
+  },
+  {
+   "code": "ESE 4112",
+   "name": "ISITMA HAVALANDIRMA İKLİMLENDİRME VE SOĞUTMA SİSTEMLERİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Heating, Ventilation, Air Conditioning and Refrigeration Systems"
+  },
+  {
+   "code": "ESE 4122",
+   "name": "ISI DEĞİŞTİRİCİLERİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Heat Exchangers"
+  },
+  {
+   "code": "ESE 4132",
+   "name": "ISI POMPALARI VE UYGULAMALARI",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Heat Pumps and Applications"
+  },
+  {
+   "code": "ESE 4142",
+   "name": "ENERJİ SİSTEMLERİNİN EKSERJİ ANALİZİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Exergy Analysis of Energy Systems"
+  },
+  {
+   "code": "ESE 4152",
+   "name": "ISI GERİ KAZANIMI VE KOJENERASYON",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Heat Recovery and Cogeneration"
+  },
+  {
+   "code": "ESE 4212",
+   "name": "ENERJİ DEPOLAMA SİSTEMLERİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Energy Storage Systems"
+  },
+  {
+   "code": "ESE 4222",
+   "name": "HİDROJEN ENERJİSİ VE YAKIT HÜCRESİ SİSTEMLERİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Hydrogen Energy and Fuel Cell Systems"
+  },
+  {
+   "code": "ESE 4232",
+   "name": "NÜKLEER MÜHENDİSLİK",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Nuclear Engineering"
+  },
+  {
+   "code": "ESE 4240",
+   "name": "YENİLENEBİLİR ENERJİ SİSTEMLERİNİN ENTEGRASYONU",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Integration of Renewable Energy Systems"
+  },
+  {
+   "code": "ESE 4250",
+   "name": "POWER-TO-X TEKNOLOJİLERİ VE SÜRDÜRÜLEBİLİR ENERJİ UYGULAMALARI",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Power-to-X Technologies and Sustainable Energy Applications"
+  },
+  {
+   "code": "ESE 4312",
+   "name": "ENERJİ SİSTEMLERİNDE MODELLEME",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Modelling in Energy Systems"
+  },
+  {
+   "code": "ESE 4322",
+   "name": "ENERJİ SİSTEMLERİ OPTİMİZASYONU",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Optimization of Energy Systems"
+  },
+  {
+   "code": "ESE 4412",
+   "name": "ENERJİ PİYASALARI VE DÜZENLEMELERİ (TÜRKÇE)",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Energy Markets and Regulations (Turkish)"
+  },
+  {
+   "code": "ESE 4612",
+   "name": "TEMİZ KÖMÜR TEKNOLOJİLERİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Clean Coal Technologies"
+  },
+  {
+   "code": "IE 2511",
+   "name": "MÜHENDİSLİKTE MALİYET ANALİZİ",
+   "tul": "3+0+0",
+   "ects": 5,
+   "nameEn": "Cost Analysis in Engineering"
+  },
+  {
+   "code": "IE 3511",
+   "name": "SİSTEM BENZETİMİ",
+   "tul": "2+2+0",
+   "ects": 6,
+   "nameEn": "System Simulation"
+  },
+  {
+   "code": "IE 3524",
+   "name": "BÜTÜNLEŞİK İMALAT SİSTEMLERİ",
+   "tul": "2+2+0",
+   "ects": 6,
+   "nameEn": "Integrated Manufacturing Systems"
+  },
+  {
+   "code": "IE 4463",
+   "name": "TOPLAM KALİTE YÖNETİMİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Total Quality Management"
+  },
+  {
+   "code": "IE 4526",
+   "name": "TESİS PLANLAMASI VE TASARIMI",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Facility Planning and Design"
+  },
+  {
+   "code": "IE 4540",
+   "name": "SİSTEM BİLİMİ VE MÜHENDİSLİK",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Systems Science and Engineering"
+  },
+  {
+   "code": "IE 4544",
+   "name": "İNSAN FAKTÖRLERİ MÜHENDİSLİĞİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Human Factors Engineering"
+  },
+  {
+   "code": "IE 4551",
+   "name": "MATEMATİKSEL PROGRAMLAMA VE UYGULAMALARI",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Mathematical Programming and Applications"
+  },
+  {
+   "code": "IE 4554",
+   "name": "AĞ BİLİMİ VE UYGULAMALARI",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Network Science and Applications"
+  },
+  {
+   "code": "IE 4556",
+   "name": "İMALAT SİSTEMİ DİNAMİKLERİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Manufacturing System Dynamics"
+  },
+  {
+   "code": "IE 4561",
+   "name": "PERFORMANS DEĞERLENDİRMESİ VE YÖNETİMİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Performance Evaluation and Management"
+  },
+  {
+   "code": "IE 4564",
+   "name": "İNOVASYON VE TEKNOLOJİ YÖNETİMİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Innovation and Technology Management"
+  },
+  {
+   "code": "IE 4565",
+   "name": "MÜHENDİSLİKTE GİRİŞİMCİLİK VE İNOVASYON",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Entrepreneurship and Innovation in Engineering"
+  },
+  {
+   "code": "IE 4566",
+   "name": "MÜHENDİSLİK DENEYLERİ TASARIMI",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Design of Engineering Experiments"
+  },
+  {
+   "code": "IE 4572",
+   "name": "SÜRDÜRÜLEBILIR SİSTEM MÜHENDİSLİĞİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Sustainable Systems Engineering"
+  },
+  {
+   "code": "IE 4573",
+   "name": "BULANIK OPTIMIZASYON",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Fuzzy Optimization"
+  },
+  {
+   "code": "IR 3376",
+   "name": "SÜRDÜRÜLEBİLİR KALKINMA VE AB'NİN ENERJİ POLİTİKALARI",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Sustainable Development and EU Energy Policies"
+  },
+  {
+   "code": "IR 3380",
+   "name": "ULUSLARARASI ÇEVRE POLİTİKASI",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "International Environmental Policy"
+  },
+  {
+   "code": "IR 4458",
+   "name": "ENERJİ POLİTİKASI",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Energy Policy"
+  },
+  {
+   "code": "MATH 2260",
+   "name": "MÜHENDİSLER İÇİN OLASILIK VE İSTATİSTİK",
+   "tul": "3+2+0",
+   "ects": 6,
+   "nameEn": "Probability and Statistics for Engineers"
+  },
+  {
+   "code": "ME 3220",
+   "name": "MÜHENDİSLİK MEKANİĞİ II",
+   "tul": "2+2+0",
+   "ects": 5,
+   "nameEn": "Engineering Mechanics II"
+  },
+  {
+   "code": "ME 3320",
+   "name": "ISI VE KÜTLE TRANSFERİ",
+   "tul": "3+2+0",
+   "ects": 6,
+   "nameEn": "Heat and Mass Transfer"
+  },
+  {
+   "code": "ME 3330",
+   "name": "AKIŞKANLAR MEKANİĞİ VE MAKİNALARI",
+   "tul": "3+2+0",
+   "ects": 6,
+   "nameEn": "Fluid Mechanics and Machinery"
+  },
+  {
+   "code": "ME 3410",
+   "name": "MAKİNA ELEMANLARI",
+   "tul": "2+2+0",
+   "ects": 6,
+   "nameEn": "Machine Elements"
+  },
+  {
+   "code": "ME 3420",
+   "name": "ÜRETİM YÖNTEMLERİ VE PROSESLERİ",
+   "tul": "2+2+0",
+   "ects": 4,
+   "nameEn": "Manufacturing Methods and Processes"
+  },
+  {
+   "code": "ME 3510",
+   "name": "MAKİNE TEORİSİ VE MEKANİZMALAR",
+   "tul": "2+2+0",
+   "ects": 6,
+   "nameEn": "Theory of Machines and Mechanisms"
+  },
+  {
+   "code": "ME 4110",
+   "name": "MAKİNA ELEMANLARI II",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Machine Elements II"
+  },
+  {
+   "code": "ME 4120",
+   "name": "SONLU ELEMANLAR YÖNTEMİNE GİRİŞ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Introduction to Finite Element Method"
+  },
+  {
+   "code": "ME 4210",
+   "name": "MAKİNA DİNAMİĞİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Machine Dynamics"
+  },
+  {
+   "code": "ME 4220",
+   "name": "MALZEME MEKANİĞİ II",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Mechanics of Materials II"
+  },
+  {
+   "code": "ME 4230",
+   "name": "MEKANİK TİTREŞİMLER",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Mechanical Vibrations"
+  },
+  {
+   "code": "ME 4240",
+   "name": "ROBOT MEKANİĞİNE GİRİŞ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Introduction to Robot Mechanics"
+  },
+  {
+   "code": "ME 4330",
+   "name": "HESAPLAMALI AKIŞKANLAR DİNAMİĞİNE GİRİŞ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Introduction to Computational Fluid Dynamics"
+  },
+  {
+   "code": "ME 4340",
+   "name": "TURBOMAKİNELERE GİRİŞ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Introduction to Turbomachinery"
+  },
+  {
+   "code": "ME 4350",
+   "name": "GAZ DİNAMİĞİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Gas Dynamics"
+  },
+  {
+   "code": "ME 4410",
+   "name": "KOMPOZİT MALZEME MEKANİĞİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Mechanics of Composite Materials"
+  },
+  {
+   "code": "ME 4420",
+   "name": "MÜHENDİSLİK MALZEMELERİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Engineering Materials"
+  },
+  {
+   "code": "ME 4510",
+   "name": "TALAŞLI ÜRETİM YÖNTEMLERİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Machining Processes"
+  },
+  {
+   "code": "ME 4520",
+   "name": "ÇUBUK MEKANİZMALARIN SENTEZİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Synthesis of Linkage Mechanisms"
+  },
+  {
+   "code": "ME 4610",
+   "name": "MEKATRONİK MÜHENDİSLİĞİNE GİRİŞ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Introduction to Mechatronics Engineering"
+  },
+  {
+   "code": "ME 4620",
+   "name": "İLERİ MEKATRONİK",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Advanced Mechatronics"
+  },
+  {
+   "code": "ME 4822",
+   "name": "BAĞIMSIZ ÇALIŞMA",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Independent Study"
+  },
+  {
+   "code": "ME 4830",
+   "name": "STAJ",
+   "tul": "0+0+0",
+   "ects": 4,
+   "nameEn": "Internship"
+  },
+  {
+   "code": "ME 4840",
+   "name": "MAKİNE MÜHENDİSLİĞİNDE ÖZEL KONULAR-I",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Special Topics in Mechanical Engineering I"
+  },
+  {
+   "code": "ME 4850",
+   "name": "MAKİNE MÜHENDİSLİĞİNDE ÖZEL KONULAR-II",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Special Topics in Mechanical Engineering II"
+  },
+  {
+   "code": "ME 4910",
+   "name": "MEZUNİYET TASARIM PROJESİ I",
+   "tul": "1+4+0",
+   "ects": 8,
+   "nameEn": "Graduation Design Project I"
+  },
+  {
+   "code": "ME 4920",
+   "name": "MEZUNİYET TASARIM PROJESİ II",
+   "tul": "1+4+0",
+   "ects": 8,
+   "nameEn": "Graduation Design Project II"
+  },
+  {
+   "code": "SE 1105",
+   "name": "PROGRAMLAMA VE PROBLEM ÇÖZME I",
+   "tul": "3+2+0",
+   "ects": 6,
+   "nameEn": "Programming and Problem Solving I"
+  },
+  {
+   "code": "SE 1108",
+   "name": "PROGRAMLAMA VE PROBLEM ÇÖZME II",
+   "tul": "3+2+0",
+   "ects": 5,
+   "nameEn": "Programming and Problem Solving II"
+  },
+  {
+   "code": "SE 4406",
+   "name": "MOBİL ROBOTİK PROGRAMLAMA",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Mobile Robotics Programming"
+  },
+  {
+   "code": "SE 4464",
+   "name": "COĞRAFİ BİLGİ SİSTEMLERİ",
+   "tul": "3+0+0",
+   "ects": 6,
+   "nameEn": "Geographic Information Systems"
+  },
+  {
+   "code": "SE 4481",
+   "name": "MOBİL YAZILIM GELİŞTİRME",
+   "tul": "2+2+0",
+   "ects": 6,
+   "nameEn": "Mobile Software Development"
+  },
+  {
+   "code": "UMFD 1720",
+   "name": "KARİYER PLANLAMA",
+   "tul": "2+0+0",
+   "ects": 2,
+   "nameEn": "Career Planning"
+  }
+ ],
+ "universityElectives": {
+  "note": "Demo için uydurulmuş dersler. Hepsi online ve akşam saatinde (2 saat). Tabloda (akşam satırlarında) ve listede görünür. Online oldukları için çakışma kontrolüne girmez: kimseyi kilitlemez, kilitlenmez. AKTS'yi doldurduğu boşluktan alır (ME1=4, ME3=3).",
+  "courses": [
+   {
+    "code": "UNV 1001",
+    "name": "Yaratıcı Yazarlık",
+    "online": true,
+    "slots": [
+     {
+      "day": 0,
+      "start": "18:40",
+      "end": "19:30",
+      "type": "T",
+      "room": "Online"
+     },
+     {
+      "day": 0,
+      "start": "19:40",
+      "end": "20:30",
+      "type": "T",
+      "room": "Online"
+     }
+    ],
+    "nameEn": "Creative Writing"
+   },
+   {
+    "code": "UNV 1002",
+    "name": "Müzik Tarihine Giriş",
+    "online": true,
+    "slots": [
+     {
+      "day": 1,
+      "start": "18:40",
+      "end": "19:30",
+      "type": "T",
+      "room": "Online"
+     },
+     {
+      "day": 1,
+      "start": "19:40",
+      "end": "20:30",
+      "type": "T",
+      "room": "Online"
+     }
+    ],
+    "nameEn": "Introduction to Music History"
+   },
+   {
+    "code": "UNV 1003",
+    "name": "Girişimcilik Atölyesi",
+    "online": true,
+    "slots": [
+     {
+      "day": 2,
+      "start": "18:40",
+      "end": "19:30",
+      "type": "T",
+      "room": "Online"
+     },
+     {
+      "day": 2,
+      "start": "19:40",
+      "end": "20:30",
+      "type": "T",
+      "room": "Online"
+     }
+    ],
+    "nameEn": "Entrepreneurship Workshop"
+   },
+   {
+    "code": "UNV 1004",
+    "name": "İspanyolca Konuşma",
+    "online": true,
+    "slots": [
+     {
+      "day": 3,
+      "start": "18:40",
+      "end": "19:30",
+      "type": "T",
+      "room": "Online"
+     },
+     {
+      "day": 3,
+      "start": "19:40",
+      "end": "20:30",
+      "type": "T",
+      "room": "Online"
+     }
+    ],
+    "nameEn": "Spanish Conversation"
+   },
+   {
+    "code": "UNV 1005",
+    "name": "Sürdürülebilir Yaşam",
+    "online": true,
+    "slots": [
+     {
+      "day": 4,
+      "start": "18:40",
+      "end": "19:30",
+      "type": "T",
+      "room": "Online"
+     },
+     {
+      "day": 4,
+      "start": "19:40",
+      "end": "20:30",
+      "type": "T",
+      "room": "Online"
+     }
+    ],
+    "nameEn": "Sustainable Living"
+   },
+   {
+    "code": "UNV 1006",
+    "name": "Dijital Fotoğrafçılık",
+    "online": true,
+    "slots": [
+     {
+      "day": 1,
+      "start": "20:40",
+      "end": "21:30",
+      "type": "T",
+      "room": "Online"
+     },
+     {
+      "day": 1,
+      "start": "21:40",
+      "end": "22:30",
+      "type": "T",
+      "room": "Online"
+     }
+    ],
+    "nameEn": "Digital Photography"
+   }
+  ]
+ },
+ "prerequisites": {
+  "ME 4920": [
+   "ME 4910"
+  ]
+ }
+}

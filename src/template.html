@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="LOGO_SRC">
+<title>Ders Kayıt · Öğrenci Bilgi Sistemi</title>
+<style>
+/*STYLE*/
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 10h16M10 10v10"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 5.5A2.5 2.5 0 0 1 7.5 3H19v15H7.5A2.5 2.5 0 0 0 5 20.5z"/><path d="M5 20.5A2.5 2.5 0 0 0 7.5 21H19"/></symbol>
+    <symbol id="i-form" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v5h5"/></symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 7h11l-3-3M17 17H6l3 3"/></symbol>
+    <symbol id="i-lang" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15l2.5-6L12 15M8 13h3M14 9h4M16 9v6"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 14h4l1.5 2h5L16 14h4"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v8a2 2 0 0 1-2 2h-3v-6H9v6H6a2 2 0 0 1-2-2z"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></symbol>
+    <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 9V4h10v5"/><rect x="4" y="9" width="16" height="8" rx="2"/><path d="M7 14h10v6H7z"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  </defs>
+</svg>
+
+<div class="shell" id="shell">
+  <aside class="side" aria-label="Menu">
+    <div class="side-logo"><img class="crest-img" src="LOGO_SRC" alt="Yaşar Üniversitesi" width="84" height="84"></div>
+    <div class="side-sys" data-i18n="side.sys"></div>
+    <label class="side-search"><svg><use href="#i-search"/></svg><input type="text" data-i18n-ph="side.search" disabled></label>
+    <nav class="side-nav">
+      <div class="grp" data-i18n="side.g.general"></div>
+      <a class="item off"><svg><use href="#i-grid"/></svg><span data-i18n="side.general"></span><svg class="chev"><use href="#i-chev"/></svg></a>
+      <a class="item open"><svg><use href="#i-book"/></svg><span data-i18n="side.course"></span><svg class="chev down"><use href="#i-chev"/></svg></a>
+      <div class="sub">
+        <a class="item active" href="#" data-view="reg" data-i18n="side.reg"></a>
+        <a class="item off" data-i18n="side.grades"></a>
+        <a class="item" href="#" data-view="tt" data-i18n="side.timetable"></a>
+        <a class="item off" data-i18n="side.transcript"></a>
+      </div>
+      <a class="item off"><svg><use href="#i-form"/></svg><span data-i18n="side.forms"></span><svg class="chev"><use href="#i-chev"/></svg></a>
+      <a class="item off"><svg><use href="#i-doc"/></svg><span data-i18n="side.docs"></span><svg class="chev"><use href="#i-chev"/></svg></a>
+      <div class="grp" data-i18n="side.g.academic"></div>
+      <a class="item off"><svg><use href="#i-swap"/></svg><span data-i18n="side.transfer"></span><svg class="chev"><use href="#i-chev"/></svg></a>
+      <a class="item off"><svg><use href="#i-lang"/></svg><span data-i18n="side.prep"></span><svg class="chev"><use href="#i-chev"/></svg></a>
+      <div class="grp" data-i18n="side.g.apply"></div>
+      <a class="item off"><svg><use href="#i-inbox"/></svg><span data-i18n="side.applications"></span><svg class="chev"><use href="#i-chev"/></svg></a>
+      <div class="grp" data-i18n="side.g.account"></div>
+      <a class="item off"><svg><use href="#i-user"/></svg><span data-i18n="side.user"></span><svg class="chev"><use href="#i-chev"/></svg></a>
+    </nav>
+  </aside>
+
+  <div class="main-col">
+    <header class="top">
+      <button class="icon-btn" id="menuBtn" type="button" data-i18n-aria="top.menu"><svg><use href="#i-menu"/></svg></button>
+      <div class="uni" data-i18n="top.uni"></div>
+      <div class="term-pill" id="termPill"></div>
+      <div class="top-right">
+        <div class="lang" role="group" data-i18n-aria="top.lang" id="langSeg">
+          <button type="button" data-lang="tr">TR</button><button type="button" data-lang="en">EN</button>
+        </div>
+        <button class="icon-btn off" type="button" data-i18n-aria="top.home"><svg><use href="#i-home"/></svg></button>
+        <div class="bell-wrap">
+          <button class="icon-btn" id="bellBtn" type="button" data-i18n-aria="top.news"><svg><use href="#i-bell"/></svg><span class="dot" id="bellDot">0</span></button>
+          <div class="bell-pop" id="bellPop" hidden></div>
+        </div>
+        <button class="me" id="meBtn" type="button" data-i18n-title="top.profile">
+          <span class="avatar" id="avatar"></span><span id="meName"></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page" id="viewReg">
+      <div class="page-head">
+        <div>
+          <h1 data-i18n="page.title"></h1>
+          <p class="lead" data-i18n="page.lead"></p>
+        </div>
+        <button class="btn soft off" type="button"><span data-i18n="page.options"></span> <svg class="chev down"><use href="#i-chev"/></svg></button>
+      </div>
+
+      <div class="status-row">
+        <div class="stat"><span class="k" data-i18n="stat.finance"></span><span class="v ok" data-i18n="stat.financeOk"></span></div>
+        <div class="stat"><span class="k" data-i18n="stat.advisor"></span><span class="v wait" id="advisorState"></span></div>
+        <div class="stat"><span class="k" data-i18n="stat.semester"></span><span class="v" id="semState"></span></div>
+        <div class="stat ects" id="ects"></div>
+      </div>
+
+
+      <section class="card filters">
+        <div class="f-group">
+          <label class="f-label" for="termSel" data-i18n="f.term"></label>
+          <select id="termSel"></select>
+        </div>
+        <div class="f-group">
+          <span class="f-label" data-i18n="f.years"></span>
+          <div class="checks-row" id="yearChecks"></div>
+        </div>
+      </section>
+
+      <section class="ai-card">
+        <div class="ai-icon" aria-hidden="true"><svg><use href="#i-spark"/></svg></div>
+        <div class="ai-text">
+          <h2 data-i18n="ai.title"></h2>
+        </div>
+        <button class="btn ai-btn" id="aiBtn" type="button"><svg><use href="#i-spark"/></svg><span data-i18n="ai.open"></span></button>
+      </section>
+
+      <div id="warnings"></div>
+
+      <section class="card">
+        <div class="card-head"><h2 data-i18n="req.title"></h2><span class="count" id="reqCount"></span></div>
+        <div id="reqList" class="req-list"></div>
+      </section>
+
+      <section class="card flush">
+        <div class="card-head pad"><h2 data-i18n="grid.title"></h2><span class="muted small" data-i18n="grid.hint"></span></div>
+        <div class="grid-wrap"><table class="grid" id="grid"></table></div>
+      </section>
+
+      <section class="card flush">
+        <div class="card-head pad"><h2 data-i18n="sel.title"></h2><button class="btn primary" id="finishBtn" type="button" data-i18n="sel.finish"></button></div>
+        <div class="table-wrap"><table class="sel-table" id="selTable"></table></div>
+      </section>
+
+      <section class="legend">
+        <span><i class="lg sel"></i><span data-i18n="lg.sel"></span></span>
+        <span><i class="lg fixed"></i><span data-i18n="lg.fixed"></span></span>
+        <span><i class="lg black"></i><span data-i18n="lg.black"></span></span>
+        <span><i class="lg grey"></i><span data-i18n="lg.grey"></span></span>
+        <span><i class="lg pas"></i><span data-i18n="lg.pas"></span></span>
+        <span><i class="lg extra"></i><span data-i18n="lg.extra"></span></span>
+        <span><i class="lg prereq"></i><span data-i18n="lg.prereq"></span></span>
+        <span><i class="lg passed"></i><span data-i18n="lg.passed"></span></span>
+      </section>
+    </main>
+
+    <main class="page view-hidden" id="viewTT">
+      <div class="page-head">
+        <div>
+          <h1 data-i18n="tt.title"></h1>
+          <p class="lead" data-i18n="tt.lead"></p>
+        </div>
+        <div class="tt-tools">
+          <button class="btn soft off fake-select" type="button"><span class="muted small" data-i18n="tt.term"></span><b id="ttTermLabel"></b><svg class="chev down"><use href="#i-chev"/></svg></button>
+          <button class="btn soft off" type="button"><svg><use href="#i-print"/></svg><span data-i18n="tt.print"></span></button>
+        </div>
+      </div>
+      <div id="ttBody"></div>
+    </main>
+  </div>
+</div>
+
+<div class="notice" id="notice" role="status" aria-live="polite"></div>
+
+<div class="session" data-i18n-title="session"><svg><use href="#i-clock"/></svg><span id="timer">59:59</span></div>
+<div class="tip" id="tip" role="tooltip"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<dialog id="profileDlg">
+  <form method="dialog" class="dlg wide pf-dlg">
+    <h2 data-i18n="pf.title"></h2>
+    <p class="muted small" data-i18n="pf.lead"></p>
+    <div class="pf-grid">
+      <label class="pf-f"><span data-i18n="pf.first"></span><input id="pfFirst" type="text" autocomplete="off"></label>
+      <label class="pf-f"><span data-i18n="pf.last"></span><input id="pfLast" type="text" autocomplete="off"></label>
+      <label class="pf-f"><span data-i18n="pf.number"></span><input id="pfNumber" type="text" inputmode="numeric" autocomplete="off"></label>
+      <label class="pf-f"><span data-i18n="pf.year"></span><select id="pfYear"><option value="3"></option><option value="4"></option></select></label>
+      <label class="pf-f"><span data-i18n="pf.limit"></span><input id="pfLimit" type="number" min="10" max="60" step="1"></label>
+    </div>
+    <div class="pf-courses-head"><h3 data-i18n="pf.courses"></h3><p class="muted small" data-i18n="pf.coursesHint"></p></div>
+    <div id="pfCourses" class="pf-courses"></div>
+    <div class="dlg-actions">
+      <span class="muted small" style="margin-right:auto" data-i18n="pf.reset"></span>
+      <button class="btn soft" value="cancel" type="submit" data-i18n="pf.cancel"></button>
+      <button class="btn primary" value="ok" id="pfSave" type="submit" data-i18n="pf.save"></button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="aiDlg">
+  <div class="dlg ai-dlg">
+    <div class="ai-head">
+      <div class="ai-icon small" aria-hidden="true"><svg><use href="#i-spark"/></svg></div>
+      <div><h2 id="aiTitle"></h2><p class="muted small" id="aiSub"></p></div>
+      <button class="icon-btn small" id="aiClose" type="button" data-i18n-aria="howto.close"><svg><use href="#i-x"/></svg></button>
+    </div>
+    <div id="aiBody"></div>
+    <div class="dlg-actions" id="aiActions"></div>
+  </div>
+</dialog>
+
+<dialog id="finishDlg">
+  <div class="dlg wide">
+    <h2 data-i18n="fin.title"></h2>
+    <div id="finishBody"></div>
+    <div class="dlg-actions">
+      <button class="btn soft" type="button" id="cancelFinish" data-i18n="fin.cancel"></button>
+      <button class="btn primary" type="button" id="confirmFinish" data-i18n="fin.confirm"></button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+/*DATA*/
+</script>
+<script>
+/*SCRIPT*/
+</script>
+</body>
+</html>
