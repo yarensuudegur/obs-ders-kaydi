@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="LOGO_SRC">
+<link rel="icon" id="favicon" href="LOGO_SRC">
 <title>Ders Kayıt · Öğrenci Bilgi Sistemi</title>
 <style>
 /*STYLE*/
@@ -29,13 +29,61 @@
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
     <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></symbol>
     <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 9V4h10v5"/><rect x="4" y="9" width="16" height="8" rx="2"/><path d="M7 14h10v6H7z"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M5 19h14"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M14 5h4a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-4"/><path d="M10 8l-4 4 4 4M6 12h10"/></symbol>
+    <symbol id="i-login" viewBox="0 0 24 24"><path d="M10 5H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h4"/><path d="M14 8l4 4-4 4M18 12H8"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M10.6 5.1A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4M6.6 6.6C3.8 8.4 2 12 2 12s3.5 7 10 7c1.6 0 3-.4 4.3-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+    <symbol id="i-id" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="11" r="2.2"/><path d="M5.8 16a3.4 3.4 0 0 1 6.4 0M14 10h4M14 13.5h3"/></symbol>
+    <symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 9l9-5 9 5"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 20h18"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5v.5"/></symbol>
+    <symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M7 3h10M7 21h10M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></symbol>
+    <symbol id="i-advisor" viewBox="0 0 24 24"><rect x="3" y="4" width="13" height="10" rx="2"/><circle cx="17.5" cy="15" r="2.5"/><path d="M13.5 21a4 4 0 0 1 8 0M7 18h4"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 19h16"/><path d="M5 15l4-4 3 3 6-7"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
   </defs>
 </svg>
 
-<div class="shell" id="shell">
+<div class="login" id="viewLogin">
+  <form class="login-card" id="loginForm" autocomplete="off" novalidate>
+    <button class="login-lang" type="button" id="loginLang"><svg><use href="#i-globe"/></svg><span id="loginLangLabel"></span></button>
+    <div class="login-logo"><img class="logo-src" alt="" width="104" height="104"></div>
+    <h1 class="login-uni" data-i18n="top.uni"></h1>
+    <div class="login-role"><span data-i18n="login.role"></span></div>
+    <div class="login-demo" data-i18n="login.demo"></div>
+    <label class="sr-only" for="loginNo" data-i18n="pf.number"></label>
+    <input class="l-in" id="loginNo" type="text" readonly tabindex="-1">
+    <div class="l-pass">
+      <label class="sr-only" for="loginPass" data-i18n="login.pass"></label>
+      <input class="l-in" id="loginPass" type="password" readonly tabindex="-1" value="demo-sifre">
+      <button type="button" class="l-eye" id="loginEye" data-i18n-aria="login.show"><svg><use href="#i-eyeoff"/></svg></button>
+    </div>
+    <div class="l-captcha">
+      <div class="l-q" id="capQ" aria-live="polite"></div>
+      <button type="button" class="l-icon off" data-i18n-aria="login.listen"><svg><use href="#i-sound"/></svg></button>
+      <button type="button" class="l-icon" id="capNew" data-i18n-aria="login.newQ"><svg><use href="#i-refresh"/></svg></button>
+      <label class="sr-only" for="capA" data-i18n="login.code"></label>
+      <input class="l-in" id="capA" type="text" inputmode="numeric" maxlength="3" data-i18n-ph="login.code">
+    </div>
+    <div class="l-err" id="loginErr" role="alert"></div>
+    <button type="submit" class="l-btn"><svg><use href="#i-login"/></svg><span data-i18n="login.enter"></span></button>
+    <a class="l-link off" data-i18n="login.forgot"></a>
+    <button type="button" class="l-edevlet off"><span data-i18n="login.edevlet"></span></button>
+    <div class="l-timer"><span data-i18n="login.timer"></span> <b id="loginTimer">05:00</b></div>
+    <div class="l-news off" data-i18n="login.news"></div>
+  </form>
+  <p class="login-foot" data-i18n="login.foot"></p>
+</div>
+
+<div class="shell view-hidden" id="shell">
+  <div class="side-backdrop" id="sideBackdrop"></div>
   <aside class="side" aria-label="Menu">
-    <div class="side-logo"><img class="crest-img" src="LOGO_SRC" alt="Yaşar Üniversitesi" width="84" height="84"></div>
+    <div class="side-logo"><img class="crest-img logo-src" alt="Yaşar Üniversitesi" width="84" height="84"></div>
     <div class="side-sys" data-i18n="side.sys"></div>
     <label class="side-search"><svg><use href="#i-search"/></svg><input type="text" data-i18n-ph="side.search" disabled></label>
     <nav class="side-nav">
@@ -69,7 +117,7 @@
         <div class="lang" role="group" data-i18n-aria="top.lang" id="langSeg">
           <button type="button" data-lang="tr">TR</button><button type="button" data-lang="en">EN</button>
         </div>
-        <button class="icon-btn off" type="button" data-i18n-aria="top.home"><svg><use href="#i-home"/></svg></button>
+        <button class="icon-btn" type="button" data-view="home" data-i18n-aria="top.home"><svg><use href="#i-home"/></svg></button>
         <div class="bell-wrap">
           <button class="icon-btn" id="bellBtn" type="button" data-i18n-aria="top.news"><svg><use href="#i-bell"/></svg><span class="dot" id="bellDot">0</span></button>
           <div class="bell-pop" id="bellPop" hidden></div>
@@ -77,10 +125,16 @@
         <button class="me" id="meBtn" type="button" data-i18n-title="top.profile">
           <span class="avatar" id="avatar"></span><span id="meName"></span>
         </button>
+        <button class="icon-btn" id="logoutBtn" type="button" data-i18n-aria="top.logout" data-i18n-title="top.logout"><svg><use href="#i-logout"/></svg></button>
       </div>
     </header>
 
-    <main class="page" id="viewReg">
+    <main class="page" id="viewHome">
+      <div class="home-banner" id="homeBanner"><svg><use href="#i-info"/></svg><span id="homeBannerText"></span><button class="icon-btn small" type="button" id="homeBannerX" data-i18n-aria="howto.close"><svg><use href="#i-x"/></svg></button></div>
+      <div class="home-grid" id="homeGrid"></div>
+    </main>
+
+    <main class="page view-hidden" id="viewReg">
       <div class="page-head">
         <div>
           <h1 data-i18n="page.title"></h1>
@@ -125,11 +179,12 @@
 
       <section class="card flush">
         <div class="card-head pad"><h2 data-i18n="grid.title"></h2><span class="muted small" data-i18n="grid.hint"></span></div>
+        <div class="day-tabs" id="dayTabs" role="tablist"></div>
         <div class="grid-wrap"><table class="grid" id="grid"></table></div>
       </section>
 
       <section class="card flush">
-        <div class="card-head pad"><h2 data-i18n="sel.title"></h2><button class="btn primary" id="finishBtn" type="button" data-i18n="sel.finish"></button></div>
+        <div class="card-head pad"><h2 data-i18n="sel.title"></h2><div class="head-btns"><button class="btn soft" id="pngBtn" type="button"><svg><use href="#i-download"/></svg><span data-i18n="png.btn"></span></button><button class="btn primary" id="finishBtn" type="button" data-i18n="sel.finish"></button></div></div>
         <div class="table-wrap"><table class="sel-table" id="selTable"></table></div>
       </section>
 
@@ -154,6 +209,7 @@
         <div class="tt-tools">
           <button class="btn soft off fake-select" type="button"><span class="muted small" data-i18n="tt.term"></span><b id="ttTermLabel"></b><svg class="chev down"><use href="#i-chev"/></svg></button>
           <button class="btn soft off" type="button"><svg><use href="#i-print"/></svg><span data-i18n="tt.print"></span></button>
+          <button class="btn primary" type="button" id="ttPngBtn"><svg><use href="#i-download"/></svg><span data-i18n="png.btn"></span></button>
         </div>
       </div>
       <div id="ttBody"></div>
@@ -176,7 +232,8 @@
       <label class="pf-f"><span data-i18n="pf.last"></span><input id="pfLast" type="text" autocomplete="off"></label>
       <label class="pf-f"><span data-i18n="pf.number"></span><input id="pfNumber" type="text" inputmode="numeric" autocomplete="off"></label>
       <label class="pf-f"><span data-i18n="pf.year"></span><select id="pfYear"><option value="3"></option><option value="4"></option></select></label>
-      <label class="pf-f"><span data-i18n="pf.limit"></span><input id="pfLimit" type="number" min="10" max="60" step="1"></label>
+      <label class="pf-f"><span data-i18n="pf.gpa"></span><input id="pfGpa" type="number" min="0" max="4" step="0.01"></label>
+      <div class="pf-f pf-limit"><span data-i18n="pf.limit"></span><b id="pfLimitOut"></b><small class="muted" data-i18n="pf.limitRule"></small></div>
     </div>
     <div class="pf-courses-head"><h3 data-i18n="pf.courses"></h3><p class="muted small" data-i18n="pf.coursesHint"></p></div>
     <div id="pfCourses" class="pf-courses"></div>

@@ -16,9 +16,11 @@
 
   const app = {
     lang: store.get('obs-lang') === 'en' ? 'en' : 'tr',
-    profile: { first: 'Demo', last: 'Öğrenci', number: '23070001234', year: 4, ectsLimit: 40, status: { 'ME 3220': 'failed' } },
+    profile: { first: 'Demo', last: 'Öğrenci', number: '23070001234', year: 4, gpa: 2.75, status: { 'ME 3220': 'failed' } },
+    loggedIn: false,
+    day: Math.min(4, (new Date().getDay() + 6) % 7),
     advisor: 'waiting',
-    view: 'reg',
+    view: 'home',
     approved: null,
     notes: [],
     unread: 0,
@@ -31,6 +33,11 @@
 
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  // AGNO 2,00 altı: 32 AKTS, 2,00 ve üstü: 40 AKTS
+  const limitFor = (gpa) => (gpa < 2 ? 32 : 40);
+  const ectsLimit = () => limitFor(app.profile.gpa);
+  const fmtGpa = (g) => (app.lang === 'tr' ? g.toFixed(2).replace('.', ',') : g.toFixed(2));
+
   function t(key, params) {
     const str = I18N[app.lang][key] ?? I18N.tr[key] ?? key;
     return params ? str.replace(/\{(\w+)\}/g, (m, k) => (k in params ? params[k] : m)) : str;
@@ -124,10 +131,13 @@
     $('termSel').innerHTML = ['guz', 'bahar'].map((v) => `<option value="${v}">${t('term.' + v)}</option>`).join('');
     $('pfYear').options[0].textContent = t('pf.yearOpt', { y: 3 });
     $('pfYear').options[1].textContent = t('pf.yearOpt', { y: 4 });
+    $('loginLangLabel').textContent = t('login.langOther');
+    $('loginNo').value = app.profile.number;
   }
 
   // ---------- Üst kısım ----------
   function renderTop() {
+    if (app.view === 'home' && app.loggedIn) setTimeout(renderHome, 0);
     const m = app.model;
     const p = app.profile;
     $('termPill').textContent = t('term.' + app.term);
@@ -156,7 +166,7 @@
 
 
     const ects = app.evalr.ects;
-    const lim = p.ectsLimit;
+    const lim = ectsLimit();
     const el = $('ects');
     el.classList.toggle('over', ects > lim);
     el.innerHTML = `<div class="top-line"><span class="k">${esc(t('stat.ects'))}</span><span class="big">${ects} / ${lim}</span></div>
@@ -337,6 +347,8 @@
       html += '</tr>';
     });
     $('grid').innerHTML = html + '</tbody>';
+    $('grid').dataset.day = String(app.day);
+    $('dayTabs').innerHTML = dayTabs();
   }
 
   // ---------- Seçilen dersler (OBS tablosu) ----------
@@ -488,6 +500,7 @@
     applyStatic();
     render();
     if (app.view === 'tt') renderTT();
+    if (app.view === 'home') renderHome();
     if (!$('bellPop').hidden) renderBell();
     toast(t('t.lang'));
   }
@@ -550,7 +563,12 @@
     });
     $('reqList').addEventListener('mouseleave', () => document.querySelectorAll('.chip.hl').forEach((x) => x.classList.remove('hl')));
 
-    $('menuBtn').addEventListener('click', () => $('shell').classList.toggle('collapsed'));
+    $('menuBtn').addEventListener('click', () => {
+      if (window.matchMedia('(max-width: 900px)').matches) $('shell').classList.toggle('menu-open');
+      else $('shell').classList.toggle('collapsed');
+    });
+    $('sideBackdrop').addEventListener('click', () => $('shell').classList.remove('menu-open'));
+    $('pfGpa').addEventListener('input', updateLimitOut);
 
     $('meBtn').addEventListener('click', openProfile);
     $('pfYear').addEventListener('change', renderProfileCourses);
@@ -564,7 +582,8 @@
       if ($('profileDlg').returnValue !== 'ok') return;
       const year = parseInt($('pfYear').value, 10);
       app.profile.year = year;
-      app.profile.ectsLimit = Math.max(10, parseInt($('pfLimit').value, 10) || 40);
+      const g = parseFloat(String($('pfGpa').value).replace(',', '.'));
+      app.profile.gpa = Number.isFinite(g) ? Math.min(4, Math.max(0, g)) : app.profile.gpa;
       app.profile.first = $('pfFirst').value.trim() || 'Demo';
       app.profile.last = $('pfLast').value.trim();
       app.profile.number = $('pfNumber').value.trim() || app.profile.number;
@@ -616,7 +635,8 @@
     $('pfLast').value = p.last;
     $('pfNumber').value = p.number;
     $('pfYear').value = String(p.year);
-    $('pfLimit').value = String(p.ectsLimit);
+    $('pfGpa').value = p.gpa.toFixed(2);
+    updateLimitOut();
     renderProfileCourses();
     $('profileDlg').showModal();
   }
@@ -624,7 +644,7 @@
   function openFinish() {
     const { rows, missing } = selectedRows();
     const ev = app.evalr;
-    const lim = app.profile.ectsLimit;
+    const lim = ectsLimit();
     const over = ev.ects > lim;
     const ok = !missing.length && !over;
     $('finishBody').innerHTML = `
@@ -894,8 +914,11 @@
   // ---------- Sayfalar ----------
   function setView(v) {
     app.view = v;
+    $('viewHome').classList.toggle('view-hidden', v !== 'home');
     $('viewReg').classList.toggle('view-hidden', v !== 'reg');
     $('viewTT').classList.toggle('view-hidden', v !== 'tt');
+    $('shell').classList.remove('menu-open');
+    if (v === 'home') renderHome();
     document.querySelectorAll('.side-nav [data-view]').forEach((a) => a.classList.toggle('active', a.dataset.view === v));
     document.querySelector('.ai-card')?.classList.toggle('view-hidden', v !== 'reg');
     if (v === 'tt') renderTT();
@@ -920,7 +943,7 @@
       if (!cells.has(k)) cells.set(k, []);
       cells.get(k).push({ it, sl });
     }
-    let grid = '<table class="grid tt-grid"><thead><tr><th class="time"></th>' + days().map((d) => `<th>${d}</th>`).join('') + '</tr></thead><tbody>';
+    let grid = `<div class="day-tabs">${dayTabs()}</div><table class="grid tt-grid" data-day="${app.day}"><thead><tr><th class="time"></th>` + days().map((d) => `<th>${d}</th>`).join('') + '</tr></thead><tbody>';
     for (let h = 8; h <= maxH; h++) {
       const st = `${String(h).padStart(2, '0')}:40`;
       grid += `<tr class="${h >= 17 ? 'evening' : ''} ${h === 17 ? 'evening-first' : ''}"><th class="time"><b>${st}</b>${String(h + 1).padStart(2, '0')}:30</th>`;
@@ -944,7 +967,7 @@
 
   function bindExtra() {
     document.addEventListener('click', (e) => {
-      const nav = e.target.closest('.side-nav [data-view]');
+      const nav = e.target.closest('.side-nav [data-view], .top [data-view]');
       if (nav) { e.preventDefault(); setView(nav.dataset.view); return; }
       const go = e.target.closest('[data-goto]');
       if (go) {
@@ -964,9 +987,242 @@
     });
   }
 
+  // ---------- Telefon: tek gün görünümü ----------
+  function dayTabs() {
+    return daysShort().map((d, i) => `<button type="button" role="tab" class="dt ${i === app.day ? 'on' : ''}" data-dayt="${i}" aria-selected="${i === app.day}">${esc(d)}</button>`).join('');
+  }
+
+  function updateLimitOut() {
+    const g = parseFloat(String($('pfGpa').value).replace(',', '.'));
+    $('pfLimitOut').textContent = Number.isFinite(g) ? `${limitFor(g)} ${t('sel.ects')}` : '-';
+  }
+
+  // ---------- Giriş ekranı ----------
+  const cap = { a: 0, b: 0 };
+  let loginLeft = 300;
+  function newCaptcha() {
+    cap.a = 10 + Math.floor(Math.random() * 60);
+    cap.b = 1 + Math.floor(Math.random() * 9);
+    $('capQ').innerHTML = `<span>${cap.a}</span><i>+</i><span>${cap.b}</span><i>=</i><span>?</span>`;
+    $('capQ').setAttribute('aria-label', `${cap.a} + ${cap.b} = ?`);
+    $('capA').value = '';
+  }
+  function renderLoginTimer() {
+    $('loginTimer').textContent = `${String(Math.floor(loginLeft / 60)).padStart(2, '0')}:${String(loginLeft % 60).padStart(2, '0')}`;
+  }
+  function showLogin() {
+    app.loggedIn = false;
+    document.body.classList.add('on-login');
+    $('viewLogin').classList.remove('view-hidden');
+    $('shell').classList.add('view-hidden');
+    $('loginErr').textContent = '';
+    loginLeft = 300;
+    renderLoginTimer();
+    newCaptcha();
+    setTimeout(() => $('capA').focus(), 50);
+  }
+  function doLogin(e) {
+    e.preventDefault();
+    const val = $('capA').value.trim();
+    const card = document.querySelector('.login-card');
+    if (!val) { $('loginErr').textContent = t('login.empty'); $('capA').focus(); return; }
+    if (parseInt(val, 10) !== cap.a + cap.b) {
+      $('loginErr').textContent = t('login.wrong');
+      card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
+      newCaptcha();
+      $('capA').focus();
+      return;
+    }
+    app.loggedIn = true;
+    document.body.classList.remove('on-login');
+    $('viewLogin').classList.add('view-hidden');
+    $('shell').classList.remove('view-hidden');
+    setView('home');
+  }
+
+  // ---------- Ana sayfa ----------
+  function renderHome() {
+    const p = app.profile;
+    const m = app.model;
+    const termName = t('term.' + app.term);
+    const a = app.approved && app.approved.term === app.term ? app.approved : null;
+    const loc = app.lang === 'tr' ? 'tr-TR' : 'en-GB';
+    const banner = $('homeBanner');
+    banner.className = 'home-banner ' + (a ? 'ok' : app.advisor === 'sent' ? 'wait' : 'info');
+    $('homeBannerText').innerHTML = `<b>${esc(app.lang === 'tr' ? 'Bilgilendirme' : 'Notice')}</b> ${esc(a ? t('home.bannerApproved', { term: termName, n: a.items.length }) : app.advisor === 'sent' ? t('home.bannerSent', { term: termName }) : t('home.bannerNone', { term: termName }))}`;
+    const pending = a ? 0 : app.advisor === 'sent' ? snapshot().items.length : 0;
+    const entryYear = 2027 - p.year;
+    const gpaLow = p.gpa < 2;
+    const row = (k, v) => `<div class="hc-row"><span>${esc(k)}</span><b>${esc(v)}</b></div>`;
+    const card = (icon, title, rows, accent) => `<section class="hcard" style="--acc:${accent}"><div class="hc-ic"><svg><use href="#i-${icon}"/></svg></div><div class="hc-body"><h3>${esc(title)}</h3>${rows}</div></section>`;
+    $('homeGrid').innerHTML = [
+      card('id', t('home.id'), row(t('home.no'), p.number) + row(t('home.name'), studentName()) + row(t('home.tc'), '123******45'), '#f2a7b6'),
+      card('bank', t('home.program'), row('', t('home.faculty')) + row('', t('home.dept')) + row('', t('home.degree')), '#a9b8f4'),
+      card('info', t('home.status'), row(t('home.regDate'), `29.08.${entryYear}`) + row(t('home.regReason'), t('home.regReasonV')) + row(t('home.stateK'), t('home.stateV')) + row(t('home.gpa'), fmtGpa(p.gpa)), '#9fdcc0'),
+      card('hourglass', t('home.time'), row(t('home.semNow'), String(m.semester)) + row(t('home.normal'), t('home.years', { n: 4 })) + row(t('home.max'), t('home.years', { n: 7 })), '#f3d98b'),
+      card('edit', t('home.reg'), row(t('home.approvedN'), String(a ? a.items.length : 0)) + row(t('home.pendingN'), String(pending)) + row(t('home.lastApproval'), a ? a.date.toLocaleDateString(loc) : '-') + row(t('home.summary'), a ? t('home.sumAll') : app.advisor === 'sent' ? t('home.sumSent') : t('home.sumNone')), '#9fdcc0'),
+      card('advisor', t('home.advisor'), row('', t('home.advisorName')) + row('', t('home.advisorUnit')), '#f3c08b'),
+      card('chart', t('home.academic'), row(t('home.stateK'), t('home.stateV')) + row(t('home.program'), t('home.dept')) + row(t('home.semYear'), `${m.semester} / ${p.year}`), '#a9b8f4'),
+      card('folder', t('home.extra'), row(t('home.curriculum'), t('home.curriculumV')) + `<div class="hc-row hc-limit ${gpaLow ? 'low' : ''}"><span>${esc(t('home.limit'))}</span><b>${ectsLimit()} ${esc(t('sel.ects'))}</b><small>${esc(t('home.limitWhy', { gpa: fmtGpa(p.gpa), rule: t(gpaLow ? 'home.ruleLow' : 'home.ruleHigh') }))}</small></div>`, '#f3d98b'),
+    ].join('');
+  }
+
+  // ---------- PNG indirme ----------
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  }
+  function tint(hex, amt) {
+    const n = parseInt(hex.slice(1), 16);
+    const mix = (c) => Math.round(c + (255 - c) * amt);
+    return `rgb(${mix(n >> 16)},${mix((n >> 8) & 255)},${mix(n & 255)})`;
+  }
+  function fitText(ctx, text, maxW) {
+    if (ctx.measureText(text).width <= maxW) return text;
+    let s = text;
+    while (s.length > 1 && ctx.measureText(s + '…').width > maxW) s = s.slice(0, -1);
+    return s + '…';
+  }
+  function exportPNG(snap, approved) {
+    const items = snap.items;
+    if (!items.length) { toast(t('png.empty')); return; }
+    let maxH = 16;
+    for (const it of items) for (const sl of it.slots) maxH = Math.max(maxH, parseInt(sl.start, 10));
+    const hours = []; for (let h = 8; h <= maxH; h++) hours.push(h);
+    const W = 1600, pad = 48, timeW = 92, headH = 150, dayH = 44, rowH = 78;
+    const colW = (W - pad * 2 - timeW) / 7;
+    const gridH = dayH + hours.length * rowH;
+    const listRowH = 36;
+    const listH = 70 + items.length * listRowH;
+    const H = headH + gridH + 40 + listH + 60;
+    const scale = 2;
+    const cv = document.createElement('canvas');
+    cv.width = W * scale; cv.height = H * scale;
+    const ctx = cv.getContext('2d');
+    ctx.scale(scale, scale);
+    const font = (w, sz) => `${w} ${sz}px "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif`;
+    ctx.fillStyle = '#f2f4f8'; ctx.fillRect(0, 0, W, H);
+    // başlık
+    const logo = document.querySelector('.crest-img');
+    if (logo && logo.complete) ctx.drawImage(logo, pad, 34, 76, 76);
+    ctx.fillStyle = '#18203a'; ctx.font = font(800, 34);
+    ctx.fillText(t('png.title'), pad + 96, 70);
+    ctx.font = font(500, 19); ctx.fillStyle = '#6a7390';
+    ctx.fillText(`${t('top.uni')}  |  ${studentName()} (${app.profile.number})  |  ${t('term.' + snap.term)}  |  ${t('stat.semValue', { year: app.profile.year, sem: snap.semester })}`, pad + 96, 104);
+    const badge = approved ? t('png.approved') : t('png.draft');
+    ctx.font = font(700, 16);
+    const bw = ctx.measureText(badge).width + 28;
+    roundRect(ctx, W - pad - bw, 52, bw, 34, 17);
+    ctx.fillStyle = approved ? '#e4f5ec' : '#fff4dc'; ctx.fill();
+    ctx.fillStyle = approved ? '#138a55' : '#9a5c00'; ctx.fillText(badge, W - pad - bw + 14, 75);
+    // tablo zemini
+    const gx = pad, gy = headH;
+    roundRect(ctx, gx, gy, W - pad * 2, gridH, 18); ctx.fillStyle = '#fff'; ctx.fill();
+    ctx.font = font(700, 16); ctx.fillStyle = '#6a7390';
+    days().forEach((d, i) => ctx.fillText(d, gx + timeW + i * colW + 12, gy + 29));
+    hours.forEach((h, r) => {
+      const y = gy + dayH + r * rowH;
+      ctx.strokeStyle = '#e3e7ef'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(gx + 14, y); ctx.lineTo(W - pad - 14, y); ctx.stroke();
+      ctx.fillStyle = '#18203a'; ctx.font = font(700, 16); ctx.fillText(`${String(h).padStart(2, '0')}:40`, gx + 16, y + 26);
+      ctx.fillStyle = '#6a7390'; ctx.font = font(500, 13); ctx.fillText(`${String(h + 1).padStart(2, '0')}:30`, gx + 16, y + 46);
+    });
+    // dersler
+    const cells = new Map();
+    for (const it of items) for (const sl of it.slots) {
+      const k = sl.day + '|' + parseInt(sl.start, 10);
+      if (!cells.has(k)) cells.set(k, []);
+      cells.get(k).push({ it, sl });
+    }
+    for (const [k, list] of cells) {
+      const [d, h] = k.split('|').map(Number);
+      const r = hours.indexOf(h);
+      const x = gx + timeW + d * colW + 5, y0 = gy + dayH + r * rowH + 5;
+      const bh = (rowH - 10 - (list.length - 1) * 4) / list.length;
+      list.forEach(({ it, sl }, j) => {
+        const y = y0 + j * (bh + 4);
+        roundRect(ctx, x, y, colW - 10, bh, 10); ctx.fillStyle = tint(it.color, 0.78); ctx.fill();
+        roundRect(ctx, x, y, 5, bh, 2.5); ctx.fillStyle = it.color; ctx.fill();
+        ctx.fillStyle = '#18203a'; ctx.font = font(800, bh > 50 ? 15 : 13);
+        ctx.fillText(fitText(ctx, it.code, colW - 26), x + 14, y + (bh > 50 ? 22 : 17));
+        if (bh > 34) {
+          ctx.fillStyle = '#4a5470'; ctx.font = font(500, 12.5);
+          const sub = [it.section ? t('grid.section', { n: it.section }) : '', it.online ? t('grid.online') : sl.room || '', sl.type === 'U' ? t('grid.lab') : ''].filter(Boolean).join(' · ');
+          ctx.fillText(fitText(ctx, sub, colW - 26), x + 14, y + (bh > 50 ? 42 : 33));
+        }
+      });
+    }
+    // ders listesi
+    let ly = gy + gridH + 40;
+    roundRect(ctx, gx, ly, W - pad * 2, listH, 18); ctx.fillStyle = '#fff'; ctx.fill();
+    ctx.fillStyle = '#18203a'; ctx.font = font(800, 20); ctx.fillText(t('tt.courses'), gx + 22, ly + 38);
+    const total = items.reduce((a2, it) => a2 + (it.ects || 0), 0);
+    ctx.font = font(700, 16); ctx.fillStyle = '#6a7390';
+    const tot = t('png.total', { n: total });
+    ctx.fillText(tot, W - pad - 22 - ctx.measureText(tot).width, ly + 38);
+    ly += 62;
+    for (const it of items) {
+      ctx.fillStyle = it.color; roundRect(ctx, gx + 22, ly + 6, 12, 12, 3); ctx.fill();
+      ctx.fillStyle = '#18203a'; ctx.font = font(800, 16); ctx.fillText(it.code, gx + 44, ly + 18);
+      ctx.font = font(500, 16); ctx.fillText(fitText(ctx, name(it.code), 560), gx + 170, ly + 18);
+      ctx.fillStyle = '#6a7390'; ctx.font = font(500, 14);
+      const hrs = it.slots.length ? it.slots.map((x) => `${daysShort()[x.day]} ${x.start}`).join(', ') : t('tt.noHours');
+      ctx.fillText(fitText(ctx, `${it.section ? t('grid.section', { n: it.section }) + '  |  ' : ''}${hrs}`, 560), gx + 760, ly + 18);
+      ctx.fillStyle = '#18203a'; ctx.font = font(700, 16);
+      const e2 = `${it.ects} ${t('sel.ects')}`;
+      ctx.fillText(e2, W - pad - 22 - ctx.measureText(e2).width, ly + 18);
+      ly += listRowH;
+    }
+    ctx.fillStyle = '#9aa2b4'; ctx.font = font(500, 13);
+    ctx.fillText(t('login.foot'), pad, H - 24);
+    cv.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `ders-programi-${snap.term}-${app.profile.number}.png`;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+      toast(t('png.done'));
+    }, 'image/png');
+  }
+
+  function bindNew() {
+    $('loginForm').addEventListener('submit', doLogin);
+    $('capNew').addEventListener('click', () => { newCaptcha(); $('capA').focus(); });
+    $('capA').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, ''); $('loginErr').textContent = ''; });
+    $('loginEye').addEventListener('click', () => {
+      const i = $('loginPass');
+      i.type = i.type === 'password' ? 'text' : 'password';
+      $('loginEye').querySelector('use').setAttribute('href', i.type === 'password' ? '#i-eyeoff' : '#i-eye');
+    });
+    $('loginLang').addEventListener('click', () => setLang(app.lang === 'tr' ? 'en' : 'tr'));
+    $('logoutBtn').addEventListener('click', showLogin);
+    $('homeBannerX').addEventListener('click', () => $('homeBanner').classList.add('view-hidden'));
+    $('pngBtn').addEventListener('click', () => exportPNG(snapshot(), false));
+    $('ttPngBtn').addEventListener('click', () => (app.approved ? exportPNG(app.approved, true) : toast(t('png.empty'))));
+    document.addEventListener('click', (e) => {
+      const dt = e.target.closest('[data-dayt]');
+      if (!dt) return;
+      app.day = parseInt(dt.dataset.dayt, 10);
+      renderGrid();
+      if (app.view === 'tt') renderTT();
+    });
+    setInterval(() => {
+      if (app.loggedIn) return;
+      loginLeft = loginLeft > 0 ? loginLeft - 1 : 300;
+      if (loginLeft === 300) newCaptcha();
+      renderLoginTimer();
+    }, 1000);
+  }
+
+  // Logo tek kez gömülü (sekme simgesi); görseller oradan alınır
+  document.querySelectorAll('img.logo-src').forEach((im) => { im.src = $('favicon').href; });
   bind();
   bindAI();
   bindExtra();
+  bindNew();
   applyStatic();
   rebuild();
+  showLogin();
 })();

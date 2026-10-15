@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .claude/
+_kaynak/
 *.log
 .DS_Store
 Thumbs.db

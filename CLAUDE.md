@@ -2,7 +2,8 @@
 
 Yaşar Üniversitesi Makine Mühendisliği için ders kayıt ekranı prototipi.
 Dersler düz liste yerine **haftalık program tablosunda** gösterilir, **seçim tabloya tıklanarak** yapılır ve çakışmalar görsel olarak kilitlenir.
-Cuma günü sunulacak. Kapsam bilerek dar tutuldu: sadece **3. ve 4. sınıf** (5–8. yarıyıl). **Ön koşul kontrolü yok.**
+Cuma günü sunulacak. Kapsam bilerek dar tutuldu: sadece **3. ve 4. sınıf** (5–8. yarıyıl). Tek ön koşul kuralı var (ME 4920 ← ME 4910).
+Canlı site: https://yarensuudegur.github.io/obs-ders-kaydi/ (GitHub Pages, `main` dalının kökündeki `index.html`).
 
 ---
 
@@ -27,7 +28,7 @@ Veriler JSON'a çevrilmiş ve kontrol edilmiş durumda. **Uygulama sadece bu iki
 `data/*.xlsx` (orijinal programlar) ve `data/müfredat.pdf`. **PDF'i okuyup veri çıkarmaya çalışma.** Metin katmanında beyazla kapatılmış eski satırlar duruyor ve yanlış sonuç verir.
 
 ### Demo öğrenci
-Varsayılan profil `src/app.js` başında: Demo Öğrenci, 4. sınıf, Güz (= 7. yarıyıl), AKTS limiti 40, ME 3220 "kaldı". Sağ üstteki isme tıklayınca açılan **Öğrenci profili** penceresinden ad, soyad, numara, sınıf, AKTS limiti ve 5–8. yarıyılın her dersi/seçmeli hakkı için **Geçti / Kaldı / Almadı** ayarlanır (`profile.status`). Belirtilmeyenler: kayıt yarıyılından öncekiler geçti, sonrakiler almadı.
+Varsayılan profil `src/app.js` başında: Demo Öğrenci, 4. sınıf, Güz (= 7. yarıyıl), AGNO 2,75, ME 3220 "kaldı". **AKTS sınırı AGNO'dan hesaplanır: 2,00 altı 32, 2,00 ve üstü 40.** Sağ üstteki isme tıklayınca açılan **Öğrenci profili** penceresinden ad, soyad, numara, sınıf, AGNO ve 5–8. yarıyılın her dersi/seçmeli hakkı için **Geçti / Kaldı / Almadı** ayarlanır (`profile.status`). Belirtilmeyenler: kayıt yarıyılından öncekiler geçti, sonrakiler almadı.
 - Geçilen dersler listeye gelmez, tabloda soluk ✓ ile kilitli durur ("passed" durumu).
 - Kaldığın ya da almadığın alt yarıyıl dersleri kendi yarıyıl başlığıyla **"alttan"** zorunlu olarak her zaman listelenir ("Kaldı, ..." / "Alınmadı, ...").
 - Ön koşul kontrolü geçilen derslere bakar (ME 4910 geçti işaretlenirse ME 4920 açılır).
@@ -51,11 +52,11 @@ Varsayılan profil `src/app.js` başında: Demo Öğrenci, 4. sınıf, Güz (= 7
 8. **Seçim görünümü:** Seçilen dersin çerçevesi belirgin bir renkle çizilir. Tablonun üstündeki **ders listesinde** (zorunlular + seçmeli boşluklar, her biri durumuyla) aynı ders aynı renkte vurgulanır. Listede bir derse tıklamak tablodaki saatlerini parlatır. Seçim tablodan yapılır.
 9. **Saat dışı dersler:** Görünen bir ders 17:30 sonrasına taşıyorsa (UMFD 1720 akşam, bazı 17:40 saatleri) tablonun altına ek akşam satırları eklenir, farklı başlık tonuyla. Böyle ders yoksa tablo 9 satır kalır.
 10. **Listeden seçilenler:** Staj (ME 4830) saatsizdir, listede tek bir "Ekle" düğmesiyle eklenir, başka seçenek yoktur. `UNV` boşluğu hem listeden hem tablodan seçilebilir. Üniversite seçmelileri **online ve akşam saatinde** (18:40 sonrası), listede "Online" rozetiyle görünür. **Online oldukları için çakışma kontrolüne hiç girmezler:** hiçbir dersle çakışıyor sayılmazlar, başka bir dersi kilitlemezler ve kendileri de kilitlenmezler. Yine de **tabloda gösterilirler**: seçilmemişken akşam satırlarında soluk ve kesikli çerçeveli, seçilince normal görünür. Aynı hücrede başka bir dersle denk gelirlerse ikisi de alt alta görünür, hiçbiri kilitlenmez ve uyarı çıkmaz. Seçimleri tablodan da yapılabilir. Staj saatsizdir.
-11. **AKTS sayacı:** Canlı olarak `36 / 40 AKTS` gösterilir, limit aşılınca kırmızıya döner. Seçmeli boşluğu AKTS'sini boşluktan alır.
+11. **AKTS sayacı:** Canlı olarak `36 / 40 AKTS` gösterilir (sınır AGNO'ya göre 32 ya da 40), limit aşılınca kırmızıya döner. Seçmeli boşluğu AKTS'sini boşluktan alır.
 12. **Uyarı bandı:** İki sabit zorunlu ders birbiriyle çakışıyorsa üstte uyarı çıkar ("danışmanınla görüş"). Zorunlu bir dersin bu dönem açılmamış olması da uyarı olarak gösterilir (örn. MATH 2260).
 13. **Kaydı tamamla:** Seçilenlerin özeti (ders, şube, AKTS) ve eksik boşluklar gösterilir.
 
-**Ek:** Kayıt özeti Yazdır/PDF ile kaydedilebilir.
+**Ek:** Kayıt özeti İptal / Tamam ile onaya gönderilir.
 
 ---
 
@@ -90,6 +91,14 @@ Varsayılan profil `src/app.js` başında: Demo Öğrenci, 4. sınıf, Güz (= 7
 - Ön koşullar `mufredat.json > prerequisites` içinde: **ME 4920 ← ME 4910**. Geçilmiş dersler = kayıt yarıyılından önceki zorunlular (alttan alınanlar hariç). Ön koşulu sağlanmayan ders tabloda kilitli (🔒, "prereq" durumu), listede "Ön koşullu: ME 4910" yazar, yapay zeka önerilerinde seçilemez.
 - Program kutucukları değişince model yeniden kurulur, seçimler `replayState` ile korunur.
 
+## 2a. Giriş ve ana sayfa (uygulandı)
+- Site **giriş ekranıyla** açılır (gerçek OBS girişine benzer): öğrenci numarası ve şifre demo olarak otomatik dolu ve **salt okunur** (gerçek bilgi girilemez, hiçbir şey gönderilmez), toplama işlemi (ör. 34 + 4 = ?) çözülüp Giriş'e basılır. Yanlışsa yeni işlem gelir. "Şifremi unuttum", "E-Devlet ile giriş", "Duyurular" görseldir. Alt bilgi: "Ders projesi prototipidir. Resmi Yaşar Üniversitesi sistemi değildir."
+- Girişten sonra **ana sayfa**: bilgilendirme bandı (ders kaydı durumu) + 8 bilgi kartı (öğrenci kimliği, program, öğrenim durumu + AGNO, süre, ders kayıt özeti, danışman (uydurma "Demo Danışman"), akademik özet, ek bilgiler + AKTS sınırı). Hızlı erişim bölümü yok; ders kaydına soldaki menüden gidilir. Üstteki ev simgesi ana sayfaya döner, çıkış simgesi giriş ekranına.
+
+## 2d. Telefon ve PNG (uygulandı)
+- 900 px altında sol menü açılır/kapanır çekmece olur; haftalık program **gün sekmeleriyle** tek gün gösterilir (`.grid[data-day]`); kartlar tek sütun, pencereler tam genişlik.
+- "Seçilen dersler" başlığında ve Ders Programı sayfasında **PNG indir**: program canvas'a çizilip `ders-programi-<dönem>-<numara>.png` olarak iner (taslak / danışman onaylı rozeti ile).
+
 ## 2c. Dil (uygulandı)
 - Üst çubukta TR / EN düğmesi. Seçim tarayıcıda hatırlanır.
 - Bütün arayüz metinleri `src/i18n.js` içinde (`I18N.tr`, `I18N.en`). Yeni metin eklerken iki dile de ekle.
@@ -105,4 +114,4 @@ Varsayılan profil `src/app.js` başında: Demo Öğrenci, 4. sınıf, Güz (= 7
 - Türkçe arayüz, projektörde okunaklı olacak şekilde büyük yazı ve net kontrast.
 
 ## 4. Durum
-Kurallar 1–13 uygulandı ve testlerle doğrulandı. "Kaydı tamamla" özetinde Yazdır/PDF düğmesi var.
+Bütün bölümler uygulandı, 23 test geçiyor. `node build.mjs` sözdizimi hatası varsa index.html'i yazmadan durur.
