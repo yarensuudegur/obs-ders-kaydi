@@ -676,7 +676,8 @@
       if (slot.slotType !== 'A' && slot.slotType !== 'B') continue;
       for (const c of slot.options) if (!seen.has(c) && (m.sectionsByCode.get(c) || []).length) { seen.add(c); electives.push(c); }
     }
-    electives.sort((a, b) => a.localeCompare(b, 'tr'));
+    // bu dönem açılmayan seçmeliler en sona (soluk, seçilemez)
+    electives.sort((a, b) => (m.termSections(a).length ? 0 : 1) - (m.termSections(b).length ? 0 : 1) || a.localeCompare(b, 'tr'));
     return { mandatory, retake, electives };
   }
   const isLocked = (code) => {
@@ -691,10 +692,10 @@
     const m = app.model;
     const { mandatory, retake } = aiCandidates();
     const upperReq = (c) => m.requirements.find((r) => r.code === c)?.upper;
-    ai.wanted = new Set([...mandatory, ...retake].filter((c) => (m.sectionsByCode.get(c) || []).length && !upperReq(c) && !m.blockedBy(c).length));
-    for (const p of app.state.picks) { const c = m.sections.get(p.id).code; if (upperReq(c)) ai.wanted.add(c); }
+    ai.wanted = new Set([...mandatory, ...retake].filter((c) => m.termSections(c).length && !upperReq(c) && !m.blockedBy(c).length));
+    for (const p of app.state.picks) { const c = m.sections.get(p.id).code; if (upperReq(c) && m.termSections(c).length) ai.wanted.add(c); }
     // Şu an seçili seçmeliler de başlangıçta işaretli gelsin
-    for (const p of app.state.picks) { const c = m.sections.get(p.id).code; if (p.slot) ai.wanted.add(c); }
+    for (const p of app.state.picks) { const c = m.sections.get(p.id).code; if (p.slot && m.termSections(c).length) ai.wanted.add(c); }
     ai.staj = !!app.state.listChoices.STAJ;
     const unvSlot = unvSlotName(m);
     ai.unv = unvSlot ? app.state.listChoices[unvSlot] || '' : '';
@@ -706,9 +707,10 @@
   function aiOpt(code, opts) {
     let { locked, disabled, on } = opts;
     const m = app.model;
-    const n = m.termSections(code).length || (m.sectionsByCode.get(code) || []).length;
+    const n = m.termSections(code).length;
     const pre = m.blockedBy(code);
     if (pre.length) { disabled = true; locked = false; on = false; }
+    if (!n) { disabled = true; locked = false; on = false; }
     const sub = pre.length ? t('req.prereq', { list: pre.join(', ') }) : !n ? t('ai.notOffered') : locked ? t('ai.locked') : t('ai.sections', { n });
     return `<label class="ai-opt ${on ? 'on' : ''} ${locked ? 'lock' : ''} ${disabled ? 'dis' : ''}" style="--c:${colorOf(code)}">
       <input type="checkbox" data-ai="${esc(code)}" ${on ? 'checked' : ''} ${locked || disabled ? 'disabled' : ''}>
@@ -726,12 +728,11 @@
     let html = '';
     if (mandatory.length) {
       html += `<div class="ai-group"><h3>${esc(t('ai.gMandatory'))}</h3><div class="ai-opts">${mandatory.map((c) => {
-        const n = (m.sectionsByCode.get(c) || []).length;
-        return aiOpt(c, { locked: isLocked(c), disabled: !n, on: ai.wanted.has(c) });
+        return aiOpt(c, { locked: isLocked(c), disabled: false, on: ai.wanted.has(c) });
       }).join('')}</div></div>`;
     }
     if (retake.length) {
-      html += `<div class="ai-group"><h3>${esc(t('ai.gRetake'))}</h3><div class="ai-opts">${retake.map((c) => aiOpt(c, { locked: true, disabled: !(m.sectionsByCode.get(c) || []).length, on: ai.wanted.has(c) })).join('')}</div></div>`;
+      html += `<div class="ai-group"><h3>${esc(t('ai.gRetake'))}</h3><div class="ai-opts">${retake.map((c) => aiOpt(c, { locked: true, disabled: false, on: ai.wanted.has(c) })).join('')}</div></div>`;
     }
     if (slots.length) {
       const slotNames = slots.map((s) => slotName(s.slot)).join(', ');
@@ -739,7 +740,7 @@
         <p class="muted small" style="margin:-4px 0 8px">${esc(slotNames)}</p>
         <div class="ai-opts">${electives.map((c) => {
           const on = ai.wanted.has(c);
-          const canAdd = !on && assignElectives(m, [...chosenEl, c]);
+          const canAdd = !on && m.termSections(c).length && assignElectives(m, [...chosenEl, c]);
           return aiOpt(c, { locked: false, disabled: !on && !canAdd, on });
         }).join('')}</div>${full ? `<p class="ai-note">${esc(t('ai.slotsFull'))}</p>` : ''}</div>`;
     }

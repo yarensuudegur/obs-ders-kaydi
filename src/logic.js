@@ -352,12 +352,12 @@ export function suggestPrograms(model, wanted, limit = 500) {
   const electives = codes.filter((c) => model.roles.get(c)?.kind === 'elective');
   const slotOf = assignElectives(model, electives);
   if (!slotOf) return { programs: [], total: 0, reason: 'too-many-electives' };
-  const missing = codes.filter((c) => !(model.sectionsByCode.get(c) || []).length);
+  // Sadece kayıt döneminde açılan şubeler kullanılır; bu dönem açılmayan ders programa konmaz.
+  const missing = codes.filter((c) => !model.termSections(c).length);
   const domains = codes
     .filter((c) => !missing.includes(c))
     .map((c) => {
-      // Kayıt döneminde açılıyorsa o dönemin şubeleri, açılmıyorsa diğer dönemin şubeleri
-      const secs = model.termSections(c).length ? model.termSections(c) : model.sectionsByCode.get(c);
+      const secs = model.termSections(c);
       const fixed = secs.find((s) => model.fixedIds.has(s.id));
       return { code: c, secs: fixed ? [fixed] : secs };
     })

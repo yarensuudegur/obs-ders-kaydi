@@ -82,7 +82,8 @@ Varsayılan profil `src/app.js` başında: Demo Öğrenci, 4. sınıf, Güz (= 7
 - "Gösterilecek programlar": her sınıf için ayrı Güz ve Bahar kutucuğu (1-2. sınıf pasif). Her kutucuk ilgili Excel'in (ör. 3. sınıf bahar) derslerini tabloya getirir. Varsayılan: öğrencinin sınıfı + kayıt dönemi.
 - Model dört programın hepsini yükler. Kayıt döneminin şubeleri `KOD#şube`, diğer dönemin şubeleri `KOD#şube@dönem` kimliğini alır; `section.layers` = {"3|bahar", ...}. Diğer dönemin dersleri tabloda sarı "Güz/Bahar" etiketiyle görünür.
 - Müfredatta o dönem olmayan dersler artık soluk/kilitli değil: **ek ders (üstten)** olarak seçilebilir, AKTS'ye eklenir, "Seçilen dersler"de "Ek ders" olarak listelenir. Çakışma ve kardeş kilidi aynen geçerli.
-- Sabit (tek şubeli) zorunlu hesabı ve yapay zeka önerileri kayıt döneminin şubelerini esas alır; ders kayıt döneminde açılmıyorsa diğer dönemin şubelerine bakılır.
+- Sabit (tek şubeli) zorunlu hesabı kayıt döneminin şubelerini esas alır; ders kayıt döneminde açılmıyorsa diğer dönemin şubelerine bakılır.
+- Yapay zeka önerileri **sadece kayıt döneminde açılan şubeleri** kullanır. Bu dönem açılmayan ders pencerede soluk ve "Bu dönem açılmadı" yazılı görünür, seçilemez ve programa konmaz.
 
 ## 2b++++. Üst/alt yarıyıl ve ön koşul (uygulandı)
 - Alt yarıyıl dersleri profildeki duruma göre gelir (bkz. Demo öğrenci); alt yarıyıl kutucuğu sadece tablodaki görünürlüğü değiştirir.
@@ -114,4 +115,4 @@ Varsayılan profil `src/app.js` başında: Demo Öğrenci, 4. sınıf, Güz (= 7
 - Türkçe arayüz, projektörde okunaklı olacak şekilde büyük yazı ve net kontrast.
 
 ## 4. Durum
-Bütün bölümler uygulandı, 23 test geçiyor. `node build.mjs` sözdizimi hatası varsa index.html'i yazmadan durur.
+Bütün bölümler uygulandı, 24 test geçiyor. `node build.mjs` sözdizimi hatası varsa index.html'i yazmadan durur.

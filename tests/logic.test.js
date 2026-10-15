@@ -259,3 +259,15 @@ test('Kaldığı ve almadığı alt yarıyıl dersleri "alttan" zorunlu gelir, g
   let st = toggleSection(m, emptyState(), 'ME 4340#1');
   assert.equal(st.slot, 'A2');
 });
+
+test('yapay zeka önerileri: bu dönem açılmayan ders diğer dönemin şubesiyle programa konmaz', () => {
+  const m = guz7();
+  assert.equal(m.termSections('ME 4230').length, 0); // sadece Bahar'da açılıyor
+  assert.ok((m.sectionsByCode.get('ME 4230') || []).length > 0);
+  const r = suggestPrograms(m, ['ENGR 4400', 'ENGR 4411', 'ME 4910', 'UMFD 1720', 'ME 3220', 'ME 4230', 'ME 4240']);
+  assert.ok(r.programs.length > 0);
+  for (const p of r.programs) {
+    assert.ok(p.sections.every((id) => !id.includes('@')), 'diğer dönem şubesi seçilmemeli');
+    assert.ok(p.sections.every((id) => !id.startsWith('ME 4230')));
+  }
+});
