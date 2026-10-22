@@ -1,13 +1,14 @@
-// Arayüz. logic.js, i18n.js ve window.MUFREDAT / window.PROGRAM verisi bu dosyadan önce yüklenir.
+// Arayüz çekirdeği. Veriler Veri Merkezi'nden (data.js) gelir; sayfalar OBS.views içine kaydolur.
 (function () {
-  const MUF = window.MUFREDAT;
-  const PROG = window.PROGRAM;
+  let MUF = null;
+  let PROG = null;
 
   const PALETTE = ['#3f7be0', '#14a383', '#e0a21b', '#14a0c4', '#6a5ae0', '#c2703a', '#5f9e1c'];
   const COLORS = { A: '#9b59d0', B: '#3aa655', retake: '#e0533d', unv: '#d63384', staj: '#7b8496', none: '#9aa2b4' };
   const STATE_ORDER = { fixed: 0, selected: 1, free: 2, 'locked-choice': 3, 'locked-fixed': 4, sibling: 5, 'slot-full': 6, prereq: 7, passed: 8 };
   const CHECK = '<svg><use href="#i-check"/></svg>';
-  const EN_NAMES = new Map([...MUF.courses, ...MUF.universityElectives.courses].map((c) => [c.code, c.nameEn]));
+  let EN_NAMES = new Map();
+  let NAMES = new Map();
 
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
@@ -29,16 +30,22 @@
     state: emptyState(),
     model: null,
     evalr: null,
+    ay: '2026-2027', // kayıt döneminin akademik yılı
+    today: null, // demo tarihi (YYYY-MM-DD); boşsa bugünün tarihi
+    rules: { minEcts: 240, minGpa: 2, internshipDays: 20, normalYears: 4, maxYears: 7, retakeBelow: 'C-', limitGpa: 2, limitHigh: 40, limitLow: 32, scale: null },
+    history: [], // onaylanan kayıtlar (ders kaydı, ekle-bırak)
+    profileEdited: false,
   };
 
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   // AGNO 2,00 altı: 32 AKTS, 2,00 ve üstü: 40 AKTS
-  const limitFor = (gpa) => (gpa < 2 ? 32 : 40);
+  const limitFor = (gpa) => (gpa < app.rules.limitGpa ? app.rules.limitLow : app.rules.limitHigh);
   const ectsLimit = () => limitFor(app.profile.gpa);
   const fmtGpa = (g) => (app.lang === 'tr' ? g.toFixed(2).replace('.', ',') : g.toFixed(2));
 
   function t(key, params) {
+    if (key === 'term.guz' || key === 'term.bahar') return `${app.ay} ${I18N[app.lang]['tshort.' + key.slice(5)]}`;
     const str = I18N[app.lang][key] ?? I18N.tr[key] ?? key;
     return params ? str.replace(/\{(\w+)\}/g, (m, k) => (k in params ? params[k] : m)) : str;
   }
@@ -59,7 +66,7 @@
   }
   function name(code) {
     if (app.lang === 'en' && EN_NAMES.get(code)) return EN_NAMES.get(code);
-    const n = courseName(app.model, code);
+    const n = NAMES.get(code) || code;
     return n === code ? code : titleCase(n);
   }
   function slotName(slot) {
@@ -95,8 +102,9 @@
     return [...app.layers].map((l) => { const [y, tm] = l.split('|'); return semesterFor(parseInt(y, 10), tm); }).filter((x) => x !== reg && x >= 5);
   }
   function rebuild(resetState = true) {
+    if (!MUF || !PROG) { app.model = null; app.evalr = null; return; }
     app.model = buildModel(MUF, PROG, { year: app.profile.year, term: app.term, status: app.profile.status, extraSemesters: upperSemesters() });
-    if (resetState) { app.state = emptyState(); app.advisor = 'waiting'; }
+    if (resetState) { app.state = emptyState(); app.advisor = app.approved && app.approved.term === app.term ? 'approved' : 'waiting'; }
     else app.state = replayState(app.model, app.state);
     render();
   }
@@ -129,8 +137,7 @@
     document.querySelectorAll('.side-nav .item.off').forEach((el) => { el.title = t('side.inactive'); });
     document.querySelectorAll('#langSeg [data-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === app.lang)));
     $('termSel').innerHTML = ['guz', 'bahar'].map((v) => `<option value="${v}">${t('term.' + v)}</option>`).join('');
-    $('pfYear').options[0].textContent = t('pf.yearOpt', { y: 3 });
-    $('pfYear').options[1].textContent = t('pf.yearOpt', { y: 4 });
+    [...$('pfYear').options].forEach((o) => { o.textContent = t('pf.yearOpt', { y: o.value }); });
     $('loginLangLabel').textContent = t('login.langOther');
     $('loginNo').value = app.profile.number;
   }
@@ -141,6 +148,13 @@
     const m = app.model;
     const p = app.profile;
     $('termPill').textContent = t('term.' + app.term);
+    renderDateChip();
+    $('avatar').textContent = studentName().split(' ').map((w) => w[0]).join('').slice(0, 2).toLocaleUpperCase('tr');
+    $('meName').textContent = `${p.number} · ${upper(studentName())}`;
+    $('bellDot').textContent = String(app.unread);
+    $('bellDot').classList.toggle('zero', !app.unread);
+    OBS.renderNav && OBS.renderNav();
+    if (!m || !app.evalr) return;
     $('termSel').value = app.term;
     $('avatar').textContent = studentName().split(' ').map((w) => w[0]).join('').slice(0, 2).toLocaleUpperCase('tr');
     $('meName').textContent = `${p.number} · ${upper(studentName())}`;
@@ -153,12 +167,13 @@
 
     $('yearChecks').innerHTML = [1, 2, 3, 4]
       .map((y) => {
-        const avail = y >= 3;
+        const avail = ['guz', 'bahar'].some((tm) => PROG && PROG.terms[tm] && PROG.terms[tm][String(y)]);
         const boxes = ['guz', 'bahar'].map((tm) => {
           const key = y + '|' + tm;
-          const on = avail && app.layers.has(key);
+          const has = !!(PROG && PROG.terms[tm] && PROG.terms[tm][String(y)]);
+          const on = has && app.layers.has(key);
           return `<label class="yc ${on ? 'on' : ''} ${avail ? '' : 'dis'}" title="${esc(avail ? t('f.layerTip', { y, term: t('tshort.' + tm) }) : t('f.yearOff'))}">
-            <input type="checkbox" data-layer="${key}" ${on ? 'checked' : ''} ${avail ? '' : 'disabled'}>${esc(t('tshort.' + tm))}</label>`;
+            <input type="checkbox" data-layer="${key}" ${on ? 'checked' : ''} ${has ? '' : 'disabled'}>${esc(t('tshort.' + tm))}</label>`;
         }).join('');
         return `<div class="ygroup ${avail ? '' : 'dis'}"><span class="yl">${esc(t('f.year', { y }))}</span><div class="ybox">${boxes}</div></div>`;
       })
@@ -176,7 +191,10 @@
 
   function renderWarnings() {
     const icon = '<svg viewBox="0 0 24 24"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17.5v.5"/></svg>';
-    $('warnings').innerHTML = app.evalr.warnings
+    const cal = OBS.periodNote ? OBS.periodNote('registration') : '';
+    $('finishBtn').disabled = !!(OBS.periodOpen && !OBS.periodOpen('registration'));
+    $('finishBtn').title = $('finishBtn').disabled ? t('cal.regClosedBtn') : '';
+    $('warnings').innerHTML = cal + app.evalr.warnings
       .map((w) => {
         const txt = w.kind === 'missing' ? t('w.missing', { code: w.code, name: name(w.code) }) : w.kind === 'clash' ? t('w.clash', { a: w.a, b: w.b, when: when(w.at) }) : w.text;
         return `<div class="warn-box ${w.level}">${icon}<span>${esc(txt)}</span></div>`;
@@ -397,6 +415,7 @@
 
   function render() {
     $('tip').classList.remove('on');
+    if (!app.model) { renderTop(); return; }
     app.evalr = evaluate(app.model, app.state);
     renderTop();
     renderWarnings();
@@ -499,8 +518,7 @@
     store.set('obs-lang', lang);
     applyStatic();
     render();
-    if (app.view === 'tt') renderTT();
-    if (app.view === 'home') renderHome();
+    renderView();
     if (!$('bellPop').hidden) renderBell();
     toast(t('t.lang'));
   }
@@ -589,7 +607,10 @@
       app.profile.number = $('pfNumber').value.trim() || app.profile.number;
       app.profile.status = { ...pfDraft };
       app.layers = new Set([year + '|' + app.term]);
+      app.profileEdited = true;
+      OBS.saveState();
       rebuild();
+      renderView();
       toast(t('t.profile'));
     });
 
@@ -615,7 +636,8 @@
     const year = parseInt($('pfYear').value, 10);
     const reg = semesterFor(year, app.term);
     const opts = ['passed', 'failed', 'none'];
-    $('pfCourses').innerHTML = MUF.semesters.map((sm) => {
+    if (!MUF) { $('pfCourses').innerHTML = `<p class="muted small" style="padding:10px 0">${esc(t('pf.noCurr'))}</p>`; return; }
+    $('pfCourses').innerHTML = (OBS.has('transcript') ? `<p class="pf-note">${esc(t('pf.fromTranscript'))}</p>` : '') + MUF.semesters.map((sm) => {
       const y = Math.ceil(sm.semester / 2);
       const tm = sm.semester % 2 ? 'guz' : 'bahar';
       const rows = [...sm.mandatory.map((c) => ({ key: c, label: c, sub: name(c) })),
@@ -867,7 +889,7 @@
         const pick = app.state.picks.find((p) => p.slot === req.slot);
         const sec = pick ? m.sections.get(pick.id) : null;
         const unv = m.unvCourses.get(code);
-        items.push({ code, section: sec ? sec.section : null, kind: 'slot', slot: slotNames(req.slot), ects: req.ects, color: reqColor(req), slots: sec ? sec.slots : unv ? unv.slots : [], online: !!unv });
+        items.push({ code, section: sec ? sec.section : null, kind: 'slot', slot: slotNames(req.slot), slotKey: req.slot, ects: req.ects, color: reqColor(req), slots: sec ? sec.slots : unv ? unv.slots : [], online: !!unv });
       } else {
         const s = (m.sectionsByCode.get(req.code) || []).find((x) => m.fixedIds.has(x.id) || app.state.picks.some((p) => p.id === x.id));
         if (!s) continue;
@@ -878,28 +900,33 @@
       const s = m.sections.get(app.state.picks.find((p) => m.sections.get(p.id).code === code).id);
       items.push({ code, section: s.section, kind: 'extra', ects: m.courses.get(code)?.ects ?? 0, color: COLORS.none, slots: s.slots, online: false });
     }
-    return { term: app.term, semester: m.semester, items, ects: ev.ects, date: new Date() };
+    return { term: app.term, ay: app.ay, semester: m.semester, items, ects: ev.ects, date: new Date().toISOString(), state: JSON.parse(JSON.stringify(app.state)) };
   }
 
-  function submitForApproval() {
+  // Danışman onayı (demo: ~2 sn sonra otomatik). kind: 'registration' | 'adddrop'
+  function submitForApproval(kind = 'registration', snap = snapshot(), extra = {}) {
     app.advisor = 'sent';
-    app.approved = null;
+    if (kind === 'registration') app.approved = null;
+    app.pending = { kind, ...extra };
     renderTop();
-    const snap = snapshot();
+    OBS.saveState();
     setTimeout(() => {
       app.advisor = 'approved';
       app.approved = snap;
-      app.notes.unshift({ term: snap.term, date: new Date() });
+      app.pending = null;
+      app.history.unshift({ kind, date: snap.date, ects: snap.ects, n: snap.items.length, ...extra });
+      app.notes.unshift({ term: snap.term, kind, date: new Date().toISOString() });
       app.unread++;
+      OBS.saveState();
       renderTop();
-      showNotice();
-      if (app.view === 'tt') renderTT();
+      showNotice(kind);
+      renderView();
     }, 2200);
   }
 
-  function showNotice() {
+  function showNotice(kind = 'registration') {
     const n = $('notice');
-    n.innerHTML = `<span class="ic">${CHECK}</span><div><b>${esc(t('n.title'))}</b><p>${esc(t('n.approved', { term: t('term.' + app.approved.term) }))}</p><button class="link" type="button" data-goto="tt">${esc(t('n.view'))}</button></div>`;
+    n.innerHTML = `<span class="ic">${CHECK}</span><div><b>${esc(t('n.title'))}</b><p>${esc(t(kind === 'adddrop' ? 'n.approvedAD' : 'n.approved', { term: t('term.' + app.approved.term) }))}</p><button class="link" type="button" data-goto="tt">${esc(t('n.view'))}</button></div>`;
     n.classList.add('on');
     clearTimeout(showNotice.tm);
     showNotice.tm = setTimeout(() => n.classList.remove('on'), 7000);
@@ -908,22 +935,36 @@
   function renderBell() {
     const pop = $('bellPop');
     pop.innerHTML = `<div class="np-h">${esc(t('top.news'))}</div>` + (app.notes.length
-      ? app.notes.map((x) => `<div class="np-item" data-goto="tt"><span class="ic">${CHECK}</span><div><b>${esc(t('n.title'))}</b><p>${esc(t('n.approved', { term: t('term.' + x.term) }))}</p><small>${esc(t('n.now'))}</small></div></div>`).join('')
+      ? app.notes.map((x) => `<div class="np-item" data-goto="tt"><span class="ic">${CHECK}</span><div><b>${esc(t('n.title'))}</b><p>${esc(t(x.kind === 'adddrop' ? 'n.approvedAD' : 'n.approved', { term: t('term.' + x.term) }))}</p><small>${esc(OBS.fmtDate(x.date, true))}</small></div></div>`).join('')
       : `<div class="np-e">${esc(t('n.empty'))}</div>`);
   }
 
   // ---------- Sayfalar ----------
   function setView(v) {
     app.view = v;
-    $('viewHome').classList.toggle('view-hidden', v !== 'home');
-    $('viewReg').classList.toggle('view-hidden', v !== 'reg');
-    $('viewTT').classList.toggle('view-hidden', v !== 'tt');
     $('shell').classList.remove('menu-open');
-    if (v === 'home') renderHome();
     document.querySelectorAll('.side-nav [data-view]').forEach((a) => a.classList.toggle('active', a.dataset.view === v));
-    document.querySelector('.ai-card')?.classList.toggle('view-hidden', v !== 'reg');
-    if (v === 'tt') renderTT();
+    renderView();
     window.scrollTo({ top: 0 });
+  }
+  // Geçerli sayfayı çiz. Ders Kayıt müfredat + ders programı ister; diğer sayfalar OBS.views içinde.
+  function renderView() {
+    const v = app.view;
+    const page = OBS.views[v];
+    const gate = v === 'reg' ? OBS.gate(['curriculum', 'timetable'], 'side.reg') : '';
+    $('viewHome').classList.toggle('view-hidden', v !== 'home');
+    $('viewReg').classList.toggle('view-hidden', v !== 'reg' || !!gate);
+    $('viewTT').classList.toggle('view-hidden', v !== 'tt');
+    $('viewPage').classList.toggle('view-hidden', !page && !gate);
+    if (v === 'home') renderHome();
+    if (v === 'tt') renderTT();
+    if (v === 'reg' && !gate) render();
+    if (gate) $('viewPage').innerHTML = gate;
+    else if (page) {
+      const g = page.needs ? OBS.gate(page.needs, page.title) : '';
+      $('viewPage').innerHTML = g || page.render();
+      if (!g && page.after) page.after();
+    }
   }
 
   function renderTT() {
@@ -933,27 +974,8 @@
       $('ttBody').innerHTML = `<div class="tt-empty"><b>${esc(t('tt.emptyT'))}</b><p>${esc(t(app.advisor === 'sent' ? 'stat.sent' : 'tt.empty'))}</p><button class="btn primary" type="button" data-goto="reg">${esc(t('tt.goReg'))}</button></div>`;
       return;
     }
-    const loc = app.lang === 'tr' ? 'tr-TR' : 'en-GB';
-    const date = a.date.toLocaleDateString(loc, { day: 'numeric', month: 'long', year: 'numeric' }) + ' ' + a.date.toLocaleTimeString(loc, { hour: '2-digit', minute: '2-digit' });
-    // Haftalık tablo
-    const cells = new Map();
-    let maxH = 16;
-    for (const it of a.items) for (const sl of it.slots) {
-      const h = parseInt(sl.start, 10); maxH = Math.max(maxH, h);
-      const k = sl.day + '|' + sl.start;
-      if (!cells.has(k)) cells.set(k, []);
-      cells.get(k).push({ it, sl });
-    }
-    let grid = `<div class="day-tabs">${dayTabs()}</div><table class="grid tt-grid" data-day="${app.day}"><thead><tr><th class="time"></th>` + days().map((d) => `<th>${d}</th>`).join('') + '</tr></thead><tbody>';
-    for (let h = 8; h <= maxH; h++) {
-      const st = `${String(h).padStart(2, '0')}:40`;
-      grid += `<tr class="${h >= 17 ? 'evening' : ''} ${h === 17 ? 'evening-first' : ''}"><th class="time"><b>${st}</b>${String(h + 1).padStart(2, '0')}:30</th>`;
-      for (let d = 0; d < 7; d++) {
-        grid += '<td>' + (cells.get(d + '|' + st) || []).map(({ it, sl }) => `<div class="tt-chip" style="--c:${it.color}"><b>${esc(it.code)}</b><div class="nm">${esc(name(it.code))}</div><div class="rm">${[it.section ? t('grid.section', { n: it.section }) : '', it.online ? t('grid.online') : sl.room || '', sl.type === 'U' ? t('grid.lab') : ''].filter(Boolean).map(esc).join(' · ')}</div></div>`).join('') + '</td>';
-      }
-      grid += '</tr>';
-    }
-    grid += '</tbody></table>';
+    const date = OBS.fmtDate(a.date, true);
+    const grid = weekGrid(a.items);
     // Ders listesi
     const typeOf = (it) => (it.kind === 'slot' ? it.slot[app.lang] : t(it.kind === 'retake' ? 'type.retake' : it.kind === 'extra' ? 'type.extra' : it.kind === 'upper' ? 'type.upper' : 'type.mandatory'));
     const hrs = (it) => (it.slots.length ? it.slots.map((x) => `${daysShort()[x.day]} ${x.start}`).join(', ') : t('tt.noHours'));
@@ -986,6 +1008,28 @@
       }
       if (!e.target.closest('#bellPop')) $('bellPop').hidden = true;
     });
+  }
+
+  // Salt okunur haftalık tablo: items = [{code, section, color, slots, online}]
+  function weekGrid(items, opts = {}) {
+    const cells = new Map();
+    let maxH = 16;
+    for (const it of items) for (const sl of it.slots) {
+      const h = parseInt(sl.start, 10); maxH = Math.max(maxH, h);
+      const k = sl.day + '|' + sl.start;
+      if (!cells.has(k)) cells.set(k, []);
+      cells.get(k).push({ it, sl });
+    }
+    let grid = `<div class="day-tabs">${dayTabs()}</div><table class="grid tt-grid ${opts.compact ? 'compact' : ''}" data-day="${app.day}"><thead><tr><th class="time"></th>` + days().map((d) => `<th>${d}</th>`).join('') + '</tr></thead><tbody>';
+    for (let h = 8; h <= maxH; h++) {
+      const st = `${String(h).padStart(2, '0')}:40`;
+      grid += `<tr class="${h >= 17 ? 'evening' : ''} ${h === 17 ? 'evening-first' : ''}"><th class="time"><b>${st}</b>${String(h + 1).padStart(2, '0')}:30</th>`;
+      for (let d = 0; d < 7; d++) {
+        grid += '<td>' + (cells.get(d + '|' + st) || []).map(({ it, sl }) => `<div class="tt-chip ${it.cls || ''}" style="--c:${it.color}" ${it.title ? `title="${esc(it.title)}"` : ''}><b>${esc(it.code)}</b>${opts.compact ? '' : `<div class="nm">${esc(name(it.code))}</div>`}<div class="rm">${[it.section ? t('grid.section', { n: it.section }) : '', it.online ? t('grid.online') : sl.room || '', sl.type === 'U' ? t('grid.lab') : ''].filter(Boolean).map(esc).join(' · ')}</div></div>`).join('') + '</td>';
+      }
+      grid += '</tr>';
+    }
+    return grid + '</tbody></table>';
   }
 
   // ---------- Telefon: tek gün görünümü ----------
@@ -1049,10 +1093,13 @@
     const a = app.approved && app.approved.term === app.term ? app.approved : null;
     const loc = app.lang === 'tr' ? 'tr-TR' : 'en-GB';
     const banner = $('homeBanner');
-    banner.className = 'home-banner ' + (a ? 'ok' : app.advisor === 'sent' ? 'wait' : 'info');
-    $('homeBannerText').innerHTML = `<b>${esc(app.lang === 'tr' ? 'Bilgilendirme' : 'Notice')}</b> ${esc(a ? t('home.bannerApproved', { term: termName, n: a.items.length }) : app.advisor === 'sent' ? t('home.bannerSent', { term: termName }) : t('home.bannerNone', { term: termName }))}`;
-    const pending = a ? 0 : app.advisor === 'sent' ? snapshot().items.length : 0;
-    const entryYear = 2027 - p.year;
+    const noData = !OBS.has('curriculum') || !OBS.has('timetable');
+    banner.className = 'home-banner ' + (noData ? 'data' : a ? 'ok' : app.advisor === 'sent' ? 'wait' : 'info');
+    $('homeBannerText').innerHTML = noData
+      ? `<b>${esc(t('home.dataT'))}</b> ${esc(t('home.dataL'))} <span class="hb-btns"><button class="btn small primary" type="button" data-samples>${esc(t('dc.samplesAll'))}</button><button class="btn small soft" type="button" data-goto="data">${esc(t('dc.go'))}</button></span>`
+      : `<b>${esc(app.lang === 'tr' ? 'Bilgilendirme' : 'Notice')}</b> ${esc(a ? t('home.bannerApproved', { term: termName, n: a.items.length }) : app.advisor === 'sent' ? t('home.bannerSent', { term: termName }) : t('home.bannerNone', { term: termName }))}`;
+    const pending = a ? 0 : app.advisor === 'sent' && app.model ? snapshot().items.length : 0;
+    const entryYear = OBS.entryYear ? OBS.entryYear() : 2027 - p.year;
     const gpaLow = p.gpa < 2;
     const row = (k, v) => `<div class="hc-row"><span>${esc(k)}</span><b>${esc(v)}</b></div>`;
     const card = (icon, title, rows, accent) => `<section class="hcard" style="--acc:${accent}"><div class="hc-ic"><svg><use href="#i-${icon}"/></svg></div><div class="hc-body"><h3>${esc(title)}</h3>${rows}</div></section>`;
@@ -1060,10 +1107,10 @@
       card('id', t('home.id'), row(t('home.no'), p.number) + row(t('home.name'), studentName()) + row(t('home.tc'), '123******45'), '#f2a7b6'),
       card('bank', t('home.program'), row('', t('home.faculty')) + row('', t('home.dept')) + row('', t('home.degree')), '#a9b8f4'),
       card('info', t('home.status'), row(t('home.regDate'), `29.08.${entryYear}`) + row(t('home.regReason'), t('home.regReasonV')) + row(t('home.stateK'), t('home.stateV')) + row(t('home.gpa'), fmtGpa(p.gpa)), '#9fdcc0'),
-      card('hourglass', t('home.time'), row(t('home.semNow'), String(m.semester)) + row(t('home.normal'), t('home.years', { n: 4 })) + row(t('home.max'), t('home.years', { n: 7 })), '#f3d98b'),
-      card('edit', t('home.reg'), row(t('home.approvedN'), String(a ? a.items.length : 0)) + row(t('home.pendingN'), String(pending)) + row(t('home.lastApproval'), a ? a.date.toLocaleDateString(loc) : '-') + row(t('home.summary'), a ? t('home.sumAll') : app.advisor === 'sent' ? t('home.sumSent') : t('home.sumNone')), '#9fdcc0'),
+      card('hourglass', t('home.time'), row(t('home.semNow'), String(m ? m.semester : semesterFor(p.year, app.term))) + row(t('home.normal'), t('home.years', { n: 4 })) + row(t('home.max'), t('home.years', { n: 7 })), '#f3d98b'),
+      card('edit', t('home.reg'), row(t('home.approvedN'), String(a ? a.items.length : 0)) + row(t('home.pendingN'), String(pending)) + row(t('home.lastApproval'), a ? OBS.fmtDate(a.date) : '-') + row(t('home.summary'), a ? t('home.sumAll') : app.advisor === 'sent' ? t('home.sumSent') : t('home.sumNone')), '#9fdcc0'),
       card('advisor', t('home.advisor'), row('', t('home.advisorName')) + row('', t('home.advisorUnit')), '#f3c08b'),
-      card('chart', t('home.academic'), row(t('home.stateK'), t('home.stateV')) + row(t('home.program'), t('home.dept')) + row(t('home.semYear'), `${m.semester} / ${p.year}`), '#a9b8f4'),
+      card('chart', t('home.academic'), row(t('home.stateK'), t('home.stateV')) + row(t('home.program'), t('home.dept')) + row(t('home.semYear'), `${m ? m.semester : semesterFor(p.year, app.term)} / ${p.year}`), '#a9b8f4'),
       card('folder', t('home.extra'), row(t('home.curriculum'), t('home.curriculumV')) + `<div class="hc-row hc-limit ${gpaLow ? 'low' : ''}"><span>${esc(t('home.limit'))}</span><b>${ectsLimit()} ${esc(t('sel.ects'))}</b><small>${esc(t('home.limitWhy', { gpa: fmtGpa(p.gpa), rule: t(gpaLow ? 'home.ruleLow' : 'home.ruleHigh') }))}</small></div>`, '#f3d98b'),
     ].join('');
   }
@@ -1206,8 +1253,8 @@
       const dt = e.target.closest('[data-dayt]');
       if (!dt) return;
       app.day = parseInt(dt.dataset.dayt, 10);
-      renderGrid();
-      if (app.view === 'tt') renderTT();
+      if (app.view === 'reg' && app.model) renderGrid();
+      else renderView();
     });
     setInterval(() => {
       if (app.loggedIn) return;
@@ -1217,13 +1264,37 @@
     }, 1000);
   }
 
-  // Logo tek kez gömülü (sekme simgesi); görseller oradan alınır
-  document.querySelectorAll('img.logo-src').forEach((im) => { im.src = $('favicon').href; });
-  bind();
-  bindAI();
-  bindExtra();
-  bindNew();
-  applyStatic();
-  rebuild();
-  showLogin();
+  function renderDateChip() { if (OBS.renderDateChip) OBS.renderDateChip(); }
+  // Veri Merkezi'nden gelen müfredat ve ders programı
+  function setData(muf, prog) {
+    MUF = muf; PROG = prog;
+    const all = MUF ? [...MUF.courses, ...((MUF.universityElectives && MUF.universityElectives.courses) || [])] : [];
+    EN_NAMES = new Map(all.filter((c) => c.nameEn).map((c) => [c.code, c.nameEn]));
+    NAMES = new Map(all.map((c) => [c.code, c.name]));
+  }
+  function hashColor(code) {
+    let h = 0; for (const ch of code) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+    return PALETTE[h % PALETTE.length];
+  }
+
+  window.OBS = {
+    app, t, esc, $, toast, name, studentName, fmtGpa, limitFor, ectsLimit, COLORS, PALETTE, CHECK, days, daysShort, weekGrid, dayTabs,
+    setView, renderView, render, rebuild, renderTop, applyStatic, submitForApproval, snapshot, exportPNG, selectedRows, setData, hashColor, titleCase, upper, reqColor,
+    colorOf: (code) => (app.model && app.model.roles ? colorOf(code) : hashColor(code)),
+    getData: () => ({ MUF, PROG }),
+    reasonText: (id, st) => reasonText(id, st),
+    views: {},
+    boot() {
+      // Logo tek kez gömülü (sekme simgesi); görseller oradan alınır
+      document.querySelectorAll('img.logo-src').forEach((im) => { im.src = $('favicon').href; });
+      bind();
+      bindAI();
+      bindExtra();
+      bindNew();
+      OBS.initData();
+      applyStatic();
+      rebuild(false);
+      showLogin();
+    },
+  };
 })();

@@ -4,9 +4,62 @@
   "PDF'in metin katmanında beyazla kapatılmış eski satırlar da duruyor; PDF'i yeniden okuma, bu dosyayı kullan.",
   "STAJ boşluğu (ERAS 3000 / ME 4830) ders saati olmayan bir seçimdir, listeden seçilir.",
   "MATH 2260 zorunlu ama verilen programlarda saati yok.",
-  "prerequisites: ön koşullar. Öğrencinin geçtiği dersler, kayıt yarıyılından önceki zorunlular (alttan alınanlar hariç) kabul edilir."
+  "prerequisites: ön koşullar. Öğrencinin geçtiği dersler, kayıt yarıyılından önceki zorunlular (alttan alınanlar hariç) kabul edilir.",
+  "1-4. yarıyıllar OBS Müfredat Bilgi Paketi ekranından eklendi. credit: ulusal kredi (bilinmeyenler T saati)."
  ],
  "semesters": [
+  {
+   "semester": 1,
+   "mandatory": [
+    "ENGR 1115",
+    "MATH 1100",
+    "MATH 1131",
+    "PHYS 1121",
+    "SOFL 1101",
+    "UMFD 1020"
+   ],
+   "electiveSlots": []
+  },
+  {
+   "semester": 2,
+   "mandatory": [
+    "CHEM 1130",
+    "MATH 1132",
+    "ME 1110",
+    "PHYS 1122",
+    "SOFL 1102",
+    "UMFD 1120",
+    "UMFD 1220"
+   ],
+   "electiveSlots": []
+  },
+  {
+   "semester": 3,
+   "mandatory": [
+    "EEE 2280",
+    "ENGR 2120",
+    "HIST 1110",
+    "ISG 9110",
+    "ISG 9210",
+    "ME 2210",
+    "ME 2710",
+    "TURK 1110"
+   ],
+   "electiveSlots": []
+  },
+  {
+   "semester": 4,
+   "mandatory": [
+    "HIST 1210",
+    "MATH 2230",
+    "MATH 2263",
+    "ME 2220",
+    "ME 2320",
+    "TURK 1210",
+    "UFND 7010"
+   ],
+   "electiveSlots": []
+  },
   {
    "semester": 5,
    "mandatory": [
@@ -443,707 +496,1032 @@
    "name": "YEŞİL BİNA TASARIMI VE DEĞERLENDİRME SİSTEMLERİ",
    "tul": "3+0+0",
    "ects": 5,
-   "nameEn": "Green Building Design and Assessment Systems"
+   "nameEn": "Green Building Design and Assessment Systems",
+   "credit": 3
   },
   {
    "code": "ARCH 3380",
    "name": "BIM-YAPI BİLGİ MODELLEMESİ",
    "tul": "3+0+0",
    "ects": 5,
-   "nameEn": "BIM - Building Information Modelling"
+   "nameEn": "BIM - Building Information Modelling",
+   "credit": 3
   },
   {
    "code": "ARCH 4353",
    "name": "KİNETİK MİMARİ",
    "tul": "3+0+0",
    "ects": 5,
-   "nameEn": "Kinetic Architecture"
+   "nameEn": "Kinetic Architecture",
+   "credit": 3
   },
   {
    "code": "ARCH 4491",
    "name": "BİNA KABUĞU",
    "tul": "3+0+0",
    "ects": 5,
-   "nameEn": "Building Envelope"
+   "nameEn": "Building Envelope",
+   "credit": 3
   },
   {
    "code": "CE 4113",
    "name": "YAPI BİLGİ MODELLEMESİNE GİRİŞ",
    "tul": "1+2+0",
    "ects": 5,
-   "nameEn": "Introduction to Building Information Modelling"
+   "nameEn": "Introduction to Building Information Modelling",
+   "credit": 1
   },
   {
    "code": "COMP 4350",
    "name": "MAKİNE ÖĞRENMESİNE GİRİŞ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Introduction to Machine Learning"
+   "nameEn": "Introduction to Machine Learning",
+   "credit": 3
   },
   {
    "code": "COMP 4436",
    "name": "YAPAY US",
    "tul": "2+2+0",
    "ects": 6,
-   "nameEn": "Artificial Intelligence"
+   "nameEn": "Artificial Intelligence",
+   "credit": 2
   },
   {
    "code": "COMP 4437",
    "name": "YAPAY SİNİR AĞLARI",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Artificial Neural Networks"
+   "nameEn": "Artificial Neural Networks",
+   "credit": 3
   },
   {
    "code": "COMP 4446",
    "name": "SANAL VE ARTIRILMIŞ GERÇEKLİK",
    "tul": "3+0+0",
    "ects": 4,
-   "nameEn": "Virtual and Augmented Reality"
+   "nameEn": "Virtual and Augmented Reality",
+   "credit": 3
   },
   {
    "code": "COMP 4480",
    "name": "AKILLI VE OTONOM SİSTEMLERE GİRİŞ",
    "tul": "2+2+0",
    "ects": 6,
-   "nameEn": "Introduction to Intelligent and Autonomous Systems"
+   "nameEn": "Introduction to Intelligent and Autonomous Systems",
+   "credit": 2
   },
   {
    "code": "ECON 3300",
    "name": "MÜHENDİSLİK EKONOMİSİNE GİRİŞ",
    "tul": "3+0+0",
    "ects": 5,
-   "nameEn": "Introduction to Engineering Economics"
+   "nameEn": "Introduction to Engineering Economics",
+   "credit": 3
   },
   {
    "code": "EEE 3615",
    "name": "ELEKTROMEKANİK ENERJİ DÖNÜŞÜMÜ",
    "tul": "3+2+0",
    "ects": 6,
-   "nameEn": "Electromechanical Energy Conversion"
+   "nameEn": "Electromechanical Energy Conversion",
+   "credit": 3
   },
   {
    "code": "EEE 3638",
    "name": "GÜÇ SİSTEMLERİ",
    "tul": "3+2+0",
    "ects": 6,
-   "nameEn": "Power Systems"
+   "nameEn": "Power Systems",
+   "credit": 3
   },
   {
    "code": "EEE 3718",
    "name": "GERİ BESLEME SİSTEMLERİ",
    "tul": "3+2+0",
    "ects": 6,
-   "nameEn": "Feedback Systems"
+   "nameEn": "Feedback Systems",
+   "credit": 0
   },
   {
    "code": "EEE 4122",
    "name": "ENDÜSTRİYEL OTOMASYON",
    "tul": "3+2+0",
    "ects": 6,
-   "nameEn": "Industrial Automation"
+   "nameEn": "Industrial Automation",
+   "credit": 3
   },
   {
    "code": "EEE 4242",
    "name": "ELEKTRİKLİ SÜRÜCÜLER",
    "tul": "3+2+0",
    "ects": 6,
-   "nameEn": "Electric Drives"
+   "nameEn": "Electric Drives",
+   "credit": 3
   },
   {
    "code": "EEE 4321",
    "name": "NANOTEKNOLOJİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Nanotechnology"
+   "nameEn": "Nanotechnology",
+   "credit": 3
   },
   {
    "code": "EEE 4642",
    "name": "GÜÇ İLETİMİ VE DAĞITIMI",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Power Transmission and Distribution"
+   "nameEn": "Power Transmission and Distribution",
+   "credit": 3
   },
   {
    "code": "EEE 4653",
    "name": "GÜÇ SISTEMLERI KORUMASI",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Power System Protection"
+   "nameEn": "Power System Protection",
+   "credit": 3
   },
   {
    "code": "EEE 4721",
    "name": "DİJİTAL KONTROL SİSTEMLERİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Digital Control Systems"
+   "nameEn": "Digital Control Systems",
+   "credit": 3
   },
   {
    "code": "EEE 4730",
    "name": "ROBOTİK MEKANİZMALAR",
    "tul": "3+2+0",
    "ects": 6,
-   "nameEn": "Robotic Mechanisms"
+   "nameEn": "Robotic Mechanisms",
+   "credit": 3
   },
   {
    "code": "EEE 4745",
    "name": "SÜREÇ KONTROLÜ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Process Control"
+   "nameEn": "Process Control",
+   "credit": 3
   },
   {
    "code": "ENGR 3450",
    "name": "PROJE YÖNETIMI",
    "tul": "3+0+0",
    "ects": 5,
-   "nameEn": "Project Management"
+   "nameEn": "Project Management",
+   "credit": 3
   },
   {
    "code": "ENGR 4400",
    "name": "MÜHENDİSLİK ETİĞİ VE SEMİNER",
    "tul": "0+2+0",
    "ects": 2,
-   "nameEn": "Engineering Ethics and Seminar"
+   "nameEn": "Engineering Ethics and Seminar",
+   "credit": 0
   },
   {
    "code": "ENGR 4411",
    "name": "SÜRDÜRÜLEBİLİR KALKINMA İÇİN MÜHENDİSLİK",
    "tul": "1+1+0",
    "ects": 3,
-   "nameEn": "Engineering for Sustainable Development"
+   "nameEn": "Engineering for Sustainable Development",
+   "credit": 1
   },
   {
    "code": "ENGR 4451",
    "name": "MÜHENDİSLİK UYGULAMALARI İÇİN ÜRETKEN YAPAY ZEKA",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Generative AI for Engineering Applications"
+   "nameEn": "Generative AI for Engineering Applications",
+   "credit": 3
   },
   {
    "code": "ERAS 3000",
    "name": "ERASMUS STAJI",
    "tul": "0+0+0",
    "ects": 4,
-   "nameEn": "Erasmus Internship"
+   "nameEn": "Erasmus Internship",
+   "credit": 0
   },
   {
    "code": "ESE 2501",
    "name": "ÖLÇME TEKNİĞİ VE EKİPMANLARI",
    "tul": "2+2+0",
    "ects": 5,
-   "nameEn": "Measurement Techniques and Equipment"
+   "nameEn": "Measurement Techniques and Equipment",
+   "credit": 2
   },
   {
    "code": "ESE 3250",
    "name": "GÜNEŞ ENERJİSİ SİSTEMLERİ",
    "tul": "3+0+0",
    "ects": 4,
-   "nameEn": "Solar Energy Systems"
+   "nameEn": "Solar Energy Systems",
+   "credit": 3
   },
   {
    "code": "ESE 3260",
    "name": "RÜZGAR ENERJİSİ SİSTEMLERİ",
    "tul": "3+0+0",
    "ects": 4,
-   "nameEn": "Wind Energy Systems"
+   "nameEn": "Wind Energy Systems",
+   "credit": 3
   },
   {
    "code": "ESE 3270",
    "name": "JEOTERMAL ENERJİ SİSTEMLERİ",
    "tul": "3+0+0",
    "ects": 4,
-   "nameEn": "Geothermal Energy Systems"
+   "nameEn": "Geothermal Energy Systems",
+   "credit": 3
   },
   {
    "code": "ESE 3280",
    "name": "BİYOENERJİ SİSTEMLERİ",
    "tul": "3+0+0",
    "ects": 4,
-   "nameEn": "Bioenergy Systems"
+   "nameEn": "Bioenergy Systems",
+   "credit": 3
   },
   {
    "code": "ESE 3404",
    "name": "ENERJİ VERİMLİLİĞİ VE YÖNETİMİ",
    "tul": "2+2+0",
    "ects": 5,
-   "nameEn": "Energy Efficiency and Management"
+   "nameEn": "Energy Efficiency and Management",
+   "credit": 2
   },
   {
    "code": "ESE 3504",
    "name": "AKILLI ENERJİ SİSTEMLERİ",
    "tul": "3+0+0",
    "ects": 4,
-   "nameEn": "Smart Energy Systems"
+   "nameEn": "Smart Energy Systems",
+   "credit": 3
   },
   {
    "code": "ESE 4112",
    "name": "ISITMA HAVALANDIRMA İKLİMLENDİRME VE SOĞUTMA SİSTEMLERİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Heating, Ventilation, Air Conditioning and Refrigeration Systems"
+   "nameEn": "Heating, Ventilation, Air Conditioning and Refrigeration Systems",
+   "credit": 3
   },
   {
    "code": "ESE 4122",
    "name": "ISI DEĞİŞTİRİCİLERİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Heat Exchangers"
+   "nameEn": "Heat Exchangers",
+   "credit": 3
   },
   {
    "code": "ESE 4132",
    "name": "ISI POMPALARI VE UYGULAMALARI",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Heat Pumps and Applications"
+   "nameEn": "Heat Pumps and Applications",
+   "credit": 3
   },
   {
    "code": "ESE 4142",
    "name": "ENERJİ SİSTEMLERİNİN EKSERJİ ANALİZİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Exergy Analysis of Energy Systems"
+   "nameEn": "Exergy Analysis of Energy Systems",
+   "credit": 3
   },
   {
    "code": "ESE 4152",
    "name": "ISI GERİ KAZANIMI VE KOJENERASYON",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Heat Recovery and Cogeneration"
+   "nameEn": "Heat Recovery and Cogeneration",
+   "credit": 3
   },
   {
    "code": "ESE 4212",
    "name": "ENERJİ DEPOLAMA SİSTEMLERİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Energy Storage Systems"
+   "nameEn": "Energy Storage Systems",
+   "credit": 3
   },
   {
    "code": "ESE 4222",
    "name": "HİDROJEN ENERJİSİ VE YAKIT HÜCRESİ SİSTEMLERİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Hydrogen Energy and Fuel Cell Systems"
+   "nameEn": "Hydrogen Energy and Fuel Cell Systems",
+   "credit": 3
   },
   {
    "code": "ESE 4232",
    "name": "NÜKLEER MÜHENDİSLİK",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Nuclear Engineering"
+   "nameEn": "Nuclear Engineering",
+   "credit": 3
   },
   {
    "code": "ESE 4240",
    "name": "YENİLENEBİLİR ENERJİ SİSTEMLERİNİN ENTEGRASYONU",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Integration of Renewable Energy Systems"
+   "nameEn": "Integration of Renewable Energy Systems",
+   "credit": 3
   },
   {
    "code": "ESE 4250",
    "name": "POWER-TO-X TEKNOLOJİLERİ VE SÜRDÜRÜLEBİLİR ENERJİ UYGULAMALARI",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Power-to-X Technologies and Sustainable Energy Applications"
+   "nameEn": "Power-to-X Technologies and Sustainable Energy Applications",
+   "credit": 3
   },
   {
    "code": "ESE 4312",
    "name": "ENERJİ SİSTEMLERİNDE MODELLEME",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Modelling in Energy Systems"
+   "nameEn": "Modelling in Energy Systems",
+   "credit": 3
   },
   {
    "code": "ESE 4322",
    "name": "ENERJİ SİSTEMLERİ OPTİMİZASYONU",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Optimization of Energy Systems"
+   "nameEn": "Optimization of Energy Systems",
+   "credit": 3
   },
   {
    "code": "ESE 4412",
    "name": "ENERJİ PİYASALARI VE DÜZENLEMELERİ (TÜRKÇE)",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Energy Markets and Regulations (Turkish)"
+   "nameEn": "Energy Markets and Regulations (Turkish)",
+   "credit": 3
   },
   {
    "code": "ESE 4612",
    "name": "TEMİZ KÖMÜR TEKNOLOJİLERİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Clean Coal Technologies"
+   "nameEn": "Clean Coal Technologies",
+   "credit": 3
   },
   {
    "code": "IE 2511",
    "name": "MÜHENDİSLİKTE MALİYET ANALİZİ",
    "tul": "3+0+0",
    "ects": 5,
-   "nameEn": "Cost Analysis in Engineering"
+   "nameEn": "Cost Analysis in Engineering",
+   "credit": 3
   },
   {
    "code": "IE 3511",
    "name": "SİSTEM BENZETİMİ",
    "tul": "2+2+0",
    "ects": 6,
-   "nameEn": "System Simulation"
+   "nameEn": "System Simulation",
+   "credit": 2
   },
   {
    "code": "IE 3524",
    "name": "BÜTÜNLEŞİK İMALAT SİSTEMLERİ",
    "tul": "2+2+0",
    "ects": 6,
-   "nameEn": "Integrated Manufacturing Systems"
+   "nameEn": "Integrated Manufacturing Systems",
+   "credit": 2
   },
   {
    "code": "IE 4463",
    "name": "TOPLAM KALİTE YÖNETİMİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Total Quality Management"
+   "nameEn": "Total Quality Management",
+   "credit": 3
   },
   {
    "code": "IE 4526",
    "name": "TESİS PLANLAMASI VE TASARIMI",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Facility Planning and Design"
+   "nameEn": "Facility Planning and Design",
+   "credit": 3
   },
   {
    "code": "IE 4540",
    "name": "SİSTEM BİLİMİ VE MÜHENDİSLİK",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Systems Science and Engineering"
+   "nameEn": "Systems Science and Engineering",
+   "credit": 3
   },
   {
    "code": "IE 4544",
    "name": "İNSAN FAKTÖRLERİ MÜHENDİSLİĞİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Human Factors Engineering"
+   "nameEn": "Human Factors Engineering",
+   "credit": 3
   },
   {
    "code": "IE 4551",
    "name": "MATEMATİKSEL PROGRAMLAMA VE UYGULAMALARI",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Mathematical Programming and Applications"
+   "nameEn": "Mathematical Programming and Applications",
+   "credit": 3
   },
   {
    "code": "IE 4554",
    "name": "AĞ BİLİMİ VE UYGULAMALARI",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Network Science and Applications"
+   "nameEn": "Network Science and Applications",
+   "credit": 3
   },
   {
    "code": "IE 4556",
    "name": "İMALAT SİSTEMİ DİNAMİKLERİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Manufacturing System Dynamics"
+   "nameEn": "Manufacturing System Dynamics",
+   "credit": 3
   },
   {
    "code": "IE 4561",
    "name": "PERFORMANS DEĞERLENDİRMESİ VE YÖNETİMİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Performance Evaluation and Management"
+   "nameEn": "Performance Evaluation and Management",
+   "credit": 3
   },
   {
    "code": "IE 4564",
    "name": "İNOVASYON VE TEKNOLOJİ YÖNETİMİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Innovation and Technology Management"
+   "nameEn": "Innovation and Technology Management",
+   "credit": 3
   },
   {
    "code": "IE 4565",
    "name": "MÜHENDİSLİKTE GİRİŞİMCİLİK VE İNOVASYON",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Entrepreneurship and Innovation in Engineering"
+   "nameEn": "Entrepreneurship and Innovation in Engineering",
+   "credit": 3
   },
   {
    "code": "IE 4566",
    "name": "MÜHENDİSLİK DENEYLERİ TASARIMI",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Design of Engineering Experiments"
+   "nameEn": "Design of Engineering Experiments",
+   "credit": 3
   },
   {
    "code": "IE 4572",
    "name": "SÜRDÜRÜLEBILIR SİSTEM MÜHENDİSLİĞİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Sustainable Systems Engineering"
+   "nameEn": "Sustainable Systems Engineering",
+   "credit": 3
   },
   {
    "code": "IE 4573",
    "name": "BULANIK OPTIMIZASYON",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Fuzzy Optimization"
+   "nameEn": "Fuzzy Optimization",
+   "credit": 3
   },
   {
    "code": "IR 3376",
    "name": "SÜRDÜRÜLEBİLİR KALKINMA VE AB'NİN ENERJİ POLİTİKALARI",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Sustainable Development and EU Energy Policies"
+   "nameEn": "Sustainable Development and EU Energy Policies",
+   "credit": 3
   },
   {
    "code": "IR 3380",
    "name": "ULUSLARARASI ÇEVRE POLİTİKASI",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "International Environmental Policy"
+   "nameEn": "International Environmental Policy",
+   "credit": 3
   },
   {
    "code": "IR 4458",
    "name": "ENERJİ POLİTİKASI",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Energy Policy"
+   "nameEn": "Energy Policy",
+   "credit": 3
   },
   {
    "code": "MATH 2260",
    "name": "MÜHENDİSLER İÇİN OLASILIK VE İSTATİSTİK",
    "tul": "3+2+0",
    "ects": 6,
-   "nameEn": "Probability and Statistics for Engineers"
+   "nameEn": "Probability and Statistics for Engineers",
+   "credit": 0
   },
   {
    "code": "ME 3220",
    "name": "MÜHENDİSLİK MEKANİĞİ II",
    "tul": "2+2+0",
    "ects": 5,
-   "nameEn": "Engineering Mechanics II"
+   "nameEn": "Engineering Mechanics II",
+   "credit": 0
   },
   {
    "code": "ME 3320",
    "name": "ISI VE KÜTLE TRANSFERİ",
    "tul": "3+2+0",
    "ects": 6,
-   "nameEn": "Heat and Mass Transfer"
+   "nameEn": "Heat and Mass Transfer",
+   "credit": 4
   },
   {
    "code": "ME 3330",
    "name": "AKIŞKANLAR MEKANİĞİ VE MAKİNALARI",
    "tul": "3+2+0",
    "ects": 6,
-   "nameEn": "Fluid Mechanics and Machinery"
+   "nameEn": "Fluid Mechanics and Machinery",
+   "credit": 0
   },
   {
    "code": "ME 3410",
    "name": "MAKİNA ELEMANLARI",
    "tul": "2+2+0",
    "ects": 6,
-   "nameEn": "Machine Elements"
+   "nameEn": "Machine Elements",
+   "credit": 2
   },
   {
    "code": "ME 3420",
    "name": "ÜRETİM YÖNTEMLERİ VE PROSESLERİ",
    "tul": "2+2+0",
    "ects": 4,
-   "nameEn": "Manufacturing Methods and Processes"
+   "nameEn": "Manufacturing Methods and Processes",
+   "credit": 0
   },
   {
    "code": "ME 3510",
    "name": "MAKİNE TEORİSİ VE MEKANİZMALAR",
    "tul": "2+2+0",
    "ects": 6,
-   "nameEn": "Theory of Machines and Mechanisms"
+   "nameEn": "Theory of Machines and Mechanisms",
+   "credit": 3
   },
   {
    "code": "ME 4110",
    "name": "MAKİNA ELEMANLARI II",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Machine Elements II"
+   "nameEn": "Machine Elements II",
+   "credit": 3
   },
   {
    "code": "ME 4120",
    "name": "SONLU ELEMANLAR YÖNTEMİNE GİRİŞ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Introduction to Finite Element Method"
+   "nameEn": "Introduction to Finite Element Method",
+   "credit": 3
   },
   {
    "code": "ME 4210",
    "name": "MAKİNA DİNAMİĞİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Machine Dynamics"
+   "nameEn": "Machine Dynamics",
+   "credit": 3
   },
   {
    "code": "ME 4220",
    "name": "MALZEME MEKANİĞİ II",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Mechanics of Materials II"
+   "nameEn": "Mechanics of Materials II",
+   "credit": 3
   },
   {
    "code": "ME 4230",
    "name": "MEKANİK TİTREŞİMLER",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Mechanical Vibrations"
+   "nameEn": "Mechanical Vibrations",
+   "credit": 3
   },
   {
    "code": "ME 4240",
    "name": "ROBOT MEKANİĞİNE GİRİŞ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Introduction to Robot Mechanics"
+   "nameEn": "Introduction to Robot Mechanics",
+   "credit": 3
   },
   {
    "code": "ME 4330",
    "name": "HESAPLAMALI AKIŞKANLAR DİNAMİĞİNE GİRİŞ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Introduction to Computational Fluid Dynamics"
+   "nameEn": "Introduction to Computational Fluid Dynamics",
+   "credit": 3
   },
   {
    "code": "ME 4340",
    "name": "TURBOMAKİNELERE GİRİŞ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Introduction to Turbomachinery"
+   "nameEn": "Introduction to Turbomachinery",
+   "credit": 3
   },
   {
    "code": "ME 4350",
    "name": "GAZ DİNAMİĞİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Gas Dynamics"
+   "nameEn": "Gas Dynamics",
+   "credit": 3
   },
   {
    "code": "ME 4410",
    "name": "KOMPOZİT MALZEME MEKANİĞİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Mechanics of Composite Materials"
+   "nameEn": "Mechanics of Composite Materials",
+   "credit": 3
   },
   {
    "code": "ME 4420",
    "name": "MÜHENDİSLİK MALZEMELERİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Engineering Materials"
+   "nameEn": "Engineering Materials",
+   "credit": 3
   },
   {
    "code": "ME 4510",
    "name": "TALAŞLI ÜRETİM YÖNTEMLERİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Machining Processes"
+   "nameEn": "Machining Processes",
+   "credit": 3
   },
   {
    "code": "ME 4520",
    "name": "ÇUBUK MEKANİZMALARIN SENTEZİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Synthesis of Linkage Mechanisms"
+   "nameEn": "Synthesis of Linkage Mechanisms",
+   "credit": 3
   },
   {
    "code": "ME 4610",
    "name": "MEKATRONİK MÜHENDİSLİĞİNE GİRİŞ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Introduction to Mechatronics Engineering"
+   "nameEn": "Introduction to Mechatronics Engineering",
+   "credit": 3
   },
   {
    "code": "ME 4620",
    "name": "İLERİ MEKATRONİK",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Advanced Mechatronics"
+   "nameEn": "Advanced Mechatronics",
+   "credit": 3
   },
   {
    "code": "ME 4822",
    "name": "BAĞIMSIZ ÇALIŞMA",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Independent Study"
+   "nameEn": "Independent Study",
+   "credit": 3
   },
   {
    "code": "ME 4830",
    "name": "STAJ",
    "tul": "0+0+0",
    "ects": 4,
-   "nameEn": "Internship"
+   "nameEn": "Internship",
+   "credit": 0
   },
   {
    "code": "ME 4840",
    "name": "MAKİNE MÜHENDİSLİĞİNDE ÖZEL KONULAR-I",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Special Topics in Mechanical Engineering I"
+   "nameEn": "Special Topics in Mechanical Engineering I",
+   "credit": 3
   },
   {
    "code": "ME 4850",
    "name": "MAKİNE MÜHENDİSLİĞİNDE ÖZEL KONULAR-II",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Special Topics in Mechanical Engineering II"
+   "nameEn": "Special Topics in Mechanical Engineering II",
+   "credit": 3
   },
   {
    "code": "ME 4910",
    "name": "MEZUNİYET TASARIM PROJESİ I",
    "tul": "1+4+0",
    "ects": 8,
-   "nameEn": "Graduation Design Project I"
+   "nameEn": "Graduation Design Project I",
+   "credit": 1
   },
   {
    "code": "ME 4920",
    "name": "MEZUNİYET TASARIM PROJESİ II",
    "tul": "1+4+0",
    "ects": 8,
-   "nameEn": "Graduation Design Project II"
+   "nameEn": "Graduation Design Project II",
+   "credit": 1
   },
   {
    "code": "SE 1105",
    "name": "PROGRAMLAMA VE PROBLEM ÇÖZME I",
    "tul": "3+2+0",
    "ects": 6,
-   "nameEn": "Programming and Problem Solving I"
+   "nameEn": "Programming and Problem Solving I",
+   "credit": 3
   },
   {
    "code": "SE 1108",
    "name": "PROGRAMLAMA VE PROBLEM ÇÖZME II",
    "tul": "3+2+0",
    "ects": 5,
-   "nameEn": "Programming and Problem Solving II"
+   "nameEn": "Programming and Problem Solving II",
+   "credit": 3
   },
   {
    "code": "SE 4406",
    "name": "MOBİL ROBOTİK PROGRAMLAMA",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Mobile Robotics Programming"
+   "nameEn": "Mobile Robotics Programming",
+   "credit": 3
   },
   {
    "code": "SE 4464",
    "name": "COĞRAFİ BİLGİ SİSTEMLERİ",
    "tul": "3+0+0",
    "ects": 6,
-   "nameEn": "Geographic Information Systems"
+   "nameEn": "Geographic Information Systems",
+   "credit": 3
   },
   {
    "code": "SE 4481",
    "name": "MOBİL YAZILIM GELİŞTİRME",
    "tul": "2+2+0",
    "ects": 6,
-   "nameEn": "Mobile Software Development"
+   "nameEn": "Mobile Software Development",
+   "credit": 2
   },
   {
    "code": "UMFD 1720",
    "name": "KARİYER PLANLAMA",
    "tul": "2+0+0",
    "ects": 2,
-   "nameEn": "Career Planning"
+   "nameEn": "Career Planning",
+   "credit": 2
+  },
+  {
+   "code": "ENGR 1115",
+   "name": "PROGRAMLAMAYA GİRİŞ",
+   "nameEn": "Introduction to Programming",
+   "tul": "2+2+0",
+   "ects": 5,
+   "credit": 0
+  },
+  {
+   "code": "MATH 1100",
+   "name": "MATEMATİKSEL MANTIK",
+   "nameEn": "Mathematical Logic",
+   "tul": "2+2+0",
+   "ects": 5,
+   "credit": 0
+  },
+  {
+   "code": "MATH 1131",
+   "name": "ANALİZ I",
+   "nameEn": "Calculus I",
+   "tul": "3+2+0",
+   "ects": 7,
+   "credit": 4
+  },
+  {
+   "code": "PHYS 1121",
+   "name": "FİZİK I",
+   "nameEn": "Physics I",
+   "tul": "3+2+0",
+   "ects": 7,
+   "credit": 4
+  },
+  {
+   "code": "SOFL 1101",
+   "name": "AKADEMİK İNGİLİZCE I",
+   "nameEn": "Academic English I",
+   "tul": "4+0+0",
+   "ects": 4,
+   "credit": 4
+  },
+  {
+   "code": "UMFD 1020",
+   "name": "ELEŞTİREL VE ANALİTİK DÜŞÜNMENİN TEMELLERİ",
+   "nameEn": "Foundations of Critical and Analytical Thinking",
+   "tul": "2+0+0",
+   "ects": 2,
+   "credit": 2
+  },
+  {
+   "code": "CHEM 1130",
+   "name": "MÜHENDİSLİK KİMYASI",
+   "nameEn": "Engineering Chemistry",
+   "tul": "3+2+0",
+   "ects": 6,
+   "credit": 0
+  },
+  {
+   "code": "MATH 1132",
+   "name": "ANALİZ II",
+   "nameEn": "Calculus II",
+   "tul": "3+2+0",
+   "ects": 7,
+   "credit": 4
+  },
+  {
+   "code": "ME 1110",
+   "name": "MAKİNE MÜHENDİSLİĞİNE GİRİŞ",
+   "nameEn": "Introduction to Mechanical Engineering",
+   "tul": "2+0+0",
+   "ects": 2,
+   "credit": 0
+  },
+  {
+   "code": "PHYS 1122",
+   "name": "FİZİK II",
+   "nameEn": "Physics II",
+   "tul": "3+2+0",
+   "ects": 7,
+   "credit": 4
+  },
+  {
+   "code": "SOFL 1102",
+   "name": "AKADEMİK İNGİLİZCE II",
+   "nameEn": "Academic English II",
+   "tul": "4+0+0",
+   "ects": 4,
+   "credit": 4
+  },
+  {
+   "code": "UMFD 1120",
+   "name": "GİRİŞİMCİLİĞİN TEMELLERİ",
+   "nameEn": "Foundations of Entrepreneurship",
+   "tul": "2+0+0",
+   "ects": 2,
+   "credit": 2
+  },
+  {
+   "code": "UMFD 1220",
+   "name": "TASARIM ODAKLI DÜŞÜNMENİN TEMELLERİ",
+   "nameEn": "Foundations of Design Thinking",
+   "tul": "2+0+0",
+   "ects": 2,
+   "credit": 2
+  },
+  {
+   "code": "EEE 2280",
+   "name": "ELEKTRİK DEVRELERİ VE SİSTEMLERİ",
+   "nameEn": "Electrical Circuits and Systems",
+   "tul": "3+2+0",
+   "ects": 7,
+   "credit": 4
+  },
+  {
+   "code": "ENGR 2120",
+   "name": "BİLGİSAYAR DESTEKLİ MODELLEMEYE GİRİŞ",
+   "nameEn": "Introduction to Computer Aided Modelling",
+   "tul": "2+2+0",
+   "ects": 5,
+   "credit": 0
+  },
+  {
+   "code": "HIST 1110",
+   "name": "ATATÜRK İLKELERİ VE İNKILAP TARİHİ I",
+   "nameEn": "Principles of Atatürk and History of Revolution I",
+   "tul": "2+0+0",
+   "ects": 2,
+   "credit": 2
+  },
+  {
+   "code": "ISG 9110",
+   "name": "İŞ SAĞLIĞI VE GÜVENLİĞİ I",
+   "nameEn": "Occupational Health and Safety I",
+   "tul": "2+0+0",
+   "ects": 2,
+   "credit": 2
+  },
+  {
+   "code": "ISG 9210",
+   "name": "İŞ SAĞLIĞI VE GÜVENLİĞİ II",
+   "nameEn": "Occupational Health and Safety II",
+   "tul": "2+0+0",
+   "ects": 2,
+   "credit": 2
+  },
+  {
+   "code": "ME 2210",
+   "name": "MÜHENDİSLİK MEKANİĞİ I",
+   "nameEn": "Engineering Mechanics I",
+   "tul": "2+2+0",
+   "ects": 6,
+   "credit": 0
+  },
+  {
+   "code": "ME 2710",
+   "name": "MALZEME BİLİMİ",
+   "nameEn": "Materials Science",
+   "tul": "2+2+0",
+   "ects": 4,
+   "credit": 0
+  },
+  {
+   "code": "TURK 1110",
+   "name": "TÜRK DİLİ I",
+   "nameEn": "Turkish Language I",
+   "tul": "2+0+0",
+   "ects": 2,
+   "credit": 2
+  },
+  {
+   "code": "HIST 1210",
+   "name": "ATATÜRK İLKELERİ VE İNKILAP TARİHİ II",
+   "nameEn": "Principles of Atatürk and History of Revolution II",
+   "tul": "2+0+0",
+   "ects": 2,
+   "credit": 2
+  },
+  {
+   "code": "MATH 2230",
+   "name": "MÜHENDİSLİKTE HESAPLAMA YÖNTEMLERİ",
+   "nameEn": "Computational Methods in Engineering",
+   "tul": "2+2+0",
+   "ects": 6,
+   "credit": 3
+  },
+  {
+   "code": "MATH 2263",
+   "name": "DİFERANSİYEL DENKLEMLER VE DİNAMİK SİSTEMLER",
+   "nameEn": "Differential Equations and Dynamical Systems",
+   "tul": "3+2+0",
+   "ects": 7,
+   "credit": 4
+  },
+  {
+   "code": "ME 2220",
+   "name": "MALZEMELERİN MEKANİĞİ",
+   "nameEn": "Mechanics of Materials",
+   "tul": "3+2+0",
+   "ects": 6,
+   "credit": 0
+  },
+  {
+   "code": "ME 2320",
+   "name": "TERMODİNAMİK",
+   "nameEn": "Thermodynamics",
+   "tul": "3+2+0",
+   "ects": 6,
+   "credit": 0
+  },
+  {
+   "code": "TURK 1210",
+   "name": "TÜRK DİLİ II",
+   "nameEn": "Turkish Language II",
+   "tul": "2+0+0",
+   "ects": 2,
+   "credit": 2
+  },
+  {
+   "code": "UFND 7010",
+   "name": "SOSYAL SORUMLULUK",
+   "nameEn": "Social Responsibility",
+   "tul": "0+2+0",
+   "ects": 1,
+   "credit": 1
   }
  ],
  "universityElectives": {

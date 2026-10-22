@@ -2,36 +2,30 @@
 
 Yaşar Üniversitesi Makine Mühendisliği için ders kayıt ekranı prototipi.
 Dersler düz liste yerine **haftalık program tablosunda** gösterilir, **seçim tabloya tıklanarak** yapılır ve çakışmalar görsel olarak kilitlenir.
-Cuma günü sunulacak. Kapsam bilerek dar tutuldu: sadece **3. ve 4. sınıf** (5–8. yarıyıl). Tek ön koşul kuralı var (ME 4920 ← ME 4910).
+İkinci ödev: sistemi gerçek kısıtlara (OBS'de öğrenciye açık API yok, veriler dosyalarla dolaşıyor) göre çalışır hale getirmek. Ders programları 3. ve 4. sınıf için var; müfredat 1–8. yarıyıl. Tek ön koşul kuralı: ME 4920 ← ME 4910.
 Canlı site: https://yarensuudegur.github.io/obs-ders-kaydi/ (GitHub Pages, `main` dalının kökündeki `index.html`).
 
 ---
 
-## 1. Veri (hazır, yeniden üretme)
+## 1. Veri: Veri Merkezi'nden yüklenir
 
-Veriler JSON'a çevrilmiş ve kontrol edilmiş durumda. **Uygulama sadece bu iki dosyayı kullanır:**
+OBS öğrencilere API açmıyor; uygulama verileri **yüklenen dosyalardan** okur (`src/data.js`). Hiçbir dosya sunucuya gitmez: okunan veri `localStorage` (`obs-data-v2`), dosyanın kendisi IndexedDB (`obs-files`) içinde, sadece o cihazda durur. Uygulama durumu (onaylı kayıt, demo tarihi, senaryo, not listesi) `obs-state-v2`.
 
-### `data/mufredat.json`
-- `semesters[]`: her yarıyıl (5–8) için
-  - `mandatory`: zorunlu ders kodları
-  - `electiveSlots[]`: `{ slot: "A1", type: "A" | "B" | "STAJ" | "UNV", ects, options }`. `options` ya ders kodu listesi ya da `"universityElectives"`.
-- `courses[]`: `{ code, name, tul, ects }`
-- `universityElectives.courses[]`: demo için uydurulmuş üniversite seçmelileri, hepsi online ve akşam (`online: true`, `slots` ile)
-- `notes`: veriye dair notlar, oku.
+| Tür | Biçim | Ayrıştırıcı (`src/parsers.js`) |
+|---|---|---|
+| Müfredat | Excel şablonu (Dersler, Seçmeli Haklar, Üniversite Seçmelileri, Ön Koşullar, Eşdeğerlikler) ya da JSON | `parseCurriculum` |
+| Bölüm ders programı | **Bölümün Excel'i olduğu gibi** (gün blokları, ŞB./DERS KODU/DERSLİK/BAŞ/BİT, bitişte "u" = lab). Sınıf dosya adından, dönem başlıktan | `parseTimetable` |
+| Kontenjan | Excel/CSV: Dönem, Ders Kodu, Şube, Kontenjan, Kayıtlı | `parseQuota` |
+| Akademik takvim | Excel/CSV: Başlangıç, Bitiş, Etkinlik (tür başlıktan: ders kaydı, ekle-bırak, sınav, tatil…) | `parseCalendar`, `periodOf`, `inPeriod` |
+| Sınav takvimi | Excel/CSV: Ders Kodu, Sınav Türü, Tarih, Başlangıç, Bitiş, Derslik | `parseExams` |
+| Yönetmelik | PDF/DOCX/TXT; mezuniyet koşulları, not ölçeği, AKTS sınırı metinden, kanıt cümlesiyle | `parseRegulation` |
+| Transkript | PDF (iki sütunlu düzen), Excel/CSV ya da OBS sayfasından yapıştırılan metin | `parseTranscriptText`, `parseTranscriptBook` |
 
-### `data/program.json`
-- `terms.guz["3"]`, `terms.guz["4"]`, `terms.bahar["3"]`, `terms.bahar["4"]`: o dönem o sınıf programında açılan şubeler
-- Her şube: `{ code, section, slots: [{ day: 0-6 (0=Pzt), start: "08:40", end: "09:30", type: "T" | "U", room }] }`
-- Her slot 50 dakikalık bir ders saatidir. `type: "U"` uygulama/lab saati demektir.
-
-### Diğer dosyalar (sadece referans)
-`data/*.xlsx` (orijinal programlar) ve `data/müfredat.pdf`. **PDF'i okuyup veri çıkarmaya çalışma.** Metin katmanında beyazla kapatılmış eski satırlar duruyor ve yanlış sonuç verir.
-
-### Demo öğrenci
-Varsayılan profil `src/app.js` başında: Demo Öğrenci, 4. sınıf, Güz (= 7. yarıyıl), AGNO 2,75, ME 3220 "kaldı". **AKTS sınırı AGNO'dan hesaplanır: 2,00 altı 32, 2,00 ve üstü 40.** Sağ üstteki isme tıklayınca açılan **Öğrenci profili** penceresinden ad, soyad, numara, sınıf, AGNO ve 5–8. yarıyılın her dersi/seçmeli hakkı için **Geçti / Kaldı / Almadı** ayarlanır (`profile.status`). Belirtilmeyenler: kayıt yarıyılından öncekiler geçti, sonrakiler almadı.
-- Geçilen dersler listeye gelmez, tabloda soluk ✓ ile kilitli durur ("passed" durumu).
-- Kaldığın ya da almadığın alt yarıyıl dersleri kendi yarıyıl başlığıyla **"alttan"** zorunlu olarak her zaman listelenir ("Kaldı, ..." / "Alınmadı, ...").
-- Ön koşul kontrolü geçilen derslere bakar (ME 4910 geçti işaretlenirse ME 4920 açılır).
+- Dosya okuyucular `src/files.js`: bağımlılıksız XLSX/DOCX (zip + xml, `DecompressionStream`), CSV; PDF için `vendor/pdfjs/` (tembel yüklenir, http üzerinden açılmış site gerekir).
+- `data/mufredat.json` ve `data/program.json` artık uygulamaya gömülmez; testler ve örnek dosya üretimi için kaynak. Müfredat 1–8. yarıyılın hepsini içerir (1–4 OBS Müfredat Bilgi Paketi'nden). `data/müfredat.pdf`'i okuyup veri çıkarmaya çalışma (beyazla kapatılmış eski satırlar var).
+- `samples/`: `python3 tools/make_samples.py` ile üretilen örnek dosyalar (kurgusal Demo Öğrenci; ders programları bölümün dosyaları). `build.mjs` bunları index.html'e gömer ("Örnek dosyalarla başla").
+- Transkript yüklenince öğrenci profili (sınıf, kayıt dönemi, AGNO, ders durumları) transkriptten hesaplanır (`academic.js > studentFromTranscript`). Profil penceresinden elle değiştirilirse o geçerli olur. Transkript yoksa varsayılan demo profil: 4. sınıf Güz, AGNO 2,75, ME 3220 kaldı.
+- Ortalamalar: AKTS ağırlıklı, iki haneye **kesilir**, tekrar edilen derste son not geçerli, S/U ortalamaya girmez (`termStats`, `gpaOf`).
 
 ---
 
@@ -106,13 +100,19 @@ Varsayılan profil `src/app.js` başında: Demo Öğrenci, 4. sınıf, Güz (= 7
 - Ders adlarının İngilizcesi `mufredat.json` içinde `nameEn`, seçmeli hakların İngilizcesi `electiveSlots[].nameEn`.
 - `logic.js` kilit sebeplerini yapılandırılmış alanlarla da döndürür (`other`, `at`, `section`, `full`, `next`); arayüz metni bunlardan seçili dilde kurar.
 
+## 2e. OBS sayfaları (uygulandı)
+- Sol menü gerçek OBS düzeninde. En üstte **Veri Merkezi** (yüklenen tür sayısı rozeti). Dosyası eksik sayfada turuncu nokta; açılınca "Bu sayfa için dosya gerekiyor" uyarısı (`OBS.gate`).
+- **Demo tarihi** (üst çubuk): ders kaydı ve ekle-bırak akademik takvime göre açılır; tarih buradan ya da uyarıdaki "Demo tarihini bu döneme al" ile değişir. Örnekler yüklenince 08.09.2026 (ders kaydı haftası).
+- Genel İşlemler: Akademik Takvim (.ics, Google Takvim bağlantısı), Alınan Dersler (onaylı program), Açılan Bölüm Dersleri, Sınav Takvimi (kendi sınavları, çakışma, Google Takvim'e ekle, .ics, "Google'a bağlan" için `data.js > GOOGLE_CLIENT_ID`), Ders Programı, Bölüm Ders Programı, Mezuniyet İlerleme Durumu.
+- Ders ve Dönem İşlemleri: Ders Kayıt, Ders Ekle/Bırak (bırak, kontenjanlı şube ekle, seçmeliyi başka hakka ya da ek derse saydır `reassignSlot`, hakları dolu seçmeliyi ek ders olarak ekle, danışmana gönder), Dönem Ortalamaları, Not Listesi (öğrencinin girdiği notlarla hesap), Transkript (yazdır, CSV), Transkript Senaryosu (+ yapay zeka dönem planı `planTerms`), Diğer Belgeler, Müfredat Durum (+ not yükseltme önerisi `retakeSuggestions`). Müfredat Bilgi Paketi ve Devamsızlık pasif.
+- Kontenjanı dolu şube `full` durumunda kilitlenir; öneriler dolu şubeyi atlar.
+
 ## 3. Teknik (uygulandı)
-- **Bağımlılık yok.** Saf HTML + CSS + JavaScript. npm paketi kurulmaz.
-- `src/logic.js`: çakışma, kilit, şube ve boşluk mantığı (saf fonksiyonlar).
-- `src/app.js`: arayüz. `src/i18n.js`: TR/EN metinler. `src/style.css`: stil. `src/template.html`: sayfa iskeleti.
-- `node build.mjs` → kökteki **`index.html`**'i üretir (veri + kod + stil tek dosyada gömülü, internetsiz açılır). **`index.html`'i elle düzenleme**, `src/` içini değiştirip yeniden derle.
-- Testler: `node --test tests/*.test.js` (Node'un yerleşik test aracı). Mantığa dokunan her değişiklikten sonra çalıştır.
-- Türkçe arayüz, projektörde okunaklı olacak şekilde büyük yazı ve net kontrast.
+- **Bağımlılık yok** (npm paketi kurulmaz). Tek dış kod `vendor/pdfjs/` (Mozilla pdf.js, Apache 2.0), sadece PDF okurken yüklenir.
+- `src/logic.js` (ders kaydı mantığı), `files.js`, `parsers.js`, `academic.js` (saf fonksiyonlar, Node testleriyle sınanır), `data.js` (Veri Merkezi), `pages-general.js`, `pages-term.js`, `app.js` (çekirdek; `window.OBS` bağlamı), `i18n.js` + `i18n2.js`, `style.css` + `pages.css`, `template.html`.
+- `node build.mjs` → kökteki **`index.html`** (files/parsers/academic kendi ad alanlarında: `FILES`, `PARSE`, `ACAD`). **`index.html`'i elle düzenleme.**
+- Testler: `node --test tests/*.test.js`. Mantığa ya da ayrıştırıcıya dokunan her değişiklikten sonra çalıştır.
+- Bütün metinler iki dilde; yeni metin eklerken `i18n2.js`'te TR ve EN'e ekle.
 
 ## 4. Durum
-Bütün bölümler uygulandı, 24 test geçiyor. `node build.mjs` sözdizimi hatası varsa index.html'i yazmadan durur.
+Bütün bölümler uygulandı, 34 test geçiyor (bölümün Excel'inin `program.json` ile birebir okunması dahil). `node build.mjs` sözdizimi hatası varsa index.html'i yazmadan durur.

@@ -29,7 +29,7 @@ export function buildModel(mufredat, program, profile) {
       for (const s of termData[y]) {
         const id = sectionId(s.code, s.section) + (tm === term ? '' : '@' + tm);
         if (!sections.has(id)) {
-          sections.set(id, { id, code: s.code, section: s.section, term: tm, slots: s.slots.map((x) => ({ ...x })), years: new Set([y]), layers: new Set([y + '|' + tm]) });
+          sections.set(id, { id, code: s.code, section: s.section, term: tm, slots: s.slots.map((x) => ({ ...x })), years: new Set([y]), layers: new Set([y + '|' + tm]), quota: s.quota ?? null, enrolled: s.enrolled ?? null });
         } else {
           sections.get(id).years.add(y);
           sections.get(id).layers.add(y + '|' + tm);
@@ -191,6 +191,10 @@ export function evaluate(model, state) {
       status.set(s.id, { state: 'prereq', missing: pre, reason: `Ön koşul: önce ${pre.join(', ')} dersini geçmelisin.` });
       continue;
     }
+    if (isFull(s)) {
+      status.set(s.id, { state: 'full', quota: s.quota, enrolled: s.enrolled, reason: `Şube dolu (${s.enrolled}/${s.quota}).` });
+      continue;
+    }
     const fixedHit = firstConflict(s, fixed);
     if (fixedHit) {
       status.set(s.id, { state: 'locked-fixed', other: fixedHit.other.code, at: fixedHit.slot, reason: `${fixedHit.other.code} (Zorunlu) ile ${when(fixedHit.slot)}'da çakışıyor.` });
@@ -216,6 +220,9 @@ export function evaluate(model, state) {
 
   return { status, fill, ects: totalEcts(model, state), warnings: warnings(model, state) };
 }
+
+// Kontenjanı dolmuş şube (kontenjan dosyası yüklendiyse)
+export const isFull = (s) => s.quota != null && (s.enrolled ?? 0) >= s.quota;
 
 function firstConflict(s, others) {
   for (const o of others) {
@@ -245,7 +252,8 @@ export function extraCodes(model, state) {
   const out = [];
   for (const p of state.picks) {
     const code = model.sections.get(p.id)?.code;
-    if (code && !model.roles.has(code) && !out.includes(code)) out.push(code);
+    // müfredat dışı ders ya da hiçbir seçmeli hakkına sayılmayan seçmeli (ek ders)
+    if (code && (!model.roles.has(code) || (model.roles.get(code).kind === 'elective' && !p.slot)) && !out.includes(code)) out.push(code);
   }
   return out;
 }
@@ -278,6 +286,19 @@ export function toggleSection(model, state, id) {
   if (!st || st.state !== 'free') return { state, ok: false, reason: st ? st.reason : '' };
   const slot = openSlotFor(model, state, s.code);
   return { state: { ...state, picks: [...state.picks, { id, slot }] }, ok: true, action: 'added', slot };
+}
+
+// Seçmeli saydırma: seçili bir seçmeliyi başka bir seçmeli hakkına (ya da slot=null: ek ders) say
+export function reassignSlot(model, state, id, slot) {
+  const p = state.picks.find((x) => x.id === id);
+  if (!p) return { state, ok: false, reason: 'not-picked' };
+  if (slot) {
+    const role = model.roles.get(model.sections.get(id).code);
+    if (!role || !role.slots.includes(slot)) return { state, ok: false, reason: 'not-option' };
+    const fill = slotFill(model, { ...state, picks: state.picks.filter((x) => x.id !== id) });
+    if (fill[slot]) return { state, ok: false, reason: 'taken', by: fill[slot] };
+  }
+  return { state: { ...state, picks: state.picks.map((x) => (x.id === id ? { ...x, slot: slot || null } : x)) }, ok: true };
 }
 
 // Üniversite seçmelisi / staj: listeden (veya tablodan) seçim. Çakışma kontrolü yok.
@@ -347,7 +368,7 @@ function programMetrics(sections) {
 }
 
 // wanted: istenen ders kodları (zorunlu, alttan ve bölüm seçmelileri). Saatsiz/online seçimler burada yok.
-export function suggestPrograms(model, wanted, limit = 500) {
+export function suggestPrograms(model, wanted, limit = 500, keep = null) {
   const codes = [...new Set(wanted)].filter((c) => !model.blockedBy(c).length);
   const electives = codes.filter((c) => model.roles.get(c)?.kind === 'elective');
   const slotOf = assignElectives(model, electives);
@@ -359,7 +380,7 @@ export function suggestPrograms(model, wanted, limit = 500) {
     .map((c) => {
       const secs = model.termSections(c);
       const fixed = secs.find((s) => model.fixedIds.has(s.id));
-      return { code: c, secs: fixed ? [fixed] : secs };
+      return { code: c, secs: fixed ? [fixed] : secs.filter((s) => !isFull(s) || (keep && keep.has(s.id))) };
     })
     .sort((a, b) => a.secs.length - b.secs.length);
 
@@ -396,7 +417,7 @@ export function suggestPrograms(model, wanted, limit = 500) {
     // Hangi dersi çıkarınca çakışmasız program çıkıyor?
     for (const d of domains) {
       const rest = codes.filter((c) => c !== d.code);
-      if (suggestPrograms(model, rest, 1).total > 0) blockers.push(d.code);
+      if (suggestPrograms(model, rest, 1, keep).total > 0) blockers.push(d.code);
     }
   }
   return { programs, total, missing, slotOf, blockers, reason: programs.length ? null : 'no-fit' };

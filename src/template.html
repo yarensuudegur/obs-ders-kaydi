@@ -46,6 +46,14 @@
     <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 19h16"/><path d="M5 15l4-4 3 3 6-7"/></symbol>
     <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4M7.5 8.5L12 4l4.5 4.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></symbol>
+    <symbol id="i-paste" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4h4"/></symbol>
+    <symbol id="i-gcal" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="16" rx="3"/><path d="M3.5 9.5h17"/><path d="M9 13.5h1.6a1.4 1.4 0 0 1 0 2.8H9m0 0h1.8a1.5 1.5 0 0 1 0 3H9M14.5 13.5v6"/></symbol>
   </defs>
 </svg>
 
@@ -87,14 +95,38 @@
     <div class="side-sys" data-i18n="side.sys"></div>
     <label class="side-search"><svg><use href="#i-search"/></svg><input type="text" data-i18n-ph="side.search" disabled></label>
     <nav class="side-nav">
+      <a class="item data-item" href="#" data-view="data"><svg><use href="#i-upload"/></svg><span data-i18n="side.data"></span><span class="nav-count" id="navDataCount"></span></a>
       <div class="grp" data-i18n="side.g.general"></div>
-      <a class="item off"><svg><use href="#i-grid"/></svg><span data-i18n="side.general"></span><svg class="chev"><use href="#i-chev"/></svg></a>
-      <a class="item open"><svg><use href="#i-book"/></svg><span data-i18n="side.course"></span><svg class="chev down"><use href="#i-chev"/></svg></a>
-      <div class="sub">
-        <a class="item active" href="#" data-view="reg" data-i18n="side.reg"></a>
-        <a class="item off" data-i18n="side.grades"></a>
+      <a class="item grp-toggle open" href="#" data-toggle="g1"><svg><use href="#i-grid"/></svg><span data-i18n="side.general"></span><svg class="chev down"><use href="#i-chev"/></svg></a>
+      <div class="sub" id="sub-g1">
+        <a class="item off" data-i18n="side.manual"></a>
+        <a class="item off" data-i18n="side.personal"></a>
+        <a class="item off" data-i18n="side.info"></a>
+        <a class="item" href="#" data-view="calendar" data-i18n="side.calendar"></a>
+        <a class="item off" data-i18n="side.advisorInfo"></a>
+        <a class="item" href="#" data-view="courses" data-i18n="side.taken"></a>
+        <a class="item" href="#" data-view="offered" data-i18n="side.offered"></a>
+        <a class="item" href="#" data-view="exams" data-i18n="side.exams"></a>
         <a class="item" href="#" data-view="tt" data-i18n="side.timetable"></a>
-        <a class="item off" data-i18n="side.transcript"></a>
+        <a class="item" href="#" data-view="depttt" data-i18n="side.depttt"></a>
+        <a class="item off" data-i18n="side.fees"></a>
+        <a class="item off" data-i18n="side.internship"></a>
+        <a class="item off" data-i18n="side.news"></a>
+        <a class="item off" data-i18n="side.gradApproval"></a>
+        <a class="item" href="#" data-view="grad" data-i18n="side.grad"></a>
+      </div>
+      <a class="item grp-toggle open" href="#" data-toggle="g2"><svg><use href="#i-book"/></svg><span data-i18n="side.course"></span><svg class="chev down"><use href="#i-chev"/></svg></a>
+      <div class="sub" id="sub-g2">
+        <a class="item active" href="#" data-view="reg" data-i18n="side.reg"></a>
+        <a class="item" href="#" data-view="adddrop" data-i18n="side.adddrop"></a>
+        <a class="item" href="#" data-view="averages" data-i18n="side.averages"></a>
+        <a class="item" href="#" data-view="gradebook" data-i18n="side.grades"></a>
+        <a class="item" href="#" data-view="transcript" data-i18n="side.transcript"></a>
+        <a class="item" href="#" data-view="scenario" data-i18n="side.scenario"></a>
+        <a class="item" href="#" data-view="docs" data-i18n="side.otherDocs"></a>
+        <a class="item" href="#" data-view="curr" data-i18n="side.curr"></a>
+        <a class="item off" data-i18n="side.package"></a>
+        <a class="item off" data-i18n="side.attendance"></a>
       </div>
       <a class="item off"><svg><use href="#i-form"/></svg><span data-i18n="side.forms"></span><svg class="chev"><use href="#i-chev"/></svg></a>
       <a class="item off"><svg><use href="#i-doc"/></svg><span data-i18n="side.docs"></span><svg class="chev"><use href="#i-chev"/></svg></a>
@@ -113,6 +145,7 @@
       <button class="icon-btn" id="menuBtn" type="button" data-i18n-aria="top.menu"><svg><use href="#i-menu"/></svg></button>
       <div class="uni" data-i18n="top.uni"></div>
       <div class="term-pill" id="termPill"></div>
+      <button class="date-chip" id="dateChip" type="button"></button>
       <div class="top-right">
         <div class="lang" role="group" data-i18n-aria="top.lang" id="langSeg">
           <button type="button" data-lang="tr">TR</button><button type="button" data-lang="en">EN</button>
@@ -133,6 +166,8 @@
       <div class="home-banner" id="homeBanner"><svg><use href="#i-info"/></svg><span id="homeBannerText"></span><button class="icon-btn small" type="button" id="homeBannerX" data-i18n-aria="howto.close"><svg><use href="#i-x"/></svg></button></div>
       <div class="home-grid" id="homeGrid"></div>
     </main>
+
+    <main class="page view-hidden" id="viewPage"></main>
 
     <main class="page view-hidden" id="viewReg">
       <div class="page-head">
@@ -231,7 +266,7 @@
       <label class="pf-f"><span data-i18n="pf.first"></span><input id="pfFirst" type="text" autocomplete="off"></label>
       <label class="pf-f"><span data-i18n="pf.last"></span><input id="pfLast" type="text" autocomplete="off"></label>
       <label class="pf-f"><span data-i18n="pf.number"></span><input id="pfNumber" type="text" inputmode="numeric" autocomplete="off"></label>
-      <label class="pf-f"><span data-i18n="pf.year"></span><select id="pfYear"><option value="3"></option><option value="4"></option></select></label>
+      <label class="pf-f"><span data-i18n="pf.year"></span><select id="pfYear"><option value="1"></option><option value="2"></option><option value="3"></option><option value="4"></option></select></label>
       <label class="pf-f"><span data-i18n="pf.gpa"></span><input id="pfGpa" type="number" min="0" max="4" step="0.01"></label>
       <div class="pf-f pf-limit"><span data-i18n="pf.limit"></span><b id="pfLimitOut"></b><small class="muted" data-i18n="pf.limitRule"></small></div>
     </div>
@@ -267,6 +302,16 @@
     </div>
   </div>
 </dialog>
+
+<dialog id="genDlg">
+  <div class="dlg wide">
+    <div class="gen-head"><h2 id="genTitle"></h2><button class="icon-btn small" id="genClose" type="button" data-i18n-aria="howto.close"><svg><use href="#i-x"/></svg></button></div>
+    <div id="genBody"></div>
+    <div class="dlg-actions" id="genActions"></div>
+  </div>
+</dialog>
+
+<input type="file" id="fileIn" hidden>
 
 <script>
 /*DATA*/
