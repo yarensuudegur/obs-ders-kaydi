@@ -122,12 +122,6 @@
       const q = ui.offQ.toLocaleLowerCase('tr');
       const list = [...byCode.values()].filter((g) => !q || g.code.toLocaleLowerCase('tr').includes(q) || OBS.name(g.code).toLocaleLowerCase('tr').includes(q)).sort((a, b) => a.code.localeCompare(b.code));
       const ay = (D().timetable || []).find((x) => x.data.term === term);
-      const quotaCell = (s) => {
-        if (s.quota == null) return `<span class="muted small">${esc(t('off.noQuota'))}</span>`;
-        const p = Math.min(100, Math.round((s.enrolled / s.quota) * 100));
-        const full = s.enrolled >= s.quota;
-        return `<div class="q ${full ? 'full' : p > 80 ? 'hi' : ''}"><span>${full ? esc(t('off.full')) : `${s.enrolled}/${s.quota}`}</span><i style="--p:${p}%"></i></div>`;
-      };
       return head('side.offered', t('off.lead', { term: `${ay && ay.data.academicYear ? ay.data.academicYear : app.ay} ${t('tshort.' + term)}`, n: list.length })) +
         `<section class="card filters">
           <div class="f-group"><span class="f-label">${esc(t('off.term'))}</span><div class="seg">${terms.map((x) => `<button type="button" data-offterm="${x}" class="${x === term ? 'on' : ''}">${esc(t('tshort.' + x))}</button>`).join('')}</div></div>
@@ -136,7 +130,7 @@
         </section>
         <section class="card flush"><div class="table-wrap"><table class="sel-table off-table"><thead><tr><th>${esc(t('sel.code'))}</th><th>${esc(t('sel.name'))}</th><th>${esc(t('off.type'))}</th><th class="num">${esc(t('sel.ects'))}</th><th>${esc(t('off.secs'))}</th></tr></thead><tbody>
         ${list.map((g) => `<tr><td><span class="sw" style="--c:${OBS.hashColor(g.code)}"></span><b>${esc(g.code)}</b><div class="muted small">${[...g.years].map((y) => esc(t('f.year', { y }))).join(', ')}</div></td><td>${esc(OBS.name(g.code))}</td><td class="small">${esc(roleOf(g.code))}</td><td class="num">${(course(g.code) || {}).ects ?? '-'}</td>
-          <td><div class="secs">${[...g.secs.values()].sort((a, b) => a.section - b.section).map((s) => `<div class="sec-line"><b>${esc(t('grid.section', { n: s.section }))}</b><span>${esc(fmtSlots(s.slots))}</span><span class="muted">${esc([...new Set(s.slots.map((x) => x.room).filter(Boolean))].join(', '))}</span>${quotaCell(s)}</div>`).join('')}</div></td></tr>`).join('') || `<tr><td colspan="5" class="empty">${esc(t('off.none'))}</td></tr>`}
+          <td><div class="secs">${[...g.secs.values()].sort((a, b) => a.section - b.section).map((s) => `<div class="sec-line"><b>${esc(t('grid.section', { n: s.section }))}</b><span>${esc(fmtSlots(s.slots))}</span><span class="muted">${esc([...new Set(s.slots.map((x) => x.room).filter(Boolean))].join(', '))}</span></div>`).join('')}</div></td></tr>`).join('') || `<tr><td colspan="5" class="empty">${esc(t('off.none'))}</td></tr>`}
         </tbody></table></div></section>`;
     },
   };

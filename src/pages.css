@@ -170,7 +170,7 @@
 .search-in { width: 100%; margin-bottom: 12px; }
 .off-table td { vertical-align: top; }
 .secs { display: flex; flex-direction: column; gap: 6px; }
-.sec-line { display: grid; grid-template-columns: 62px minmax(0, 1.6fr) minmax(0, .6fr) 110px; gap: 10px; align-items: center; font-size: 13px; }
+.sec-line { display: grid; grid-template-columns: 62px minmax(0, 1.6fr) minmax(0, .6fr); gap: 10px; align-items: center; font-size: 13px; }
 .q { display: flex; flex-direction: column; gap: 3px; font-size: 12px; font-weight: 700; color: var(--muted); }
 .q i { display: block; height: 5px; border-radius: 99px; background: linear-gradient(90deg, var(--ok) var(--p), var(--page) var(--p)); }
 .q.hi i { background: linear-gradient(90deg, var(--warn) var(--p), var(--page) var(--p)); }
@@ -228,7 +228,7 @@
 .add-course { border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; }
 .ac-h { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 14px; margin-bottom: 6px; }
 .ac-h .pill { margin: 0; background: var(--page); color: var(--ink); }
-.ac-sec { display: grid; grid-template-columns: 62px minmax(0, 1fr) 110px auto; gap: 10px; align-items: center; padding: 6px 0; border-top: 1px dashed var(--line); font-size: 13px; }
+.ac-sec { display: grid; grid-template-columns: 62px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 6px 0; border-top: 1px dashed var(--line); font-size: 13px; }
 .ac-sec .lock-why { color: var(--muted); font-size: 12px; max-width: 280px; text-align: right; }
 .q-txt { font-size: 12px; font-weight: 700; color: var(--muted); }
 .q-txt.full { color: var(--danger); }

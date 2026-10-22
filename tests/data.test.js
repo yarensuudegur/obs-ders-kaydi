@@ -45,15 +45,14 @@ test('akademik takvim: dönemler türlerine ayrılır, ekle-bırak tarihi kontro
   assert.deepEqual(c2.events.map((e) => [e.start, e.end, e.kind]), [['2026-09-07', '2026-09-11', 'registration'], ['2026-09-14', null, 'start']]);
 });
 
-test('sınav takvimi ve kontenjan dosyaları', async () => {
+test('sınav takvimi dosyası', async () => {
   const ex = P.parseExams(await readXlsx(file('samples/sinav-takvimi.xlsx')));
   assert.equal(ex.exams.length, 18);
   assert.deepEqual([ex.exams[0].code, ex.exams[0].date, ex.exams[0].start], ['ENGR 4400', '2026-11-10', '10:00']);
-  const q = P.parseQuota(await readXlsx(file('samples/kontenjan.xlsx')));
-  assert.deepEqual(q.items['ESE 3260#1'], { quota: 40, enrolled: 40 });
 });
 
-test('dolu şube kilitlenir, öneriler dolu şubeyi atlar', () => {
+// Kontenjan dosyası kaldırıldı; anlık kontenjan ileride üniversite API'sinden gelecek. Mantık hazır kalsın.
+test('dolu şube (ileride API ile gelen kontenjan) kilitlenir, öneriler dolu şubeyi atlar', () => {
   const prog = JSON.parse(JSON.stringify(program));
   for (const s of prog.terms.guz['4']) if (s.code === 'ENGR 4400' && s.section === 1) { s.quota = 30; s.enrolled = 30; }
   const m = buildModel(mufredat, prog, { year: 4, term: 'guz', mustRetake: [] });

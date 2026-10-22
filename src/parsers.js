@@ -185,22 +185,6 @@ export function parseCurriculum(book) {
   return { semesters: [...semesters.values()].sort((a, b) => a.semester - b.semester), courses, universityElectives: { courses: [...unv.values()] }, prerequisites, equivalences, notes: [] };
 }
 
-// ---------- Kontenjan ----------
-export function parseQuota(book) {
-  const h = sheetWith(book, { term: ['dönem', 'term'], code: ['ders kodu', 'code'], sec: ['=şube', '=şb.', '=şb', 'section'], quota: ['kontenjan', 'quota', 'capacity'], enrolled: ['kayıtlı', 'kayitli', 'mevcut', 'dolu', 'enrolled'] }, ['code', 'quota']);
-  if (!h) throw new Error('quota');
-  const items = {};
-  let term = null;
-  for (const row of h.sheet.rows.slice(h.row + 1)) {
-    const code = normCode(cell(row, h.map, 'code'));
-    const quota = num(cell(row, h.map, 'quota'));
-    if (!code || quota == null) continue;
-    term = term || termOf(cell(row, h.map, 'term'));
-    items[`${code}#${parseInt(cell(row, h.map, 'sec'), 10) || 1}`] = { quota, enrolled: num(cell(row, h.map, 'enrolled')) ?? 0 };
-  }
-  return { term: term ? term.term : null, academicYear: term ? term.year : null, items };
-}
-
 // ---------- Akademik takvim ----------
 export function eventKind(title) {
   const s = low(title);
@@ -390,7 +374,6 @@ export function guessKind(name, read) {
     const flat = read.book.sheets.flatMap((s) => s.rows.slice(0, 25).flat()).map(low).join(' | ');
     if (flat.includes('baş.saat') || flat.includes('ders kodu | derslik')) return 'timetable';
     if (read.book.sheets.some((s) => /seçmeli hak/i.test(s.name)) || (flat.includes('yarıyıl') && flat.includes('akts') && flat.includes('t+u'))) return 'curriculum';
-    if (flat.includes('kontenjan')) return 'quota';
     if (flat.includes('harf')) return 'transcript';
     if (flat.includes('sınav') && flat.includes('tarih')) return 'exams';
     if (flat.includes('etkinlik') || /takvim/.test(n)) return 'calendar';

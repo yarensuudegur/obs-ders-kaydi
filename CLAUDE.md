@@ -15,7 +15,6 @@ OBS öğrencilere API açmıyor; uygulama verileri **yüklenen dosyalardan** oku
 |---|---|---|
 | Müfredat | Excel şablonu (Dersler, Seçmeli Haklar, Üniversite Seçmelileri, Ön Koşullar, Eşdeğerlikler) ya da JSON | `parseCurriculum` |
 | Bölüm ders programı | **Bölümün Excel'i olduğu gibi** (gün blokları, ŞB./DERS KODU/DERSLİK/BAŞ/BİT, bitişte "u" = lab). Sınıf dosya adından, dönem başlıktan | `parseTimetable` |
-| Kontenjan | Excel/CSV: Dönem, Ders Kodu, Şube, Kontenjan, Kayıtlı | `parseQuota` |
 | Akademik takvim | Excel/CSV: Başlangıç, Bitiş, Etkinlik (tür başlıktan: ders kaydı, ekle-bırak, sınav, tatil…) | `parseCalendar`, `periodOf`, `inPeriod` |
 | Sınav takvimi | Excel/CSV: Ders Kodu, Sınav Türü, Tarih, Başlangıç, Bitiş, Derslik | `parseExams` |
 | Yönetmelik | PDF/DOCX/TXT; mezuniyet koşulları, not ölçeği, AKTS sınırı metinden, kanıt cümlesiyle | `parseRegulation` |
@@ -104,8 +103,8 @@ OBS öğrencilere API açmıyor; uygulama verileri **yüklenen dosyalardan** oku
 - Sol menü gerçek OBS düzeninde. En üstte **Veri Merkezi** (yüklenen tür sayısı rozeti). Dosyası eksik sayfada turuncu nokta; açılınca "Bu sayfa için dosya gerekiyor" uyarısı (`OBS.gate`).
 - **Demo tarihi** (üst çubuk): ders kaydı ve ekle-bırak akademik takvime göre açılır; tarih buradan ya da uyarıdaki "Demo tarihini bu döneme al" ile değişir. Örnekler yüklenince 08.09.2026 (ders kaydı haftası).
 - Genel İşlemler: Akademik Takvim (.ics, Google Takvim bağlantısı), Alınan Dersler (onaylı program), Açılan Bölüm Dersleri, Sınav Takvimi (kendi sınavları, çakışma, Google Takvim'e ekle, .ics, "Google'a bağlan" için `data.js > GOOGLE_CLIENT_ID`), Ders Programı, Bölüm Ders Programı, Mezuniyet İlerleme Durumu.
-- Ders ve Dönem İşlemleri: Ders Kayıt, Ders Ekle/Bırak (bırak, kontenjanlı şube ekle, seçmeliyi başka hakka ya da ek derse saydır `reassignSlot`, hakları dolu seçmeliyi ek ders olarak ekle, danışmana gönder), Dönem Ortalamaları, Not Listesi (öğrencinin girdiği notlarla hesap), Transkript (yazdır, CSV), Transkript Senaryosu (+ yapay zeka dönem planı `planTerms`), Diğer Belgeler, Müfredat Durum (+ not yükseltme önerisi `retakeSuggestions`). Müfredat Bilgi Paketi ve Devamsızlık pasif.
-- Kontenjanı dolu şube `full` durumunda kilitlenir; öneriler dolu şubeyi atlar.
+- Ders ve Dönem İşlemleri: Ders Kayıt, Ders Ekle/Bırak (bırak, programa uyan şube ekle, seçmeliyi başka hakka ya da ek derse saydır `reassignSlot`, hakları dolu seçmeliyi ek ders olarak ekle, danışmana gönder), Dönem Ortalamaları, Not Listesi (öğrencinin girdiği notlarla hesap), Transkript (yazdır, CSV), Transkript Senaryosu (+ yapay zeka dönem planı `planTerms`), Diğer Belgeler, Müfredat Durum (+ not yükseltme önerisi `retakeSuggestions`). Müfredat Bilgi Paketi ve Devamsızlık pasif.
+- **Kontenjan dosyası kaldırıldı:** anlık kontenjan her kayıtta değişir, tek bir dosya bunu güncel tutamaz. İleride üniversite API'sinden gelecek; şubede `quota`/`enrolled` varsa `full` durumu ve önerilerin dolu şubeyi atlaması hazır (`isFull`).
 
 ## 3. Teknik (uygulandı)
 - **Bağımlılık yok** (npm paketi kurulmaz). Tek dış kod `vendor/pdfjs/` (Mozilla pdf.js, Apache 2.0), sadece PDF okurken yüklenir.

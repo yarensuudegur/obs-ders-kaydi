@@ -72,25 +72,6 @@ def copy_timetables():
         shutil.copy(f, OUT / f'ders-programi-{y}-sinif-{tm}.xlsx')
 
 
-# ---------- 3. Kontenjan ----------
-def make_quota():
-    prog = json.loads((ROOT / 'data/program.json').read_text())
-    full = {('ESE 3260', 1), ('COMP 4446', 1), ('ENGR 4400', 2), ('ME 4340', 1)}
-    rows, seen = [], set()
-    for y in ['3', '4']:
-        for s in prog['terms']['guz'][y]:
-            k = (s['code'], s['section'])
-            if k in seen:
-                continue
-            seen.add(k)
-            cap = 8 if s['code'] == 'ME 4910' else 40
-            reg = cap if k in full else random.randint(cap // 3, cap - 2)
-            rows.append(['2026-2027 Güz', s['code'], s['section'], cap, reg])
-    wb = openpyxl.Workbook()
-    sheet(wb, 'Kontenjan', ['Dönem', 'Ders Kodu', 'Şube', 'Kontenjan', 'Kayıtlı'], sorted(rows, key=lambda r: (r[1], r[2])), [16, 12, 7, 11, 9], first=True)
-    wb.save(OUT / 'kontenjan.xlsx')
-
-
 # ---------- 4. Akademik takvim ----------
 CAL = [
     ('2026-08-31', '2026-09-04', 'Güz Yarıyılı Katkı Payı / Öğrenim Ücreti Ödemeleri'),
@@ -282,6 +263,6 @@ def make_regulation_txt():
     (OUT / 'yonetmelik-ornek.txt').write_text('\n'.join(t for t, f, s in REG), encoding='utf-8')
 
 
-make_regulation_txt(); make_curriculum(); copy_timetables(); make_quota(); make_calendar(); make_exams(); make_transcript(); make_regulation()
+make_regulation_txt(); make_curriculum(); copy_timetables(); make_calendar(); make_exams(); make_transcript(); make_regulation()
 for f in sorted(OUT.iterdir()):
     print(f.name, f.stat().st_size)

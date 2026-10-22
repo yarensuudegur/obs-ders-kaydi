@@ -11,7 +11,6 @@
   const KINDS = [
     { id: 'curriculum', who: 'dept', icon: 'book', accept: '.xlsx,.csv,.json', samples: ['mufredat.xlsx'], used: ['reg', 'curr', 'grad', 'scenario'] },
     { id: 'timetable', who: 'dept', icon: 'grid', accept: '.xlsx,.csv', multi: true, samples: ['ders-programi-3-sinif-guz.xlsx', 'ders-programi-4-sinif-guz.xlsx', 'ders-programi-3-sinif-bahar.xlsx', 'ders-programi-4-sinif-bahar.xlsx'], used: ['reg', 'adddrop', 'offered', 'depttt'] },
-    { id: 'quota', who: 'reg', icon: 'chart', accept: '.xlsx,.csv', samples: ['kontenjan.xlsx'], used: ['reg', 'adddrop', 'offered'] },
     { id: 'calendar', who: 'uni', icon: 'cal', accept: '.xlsx,.csv', samples: ['akademik-takvim.xlsx'], used: ['calendar', 'reg', 'adddrop'] },
     { id: 'exams', who: 'uni', icon: 'clock', accept: '.xlsx,.csv', samples: ['sinav-takvimi.xlsx'], used: ['exams'] },
     { id: 'regulation', who: 'uni', icon: 'doc', accept: '.pdf,.docx,.txt', samples: ['yonetmelik-ornek.pdf'], fallback: 'yonetmelik-ornek.txt', used: ['grad', 'curr', 'reg'] },
@@ -120,14 +119,10 @@
     const list = (DATA.timetable || []).filter((x) => x.data.year && x.data.term);
     if (!list.length) return null;
     const terms = {};
-    const q = DATA.quota ? DATA.quota.data : null;
     for (const tt of list) {
       const d = tt.data;
       terms[d.term] = terms[d.term] || {};
-      terms[d.term][d.year] = d.sections.map((s) => {
-        const qi = q && (!q.term || q.term === d.term) ? q.items[s.code + '#' + s.section] : null;
-        return qi ? { ...s, quota: qi.quota, enrolled: qi.enrolled } : s;
-      });
+      terms[d.term][d.year] = d.sections;
     }
     return { terms };
   }
@@ -210,7 +205,6 @@
           DATA.timetable.sort((a, b) => (a.data.term + a.data.year).localeCompare(b.data.term + b.data.year));
           break;
         }
-        case 'quota': sheetOnly(); DATA.quota = { file: meta, data: PARSE.parseQuota(read.book) }; break;
         case 'calendar': sheetOnly(); DATA.calendar = { file: meta, data: PARSE.parseCalendar(read.book) }; break;
         case 'exams': sheetOnly(); DATA.exams = { file: meta, data: PARSE.parseExams(read.book) }; break;
         case 'regulation': {
@@ -497,7 +491,6 @@
     switch (k) {
       case 'curriculum': { const c = d.data; return t('dc.s.curriculum', { sem: c.semesters.length, n: n(c.courses.length), slots: c.semesters.reduce((a, s) => a + s.electiveSlots.length, 0) }); }
       case 'timetable': return t('dc.s.timetable', { n: d.length, s: d.reduce((a, x) => a + x.data.sections.length, 0) });
-      case 'quota': { const it = Object.values(d.data.items); return t('dc.s.quota', { n: it.length, full: it.filter((x) => x.enrolled >= x.quota).length }); }
       case 'calendar': { const p = PARSE.periodOf(d.data.events, 'registration', app.term); return t('dc.s.calendar', { n: d.data.events.length }) + (p ? ' · ' + t('cal.k.registration') + ' ' + OBS.fmtRange(p.start, p.end) : ''); }
       case 'exams': { const e = d.data.exams; return t('dc.s.exams', { n: e.length, range: OBS.fmtRange(e[0].date, e[e.length - 1].date) }); }
       case 'regulation': return t('dc.s.regulation', { n: d.data.found.length });
@@ -566,7 +559,7 @@
           <p class="muted">${esc(t('api.lead'))}</p>
           <div class="api-flow"><div><b>${esc(t('api.today'))}</b><span>${esc(t('api.todayL'))}</span></div><svg><use href="#i-chev"/></svg><div><b>${esc(t('api.conn'))}</b><span>${esc(t('api.connL'))}</span></div><svg><use href="#i-chev"/></svg><div><b>${esc(t('api.tomorrow'))}</b><span>${esc(t('api.tomorrowL'))}</span></div></div>
           <table class="api-t"><thead><tr><th>${esc(t('api.endpoint'))}</th><th>${esc(t('api.replaces'))}</th></tr></thead><tbody>
-            ${[['GET /api/curriculum', 'curriculum'], ['GET /api/terms/{term}/sections', 'timetable'], ['GET /api/terms/{term}/quota', 'quota'], ['GET /api/calendar', 'calendar'], ['GET /api/students/{no}/exams', 'exams'], ['GET /api/students/{no}/transcript', 'transcript'], ['POST /api/students/{no}/registration', 'reg']].map(([e, k]) => `<tr><td><code>${e}</code></td><td>${esc(k === 'reg' ? t('api.submit') : t('dc.k.' + k))}</td></tr>`).join('')}
+            ${[['GET /api/curriculum', 'curriculum'], ['GET /api/terms/{term}/sections', 'timetable'], ['GET /api/terms/{term}/quota', 'liveQuota'], ['GET /api/calendar', 'calendar'], ['GET /api/students/{no}/exams', 'exams'], ['GET /api/students/{no}/transcript', 'transcript'], ['POST /api/students/{no}/registration', 'reg']].map(([e, k]) => `<tr><td><code>${e}</code></td><td>${esc(k === 'reg' ? t('api.submit') : k === 'liveQuota' ? t('api.liveQuota') : t('dc.k.' + k))}</td></tr>`).join('')}
           </tbody></table></section>`;
     },
   };
@@ -646,6 +639,7 @@
 
   OBS.initData = () => {
     DATA = ls.get(LS_DATA) || {};
+    if (DATA.quota) { DATA.docs = (DATA.docs || []).filter((d) => d.kind !== 'quota'); delete DATA.quota; }
     loadState();
     const muf = DATA.curriculum ? DATA.curriculum.data : null;
     OBS.setData(muf, buildProg());

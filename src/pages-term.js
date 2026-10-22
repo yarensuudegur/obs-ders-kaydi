@@ -31,7 +31,7 @@
     const a = app.approved;
     if (AD.key !== a.date) { AD.base = clone(a.state || emptyState()); AD.state = clone(a.state || emptyState()); AD.key = a.date; }
   }
-  // Seçmeli hakları dolu olsa da ders "ek ders" olarak eklenebilir mi (çakışma yok, kontenjan var)
+  // Seçmeli hakları dolu olsa da ders "ek ders" olarak eklenebilir mi (çakışma yok)
   function extraOk(s) {
     const m = app.model;
     if (isFull(s)) return false;
@@ -101,7 +101,6 @@
         const kind = !role ? t('type.extra') : role.kind === 'elective' ? t('ad.elective') : role.kind === 'retake' ? t('type.retake') : t('type.mandatory');
         return `<div class="add-course"><div class="ac-h"><span class="sw" style="--c:${OBS.colorOf(code)}"></span><b>${esc(code)}</b><span>${esc(OBS.name(code))}</span><span class="pill">${esc(kind)}</span><span class="muted small">${(course(code) || {}).ects ?? '-'} ${esc(t('sel.ects'))}</span></div>
           ${list.sort((a, b) => a.s.section - b.s.section).map(({ s, st }) => `<div class="ac-sec ${st.state}"><b>${esc(t('grid.section', { n: s.section }))}</b><span>${esc(OBS.fmtSlots(s.slots))}</span>
-            <span class="q-txt ${st.state === 'full' ? 'full' : ''}">${s.quota != null ? esc(t('ad.quota', { e: s.enrolled, q: s.quota })) : ''}</span>
             ${addBtn(s, st)}</div>`).join('')}</div>`;
       }).join('');
       return head('side.adddrop', t('ad.lead', { term: t('term.' + app.term) })) + OBS.periodNote('adddrop') +
