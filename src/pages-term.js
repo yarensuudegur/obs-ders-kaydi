@@ -183,22 +183,29 @@
         `<section class="card filters"><div class="f-group"><label class="f-label" for="gbTarget">${esc(t('gb.target'))}</label><input id="gbTarget" type="number" min="0" max="100" value="${target}" data-gbtarget></div><p class="muted small grow">${esc(t('gb.note'))}</p></section>
         <div class="gb-grid">${items.map((it) => {
           const comps = (gb[it.code] && gb[it.code].comps) || defComps();
-          const r = gbCalc(comps, target);
-          let res;
-          if (r.tw !== 100) res = `<span class="bad">${esc(t('gb.weights', { n: r.tw }))}</span>`;
-          else if (r.need == null) res = `<span>${esc(t('gb.done', { n: r.total.toFixed(1) }))}</span>`;
-          else if (r.need <= 0) res = `<span class="good">${esc(t('gb.reached'))}</span>`;
-          else if (r.need > 100) res = `<span class="bad">${esc(t('gb.impossible', { n: Math.ceil(r.need) }))}</span>`;
-          else res = `<span>${esc(t('gb.need', { n: Math.ceil(r.need) }))}</span>`;
           return `<section class="card gb-card" style="--c:${it.color}"><div class="gb-h"><b>${esc(it.code)}</b><span>${esc(OBS.name(it.code))}</span></div>
             <table class="gb-t"><thead><tr><th>${esc(t('gb.comp'))}</th><th class="num">${esc(t('gb.w'))}</th><th class="num">${esc(t('gb.score'))}</th><th></th></tr></thead><tbody>
             ${comps.map((c, i) => `<tr><td><input id="gb-${esc(it.code)}-${i}-n" data-gb="${esc(it.code)}" data-i="${i}" data-f="n" value="${esc(c.n)}"></td><td class="num"><input id="gb-${esc(it.code)}-${i}-w" type="number" min="0" max="100" data-gb="${esc(it.code)}" data-i="${i}" data-f="w" value="${esc(c.w)}"></td><td class="num"><input id="gb-${esc(it.code)}-${i}-s" type="number" min="0" max="100" data-gb="${esc(it.code)}" data-i="${i}" data-f="s" value="${esc(c.s)}" placeholder="-"></td><td><button class="icon-btn small" type="button" data-gbrm="${esc(it.code)}" data-i="${i}" title="${esc(t('dc.remove'))}">${icon('x')}</button></td></tr>`).join('')}
             </tbody></table>
-            <div class="gb-foot"><button class="btn small ghost" type="button" data-gbadd="${esc(it.code)}">${icon('plus')}${esc(t('gb.addComp'))}</button><div class="gb-res"><span class="muted small">${esc(t('gb.cur'))}</span> <b>${r.cur == null ? '-' : r.cur.toFixed(1)}</b><br>${res}</div></div></section>`;
+            <div class="gb-foot"><button class="btn small ghost" type="button" data-gbadd="${esc(it.code)}">${icon('plus')}${esc(t('gb.addComp'))}</button><div class="gb-res" data-gbres="${esc(it.code)}">${gbResHtml(it.code)}</div></div></section>`;
         }).join('')}</div>`;
     },
   };
   function gbSave() { OBS.saveState(); }
+  // Sonuç satırı (yazarken sayfa yeniden çizilmeden güncellenir)
+  function gbResHtml(code) {
+    const gb = app.gradebook || {};
+    const comps = (gb[code] && gb[code].comps) || defComps();
+    const r = gbCalc(comps, gb._target ?? 50);
+    let res;
+    if (r.tw !== 100) res = `<span class="bad">${esc(t('gb.weights', { n: r.tw }))}</span>`;
+    else if (r.need == null) res = `<span>${esc(t('gb.done', { n: r.total.toFixed(1) }))}</span>`;
+    else if (r.need <= 0) res = `<span class="good">${esc(t('gb.reached'))}</span>`;
+    else if (r.need > 100) res = `<span class="bad">${esc(t('gb.impossible', { n: Math.ceil(r.need) }))}</span>`;
+    else res = `<span>${esc(t('gb.need', { n: Math.ceil(r.need) }))}</span>`;
+    return `<span class="muted small">${esc(t('gb.cur'))}</span> <b>${r.cur == null ? '-' : r.cur.toFixed(1)}</b><br>${res}`;
+  }
+  const gbRefresh = () => document.querySelectorAll('[data-gbres]').forEach((el) => { el.innerHTML = gbResHtml(el.dataset.gbres); });
 
   // ---------- Transkript ----------
   function termTables(terms, editable) {
@@ -467,7 +474,7 @@
   document.addEventListener('input', (e) => {
     const el = e.target;
     if (el.id === 'adQ') { ui.adQ = el.value; rerenderKeep('adQ'); return; }
-    if (el.dataset.gbtarget != null) { app.gradebook._target = Math.max(0, Math.min(100, +el.value || 0)); gbSave(); rerenderKeep('gbTarget'); return; }
+    if (el.dataset.gbtarget != null) { app.gradebook._target = Math.max(0, Math.min(100, +el.value || 0)); gbSave(); gbRefresh(); return; }
     if (el.dataset.gb != null) {
       const gb = app.gradebook;
       const c = el.dataset.gb;
@@ -475,7 +482,7 @@
       const comp = gb[c].comps[+el.dataset.i];
       comp[el.dataset.f] = el.dataset.f === 'n' ? el.value : el.value === '' ? '' : Math.max(0, Math.min(100, +el.value));
       gbSave();
-      rerenderKeep(el.id);
+      gbRefresh();
     }
   });
 })();
